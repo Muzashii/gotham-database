@@ -50,7 +50,7 @@ Colunas de proveniência dos seeds (`fonte`, `nota`, `WikipediaTitulo`) ficam fo
 | `dMidia` (nova) | 5 | `IdMidia`, `Nome` (HQ, Animação, Série, Filme, Game) |
 | `dObra` | 319 | + `IdMidia`, `Granularidade` (Obra/Série/Episódio — séries e episódios coexistem; filtre por granularidade em análises), `WikidataQid`. `IdObra` 1–48 = obras de estreia; Wikidata = número do QID + 1.000.000.000 (estável) |
 | `fAparicao` | 689 | estreias (`Relevancia` 3) + obras do Wikidata P674 (`Relevancia` 1) |
-| `fRelacao` | 115 | + `Fonte` (propriedade Wikidata ou afiliação). `TipoRelacao` ∈ aliado/inimigo/mentor/família/romance/rival/organização; `Peso` por tipo. Tipos simétricos (todos menos mentor e organização) guardados uma vez, com `IdOrigem` < `IdDestino` |
+| `fRelacao` | 116 | + `Fonte` (propriedade Wikidata ou afiliação). `TipoRelacao` ∈ aliado/inimigo/mentor/família/romance/rival/organização; `Peso` por tipo. Tipos simétricos (todos menos mentor e organização) guardados uma vez, com `IdOrigem` < `IdDestino` |
 | `dCentralidade` | 50 | `Grau`, `Intermediacao`, `PageRank` (grafo não dirigido, ponderado) |
 | `dStat` | 6 | INT, FOR, VEL, DUR, POD, COM |
 | `bPersonagemAfiliacao`, `bVersaoGolpe`, `fMatchup`, `fEncontro` | 54, 200, 64, 42 | sem `fonte` |

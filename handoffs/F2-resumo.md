@@ -10,7 +10,7 @@ corrigidos em seguida.
 | Pipeline `python -m etl.run_etl [--offline]` (extract → transform → quality → graph) | `etl/` |
 | 18 tabelas curadas, determinísticas, em CSV UTF-8/LF | `data/curated/` |
 | 319 obras (5 mídias, com granularidade Obra/Série/Episódio) e 689 aparições | `dObra`, `fAparicao` |
-| Rede de 115 relações tipadas e centralidade (grau, intermediação, PageRank) | `fRelacao`, `dCentralidade` |
+| Rede de 116 relações tipadas e centralidade (grau, intermediação, PageRank) | `fRelacao`, `dCentralidade` |
 | Validação pandera (`strict`) + 23 chaves estrangeiras | `etl/quality/schemas.py` |
 | Relatório de qualidade e cobertura das fontes | `handoffs/F2-relatorio-qualidade.md`, `data/curated/_qualidade.json` |
 | Comic Vine pronta, opcional (falta chave) | `etl/extract/comicvine.py` |
