@@ -1,0 +1,7 @@
+{
+  "htmlContent": {
+    "visualType": null,
+    "papel": "content",
+    "_comentario": "visualType = GUID do visual HTML Content (edição que executa scripts). Deixe null para detectar em report.json após importar o visual no Desktop."
+  }
+}

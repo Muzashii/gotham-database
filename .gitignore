@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+.pytest_cache/
+node_modules/
+.env
+data/raw/*
+!data/raw/.gitkeep
+dist/
+.cache/
+# Power BI Desktop (PBIP)
+**/.pbi/localSettings.json
+**/.pbi/cache.abf

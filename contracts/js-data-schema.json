@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gotham-database/js-data-schema",
+  "title": "Objeto window.GOTHAM serializado pela medida [JS Gotham]",
+  "description": "Dono: engenheiro-dax (Batcomputador). Consumidores: dev-js-apps, game-designer, revisor-qa. Versao 0.1 (rascunho F0, congela na F4a). Chaves curtas para reduzir o tamanho da string DAX.",
+  "type": "object",
+  "properties": {
+    "v": {
+      "description": "Versoes (dVersao), ordenadas por id",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "p", "n", "a", "s", "img"],
+        "properties": {
+          "id": { "type": "integer", "description": "IdVersao" },
+          "p": { "type": "integer", "description": "IdPersonagem" },
+          "n": { "type": "string", "description": "NomeVersao (apostrofo escapado como \\')" },
+          "a": { "type": "integer", "description": "IdArquetipo" },
+          "s": {
+            "type": "array",
+            "description": "Atributos 0-100 na ordem INT, FOR, VEL, DUR, POD, COM",
+            "items": { "type": "integer", "minimum": 0, "maximum": 100 },
+            "minItems": 6,
+            "maxItems": 6
+          },
+          "img": { "type": "string", "description": "UrlImagem (pode ser vazia; usar fallback de silhueta)" },
+          "t": { "type": "integer", "enum": [0, 1], "description": "EhTransformacao" },
+          "r": { "type": "string", "enum": ["comum", "incomum", "raro", "lendario"], "description": "Raridade" }
+        }
+      }
+    },
+    "m": {
+      "description": "Matriz de arquetipos: m[idAtaque-1][idDefesa-1] = multiplicador",
+      "type": "array",
+      "items": { "type": "array", "items": { "type": "number", "enum": [0.5, 1, 2] } }
+    },
+    "g": {
+      "description": "Golpes (dGolpe)",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "n", "a", "c", "pw", "ac"],
+        "properties": {
+          "id": { "type": "integer" },
+          "n": { "type": "string" },
+          "a": { "type": "integer", "description": "IdArquetipo" },
+          "c": { "type": "string", "enum": ["F", "T"], "description": "Fisico ou Tatico" },
+          "pw": { "type": "integer", "description": "Poder" },
+          "ac": { "type": "integer", "description": "Precisao 0-100" },
+          "ef": { "type": "string", "description": "Efeito opcional" }
+        }
+      }
+    },
+    "vg": {
+      "description": "Ponte versao x golpe: pares [IdVersao, IdGolpe]",
+      "type": "array",
+      "items": { "type": "array", "items": { "type": "integer" }, "minItems": 2, "maxItems": 2 }
+    }
+  }
+}

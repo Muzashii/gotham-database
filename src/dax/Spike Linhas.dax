@@ -1,0 +1,3 @@
+-- @pasta: 99 Spike
+-- Prova de leitura do modelo; ignora o filtro do slicer
+FORMAT ( CALCULATE ( COUNTROWS ( SpikeTamanho ), REMOVEFILTERS ( SpikeTamanho ) ), "0", "en-US" )

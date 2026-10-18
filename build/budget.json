@@ -1,0 +1,7 @@
+{
+  "_comentario": "Orçamento de caracteres em literais estáticos por medida (F0). Padrão aplica-se a medidas não listadas.",
+  "padrao": 20000,
+  "medidas": {
+    "HTML Spike": 30000
+  }
+}

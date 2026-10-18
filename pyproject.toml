@@ -1,0 +1,15 @@
+[project]
+name = "gotham-database"
+version = "0.0.1"
+requires-python = ">=3.12"
+description = "Gotham Database — Batcomputador em Power BI (ETL + build)"
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "jsonschema>=4.23"]
+etl = ["httpx", "pandas", "pyarrow", "pandera", "networkx", "python-dotenv"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["build"]
+norecursedirs = [".*", ".venv", "node_modules", "dist", "data"]
+markers = ["rede: baixa schemas da Microsoft (pule com -m 'not rede')"]

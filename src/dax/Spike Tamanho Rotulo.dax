@@ -1,0 +1,2 @@
+-- @pasta: 99 Spike
+FORMAT ( [Spike Tamanho], "#,0", "en-US" ) & " chars"

@@ -1,0 +1,272 @@
+/// Gerado por build/build_model.py a partir de src/dax — NÃO EDITAR À MÃO.
+table _Medidas
+
+	measure 'HTML Spike' = ```
+			-- HTML + CSS + JS do spike. O build expande o template src/html/spike.html
+			"<style>/* Gotham Noir — design tokens (dono: designer-ui). Contrato: contracts/design-tokens.md */
+			:root {
+			--g-bg: #07090c;
+			--g-panel: #10141a;
+			--g-line: #1f2a36;
+			--g-text: #d7dde4;
+			--g-muted: #7d8794;
+			--bat-yellow: #f5c518;
+			--arkham-green: #39d98a;
+			--joker-purple: #7b2cbf;
+			--blood: #c1121f;
+			--ice: #8ecae6;
+			--ivy: #2d6a4f;
+			--owl-bronze: #a47148;
+			--font-ui: 'Rajdhani', 'Barlow Condensed', 'Arial Narrow', sans-serif;
+			--font-mono: 'JetBrains Mono', Consolas, monospace;
+			--font-title: 'Bebas Neue', Impact, sans-serif;
+			--t-fast: 150ms;
+			--t-med: 300ms;
+			}
+			/* F0 spike: chuva em CSS puro + cards de diagnóstico */
+			.gd-spike {
+			position: relative;
+			overflow: hidden;
+			min-height: 100%;
+			padding: 16px;
+			box-sizing: border-box;
+			background: radial-gradient(ellipse at 50% -20%, #1a2330 0%, var(--g-bg) 60%);
+			color: var(--g-text);
+			font-family: var(--font-mono);
+			}
+			.gd-rain {
+			position: absolute;
+			inset: -50% -50% 0 -50%;
+			pointer-events: none;
+			background-image: repeating-linear-gradient(105deg, transparent 0 18px, rgba(215, 221, 228, 0.07) 18px 19px);
+			animation: gd-chuva 0.6s linear infinite;
+			}
+			@keyframes gd-chuva {
+			from { transform: translate3d(0, -40px, 0); }
+			to { transform: translate3d(-11px, 0, 0); }
+			}
+			.gd-top {
+			position: relative;
+			display: flex;
+			justify-content: space-between;
+			align-items: baseline;
+			border-bottom: 1px solid var(--g-line);
+			padding-bottom: 8px;
+			margin-bottom: 12px;
+			}
+			.gd-title {
+			font-family: var(--font-title);
+			font-size: 28px;
+			letter-spacing: 2px;
+			color: var(--bat-yellow);
+			}
+			.gd-sub { color: var(--g-muted); font-size: 12px; }
+			.gd-grid {
+			position: relative;
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+			gap: 10px;
+			}
+			.gd-card {
+			background: var(--g-panel);
+			border: 1px solid var(--g-line);
+			border-radius: 6px;
+			padding: 10px 12px;
+			}
+			.gd-k { color: var(--g-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+			.gd-v { font-size: 20px; margin-top: 4px; }
+			.gd-ok { color: var(--arkham-green); }
+			.gd-ok::before { content: '✔ '; }
+			.gd-no { color: var(--g-muted); }
+			.gd-no::before { content: '✖ '; }
+			.gd-btn {
+			margin-top: 8px;
+			background: transparent;
+			color: var(--bat-yellow);
+			border: 1px solid var(--bat-yellow);
+			border-radius: 4px;
+			font: inherit;
+			padding: 4px 10px;
+			cursor: pointer;
+			transition: transform var(--t-fast);
+			}
+			.gd-btn:hover { transform: translateY(-1px); }
+			.gd-btn:focus-visible { outline: 2px solid var(--bat-yellow); outline-offset: 2px; }
+			.gd-sky {
+			position: relative;
+			display: block;
+			width: 100%;
+			height: 90px;
+			margin-top: 12px;
+			border: 1px solid var(--g-line);
+			border-radius: 6px;
+			}
+			.gd-log { position: relative; margin-top: 8px; color: var(--g-muted); font-size: 11px; }
+			@media (prefers-reduced-motion: reduce) {
+			.gd-rain { animation: none; }
+			.gd-btn { transition: none; }
+			}
+			</style>
+			<div class='gd-spike' id='gd-spike'>
+			<div class='gd-rain'></div>
+			<header class='gd-top'>
+			<span class='gd-title'>GOTHAM DATABASE</span>
+			<span class='gd-sub'>F0 · spike técnico · <span id='gd-desde'>JS não executou</span></span>
+			</header>
+			<div class='gd-grid'>
+			<div class='gd-card'><div class='gd-k'>JS via script</div><div class='gd-v gd-no' id='gd-js-script'>inativo</div></div>
+			<div class='gd-card'><div class='gd-k'>JS via onerror</div><div class='gd-v gd-no' id='gd-js-img'>inativo</div></div>
+			<div class='gd-card'><div class='gd-k'>Renderizações</div><div class='gd-v' id='gd-renders'>–</div></div>
+			<div class='gd-card'><div class='gd-k'>Contador (window)</div><div class='gd-v' id='gd-count'>–</div><button class='gd-btn' id='gd-inc' type='button'>+1</button></div>
+			<div class='gd-card'><div class='gd-k'>Payload pedido</div><div class='gd-v'>"
+			& ( [Spike Tamanho Rotulo] )
+			& "</div><div class='gd-k' id='gd-size'></div></div>
+			<div class='gd-card'><div class='gd-k'>Linhas no modelo</div><div class='gd-v'>"
+			& ( [Spike Linhas] )
+			& "</div></div>
+			</div>
+			<canvas class='gd-sky' id='gd-sky' aria-label='Holofote varrendo as nuvens'></canvas>
+			<div class='gd-log'>Clique em +1, troque o slicer de tamanho e volte: o contador deve continuar.</div>
+			<div id='gd-payload' hidden>"
+			& ( [Spike Payload] )
+			& "</div>
+			</div>
+			<script id='gd-src'>// F0 spike: prova que o visual executa JS e que o estado em window.GOTHAM_STATE
+			// sobrevive ao redesenho. PROIBIDO aspas duplas (quebram a string DAX).
+			(function (G) {
+			const S = (G.GOTHAM_STATE = G.GOTHAM_STATE || {});
+			const L = (G.GOTHAM_SPIKE = G.GOTHAM_SPIKE || {});
+			// ---- lógica pura (testada em Node, tests/js/spike.test.js) ----
+			L.novoEstado = function (agora) {
+			return { contador: 0, renders: 0, vias: [], inicio: agora, raf: 0 };
+			};
+			L.registrarRender = function (st, via) {
+			st.renders += 1;
+			if (st.vias.indexOf(via) < 0) st.vias.push(via);
+			return st;
+			};
+			L.incrementar = function (st) {
+			st.contador += 1;
+			return st.contador;
+			};
+			// varredura senoidal do holofote: x em [0,1 .. 0,9] da largura
+			L.posicaoHolofote = function (t, largura) {
+			return largura / 2 + Math.sin(t / 1400) * largura * 0.4;
+			};
+			L.formatarHora = function (ms) {
+			const d = new Date(ms);
+			const p = (n) => String(n).padStart(2, '0');
+			return p(d.getHours()) + ':' + p(d.getMinutes()) + ':' + p(d.getSeconds());
+			};
+			// ---- renderização (só no navegador) ----
+			const doc = G.document;
+			if (!doc) return;
+			const raiz = doc.getElementById('gd-spike');
+			if (!raiz || raiz.dataset.gdRan) return; // já rodou neste DOM (script + onerror)
+			raiz.dataset.gdRan = '1';
+			const via = doc.currentScript ? 'script' : 'onerror';
+			const st = (S.spike = S.spike || L.novoEstado(Date.now()));
+			L.registrarRender(st, via);
+			const $ = (id) => doc.getElementById(id);
+			const marcar = (id, ok) => {
+			const el = $(id);
+			if (!el) return;
+			el.textContent = ok ? 'ativo' : 'inativo';
+			el.className = 'gd-v ' + (ok ? 'gd-ok' : 'gd-no');
+			};
+			function pintar() {
+			marcar('gd-js-script', via === 'script');
+			if (via === 'onerror') marcar('gd-js-img', true);
+			$('gd-renders').textContent = String(st.renders);
+			$('gd-count').textContent = String(st.contador);
+			$('gd-desde').textContent = 'estado desde ' + L.formatarHora(st.inicio);
+			const pl = $('gd-payload');
+			$('gd-size').textContent = (pl ? pl.textContent.length : 0).toLocaleString('pt-BR') + ' recebidos';
+			}
+			$('gd-inc').addEventListener('click', () => {
+			L.incrementar(st);
+			pintar();
+			});
+			pintar();
+			// holofote varrendo as nuvens; cancela o loop do render anterior para não duplicar
+			if (st.raf) G.cancelAnimationFrame(st.raf);
+			const cv = $('gd-sky');
+			const ctx = cv && cv.getContext ? cv.getContext('2d') : null;
+			if (!ctx) return;
+			const calmo = G.matchMedia && G.matchMedia('(prefers-reduced-motion: reduce)').matches;
+			function quadro(t) {
+			const w = (cv.width = cv.clientWidth || 320);
+			const h = (cv.height = cv.clientHeight || 90);
+			ctx.fillStyle = '#07090c';
+			ctx.fillRect(0, 0, w, h);
+			const x = L.posicaoHolofote(calmo ? 0 : t, w);
+			const g = ctx.createLinearGradient(w / 2, h, x, 0);
+			g.addColorStop(0, 'rgba(245,197,24,0.45)');
+			g.addColorStop(1, 'rgba(245,197,24,0.02)');
+			ctx.fillStyle = g;
+			ctx.beginPath();
+			ctx.moveTo(w / 2 - 6, h);
+			ctx.lineTo(x - 40, 0);
+			ctx.lineTo(x + 40, 0);
+			ctx.lineTo(w / 2 + 6, h);
+			ctx.fill();
+			ctx.fillStyle = 'rgba(125,135,148,0.18)';
+			for (let i = 0; i < 6; i++) {
+			const cx = ((i * 97 + (calmo ? 0 : t / 60)) % (w + 120)) - 60;
+			ctx.beginPath();
+			ctx.ellipse(cx, 18 + (i % 3) * 10, 50, 10, 0, 0, Math.PI * 2);
+			ctx.fill();
+			}
+			if (!calmo && raiz.isConnected) st.raf = G.requestAnimationFrame(quadro);
+			}
+			st.raf = G.requestAnimationFrame(quadro);
+			})(typeof window !== 'undefined' ? window : globalThis);
+			</script>
+			<img src='data:,' alt='' style='display:none' onerror='var r=document.getElementById(`gd-spike`),s=document.getElementById(`gd-src`);if(r&&s&&!r.dataset.gdRan){new Function(s.textContent)()}else if(r){var e=document.getElementById(`gd-js-img`);e.textContent=`ativo`;e.className=`gd-v gd-ok`}'>
+			"
+			```
+		displayFolder: 99 Spike
+
+	measure 'Spike Linhas' = ```
+			-- Prova de leitura do modelo; ignora o filtro do slicer
+			FORMAT ( CALCULATE ( COUNTROWS ( SpikeTamanho ), REMOVEFILTERS ( SpikeTamanho ) ), "0", "en-US" )
+			```
+		displayFolder: 99 Spike
+
+	measure 'Spike Payload' = ```
+			-- Payload sintético para medir o limite prático de tamanho de string no visual
+			REPT ( "x", [Spike Tamanho] )
+			```
+		displayFolder: 99 Spike
+
+	measure 'Spike Tamanho Rotulo' = ```
+			FORMAT ( [Spike Tamanho], "#,0", "en-US" ) & " chars"
+			```
+		displayFolder: 99 Spike
+
+	measure 'Spike Tamanho' = ```
+			-- Nº de caracteres de payload escolhido no slicer (padrão 1.000)
+			SELECTEDVALUE ( SpikeTamanho[Caracteres], 1000 )
+			```
+		formatString: #,0
+		displayFolder: 99 Spike
+
+	measure 'Tamanho HTML Spike' = ```
+			LEN ( [HTML Spike] )
+			```
+		formatString: #,0
+		displayFolder: 99 Spike
+
+	column _
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: _
+
+	partition _Medidas = m
+		mode: import
+		source =
+				let
+				    Fonte = #table(type table [_ = text], {})
+				in
+				    Fonte

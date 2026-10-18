@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang='pt-BR'>
+<head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<title>Preview %%TITULO%%</title>
+<style>
+  body { margin: 0; background: #000; color: #ccc; font: 13px Consolas, monospace; }
+  .barra { display: flex; gap: 8px; flex-wrap: wrap; padding: 8px; background: #111; border-bottom: 1px solid #333; }
+  .barra button { background: #222; color: #eee; border: 1px solid #444; padding: 4px 10px; cursor: pointer; }
+  #visual { height: 420px; overflow: auto; border: 1px dashed #333; margin: 8px; }
+  #estado { margin: 8px; white-space: pre-wrap; color: #8a8; }
+</style>
+</head>
+<body>
+<div class='barra'>
+  <strong>Harness HTML Content · %%TITULO%%</strong>
+  <button id='h-script' type='button'>Redesenhar (executa script)</button>
+  <button id='h-inner' type='button'>Redesenhar (só innerHTML)</button>
+  <button id='h-reset' type='button'>Zerar window.GOTHAM_STATE</button>
+</div>
+<div id='visual'></div>
+<div id='estado'></div>
+<template id='conteudo'>%%CONTEUDO%%</template>
+<script>
+  // Simula o visual: a cada atualização de dados o Power BI troca todo o conteúdo do container.
+  const visual = document.getElementById('visual');
+  const html = document.getElementById('conteudo').innerHTML;
+  function redesenhar(executarScripts) {
+    visual.innerHTML = html;
+    if (executarScripts) {
+      visual.querySelectorAll('script').forEach((velho) => {
+        const novo = document.createElement('script');
+        for (const a of velho.attributes) novo.setAttribute(a.name, a.value);
+        novo.textContent = velho.textContent;
+        velho.replaceWith(novo);
+      });
+    }
+    setTimeout(mostrarEstado, 50);
+  }
+  function mostrarEstado() {
+    const s = window.GOTHAM_STATE;
+    document.getElementById('estado').textContent =
+      'window.GOTHAM_STATE = ' + JSON.stringify(s, (k, v) => (k === 'raf' ? undefined : v), 2);
+  }
+  document.getElementById('h-script').onclick = () => redesenhar(true);
+  document.getElementById('h-inner').onclick = () => redesenhar(false);
+  document.getElementById('h-reset').onclick = () => { delete window.GOTHAM_STATE; redesenhar(true); };
+  visual.addEventListener('click', () => setTimeout(mostrarEstado, 0));
+  redesenhar(true);
+</script>
+</body>
+</html>

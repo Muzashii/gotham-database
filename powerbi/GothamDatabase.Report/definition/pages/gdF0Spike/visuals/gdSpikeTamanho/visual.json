@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "gdSpikeTamanho",
+  "position": {
+    "x": 16,
+    "y": 112,
+    "z": 1000,
+    "width": 260,
+    "height": 110,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Tamanho HTML Spike"
+                }
+              },
+              "queryRef": "_Medidas.Tamanho HTML Spike",
+              "nativeQueryRef": "Tamanho HTML Spike"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

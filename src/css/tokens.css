@@ -1,0 +1,20 @@
+/* Gotham Noir — design tokens (dono: designer-ui). Contrato: contracts/design-tokens.md */
+:root {
+  --g-bg: #07090c;
+  --g-panel: #10141a;
+  --g-line: #1f2a36;
+  --g-text: #d7dde4;
+  --g-muted: #7d8794;
+  --bat-yellow: #f5c518;
+  --arkham-green: #39d98a;
+  --joker-purple: #7b2cbf;
+  --blood: #c1121f;
+  --ice: #8ecae6;
+  --ivy: #2d6a4f;
+  --owl-bronze: #a47148;
+  --font-ui: 'Rajdhani', 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --font-mono: 'JetBrains Mono', Consolas, monospace;
+  --font-title: 'Bebas Neue', Impact, sans-serif;
+  --t-fast: 150ms;
+  --t-med: 300ms;
+}

@@ -1,0 +1,3 @@
+-- @pasta: 99 Spike
+-- Payload sintético para medir o limite prático de tamanho de string no visual
+REPT ( "x", [Spike Tamanho] )

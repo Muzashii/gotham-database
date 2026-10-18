@@ -1,0 +1,57 @@
+{
+  "name": "Gotham Noir",
+  "dataColors": [
+    "#f5c518",
+    "#39d98a",
+    "#8ecae6",
+    "#7b2cbf",
+    "#c1121f",
+    "#a47148",
+    "#2d6a4f",
+    "#7d8794"
+  ],
+  "background": "#07090c",
+  "foreground": "#d7dde4",
+  "tableAccent": "#f5c518",
+  "textClasses": {
+    "callout": {
+      "color": "#f5c518"
+    },
+    "label": {
+      "color": "#d7dde4"
+    },
+    "title": {
+      "color": "#d7dde4"
+    }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [
+          {
+            "color": {
+              "solid": {
+                "color": "#10141a"
+              }
+            },
+            "transparency": 0
+          }
+        ]
+      }
+    },
+    "page": {
+      "*": {
+        "background": [
+          {
+            "color": {
+              "solid": {
+                "color": "#07090c"
+              }
+            },
+            "transparency": 0
+          }
+        ]
+      }
+    }
+  }
+}

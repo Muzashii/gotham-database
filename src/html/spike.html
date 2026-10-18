@@ -1,0 +1,21 @@
+<style>[[css:tokens.css]][[css:spike.css]]</style>
+<div class='gd-spike' id='gd-spike'>
+  <div class='gd-rain'></div>
+  <header class='gd-top'>
+    <span class='gd-title'>GOTHAM DATABASE</span>
+    <span class='gd-sub'>F0 · spike técnico · <span id='gd-desde'>JS não executou</span></span>
+  </header>
+  <div class='gd-grid'>
+    <div class='gd-card'><div class='gd-k'>JS via script</div><div class='gd-v gd-no' id='gd-js-script'>inativo</div></div>
+    <div class='gd-card'><div class='gd-k'>JS via onerror</div><div class='gd-v gd-no' id='gd-js-img'>inativo</div></div>
+    <div class='gd-card'><div class='gd-k'>Renderizações</div><div class='gd-v' id='gd-renders'>–</div></div>
+    <div class='gd-card'><div class='gd-k'>Contador (window)</div><div class='gd-v' id='gd-count'>–</div><button class='gd-btn' id='gd-inc' type='button'>+1</button></div>
+    <div class='gd-card'><div class='gd-k'>Payload pedido</div><div class='gd-v'>[[dax:[Spike Tamanho Rotulo]]]</div><div class='gd-k' id='gd-size'></div></div>
+    <div class='gd-card'><div class='gd-k'>Linhas no modelo</div><div class='gd-v'>[[dax:[Spike Linhas]]]</div></div>
+  </div>
+  <canvas class='gd-sky' id='gd-sky' aria-label='Holofote varrendo as nuvens'></canvas>
+  <div class='gd-log'>Clique em +1, troque o slicer de tamanho e volte: o contador deve continuar.</div>
+  <div id='gd-payload' hidden>[[dax:[Spike Payload]]]</div>
+</div>
+<script id='gd-src'>[[js:spike.js]]</script>
+<img src='data:,' alt='' style='display:none' onerror='var r=document.getElementById(`gd-spike`),s=document.getElementById(`gd-src`);if(r&&s&&!r.dataset.gdRan){new Function(s.textContent)()}else if(r){var e=document.getElementById(`gd-js-img`);e.textContent=`ativo`;e.className=`gd-v gd-ok`}'>

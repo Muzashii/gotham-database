@@ -1,0 +1,30 @@
+/// F0: tabela desconectada para medir o limite prático de tamanho de string no visual.
+/// Dono: modelador-semantico. Remover na F3.
+table SpikeTamanho
+
+	column Caracteres
+		dataType: int64
+		formatString: #,0
+		isHidden
+		summarizeBy: none
+		sourceColumn: Caracteres
+
+	column Rotulo
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Rotulo
+		sortByColumn: Caracteres
+
+	partition SpikeTamanho = m
+		mode: import
+		source =
+				let
+				    Fonte = #table(
+				        type table [Caracteres = Int64.Type, Rotulo = text],
+				        {
+				            {1000, "1 mil"}, {10000, "10 mil"}, {100000, "100 mil"},
+				            {500000, "500 mil"}, {1000000, "1 milhão"}, {5000000, "5 milhões"}
+				        }
+				    )
+				in
+				    Fonte

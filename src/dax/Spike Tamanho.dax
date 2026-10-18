@@ -1,0 +1,4 @@
+-- @pasta: 99 Spike
+-- @formato: #,0
+-- Nº de caracteres de payload escolhido no slicer (padrão 1.000)
+SELECTEDVALUE ( SpikeTamanho[Caracteres], 1000 )
