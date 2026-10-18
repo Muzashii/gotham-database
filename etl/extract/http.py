@@ -13,21 +13,29 @@ CACHE = RAIZ / "data" / "raw" / "cache"
 UA = "gotham-database/0.1 (projeto de portfolio; https://github.com/Muzashii/gotham-database)"
 PAUSA = 1.0  # segundos entre requisições reais (cortesia com APIs públicas)
 _ultima = 0.0
+SOMENTE_CACHE = False  # --offline: proíbe rede (reprodutibilidade)
 
 
-def get_json(url: str, *, cabecalhos: dict[str, str] | None = None, tentativas: int = 6) -> dict:
-    """Retorna o JSON de `url`, do cache se existir. Repete com backoff em 429/5xx."""
+def get_json(url: str, *, cabecalhos: dict[str, str] | None = None, tentativas: int = 6,
+             chave_cache: str | None = None, url_real: str | None = None) -> dict:
+    """Retorna o JSON de `url`, do cache se existir. Repete com backoff em 429/5xx e falhas de rede.
+
+    `url_real` permite requisitar uma URL com segredo (api_key) mantendo o cache indexado por
+    `chave_cache` (sem o segredo).
+    """
     global _ultima
-    chave = hashlib.sha256(url.encode("utf-8")).hexdigest()[:24]
+    chave = hashlib.sha256((chave_cache or url).encode("utf-8")).hexdigest()[:24]
     arq = CACHE / f"{chave}.json"
     if arq.is_file():
         return json.loads(arq.read_text(encoding="utf-8"))
+    if SOMENTE_CACHE:
+        raise RuntimeError(f"modo offline e sem cache para {chave_cache or url}")
     espera = 2.0
     for n in range(tentativas):
         atraso = PAUSA - (time.monotonic() - _ultima)
         if atraso > 0:
             time.sleep(atraso)
-        req = urllib.request.Request(url, headers={"User-Agent": UA, **(cabecalhos or {})})
+        req = urllib.request.Request(url_real or url, headers={"User-Agent": UA, **(cabecalhos or {})})
         ultima_tentativa = n == tentativas - 1
         try:
             _ultima = time.monotonic()
@@ -46,8 +54,15 @@ def get_json(url: str, *, cabecalhos: dict[str, str] | None = None, tentativas: 
             time.sleep(espera)
             espera *= 2
             continue
-        # MediaWiki devolve limite de taxa com HTTP 200 e {"error": {"code": "ratelimited"}}
-        erro = dados.get("error") if isinstance(dados, dict) else None
+        # Erros com HTTP 200: MediaWiki usa {"error": {"code": ...}}; Comic Vine usa status_code != 1
+        # (e "error": "OK" no sucesso; 107 = limite de taxa).
+        erro = None
+        if isinstance(dados, dict):
+            if isinstance(dados.get("error"), dict):
+                erro = dados["error"]
+            elif "status_code" in dados and dados["status_code"] != 1:
+                # 107 = limite por HORA: esperar segundos não resolve, então falha na hora (sem retry)
+                erro = {"code": dados["status_code"], "info": dados.get("error")}
         if erro:
             if erro.get("code") in ("ratelimited", "maxlag") and not ultima_tentativa:
                 time.sleep(espera)

@@ -4,7 +4,7 @@ Relatório Power BI que parece um Batcomputador: ficha de personagens do univers
 relações, linha do tempo, arena de confrontos, quiz e minijogo — tudo renderizado por **medidas DAX
 que geram HTML/CSS/SVG/JavaScript** no visual *HTML Content*.
 
-> **Status:** Fase 1 concluída (curadoria de 50 personagens). Plano completo em [`docs/plano.md`](docs/plano.md).
+> **Status:** Fase 2 concluída (ETL: 50 personagens, 319 obras, rede de 115 relações). Plano completo em [`docs/plano.md`](docs/plano.md).
 >
 > 🔗 **[Ver online no Power BI](https://app.powerbi.com/view?r=eyJrIjoiZGFiYTA5YzktMjk4YS00ZmQ5LTk1NGYtMTFlMjllN2E0ZGUyIiwidCI6IjExZGJiZmUyLTg5YjgtNDU0OS1iZTEwLWNlYzM2NGU1OTU1MSIsImMiOjR9)**
 > — por enquanto mostra o painel de diagnóstico da F0 (JS rodando no visual, estado na `window`, limite de tamanho).
@@ -27,7 +27,8 @@ etl/ ─▶ data/curated ─▶ Power Query                                   (a
 
 ```bash
 python -m venv .venv
-.venv/Scripts/python -m pip install pytest jsonschema
+.venv/Scripts/python -m pip install pytest jsonschema pandas pandera networkx scipy
+.venv/Scripts/python -m etl.run_etl          # ETL -> data/curated (Wikidata; Comic Vine opcional)
 .venv/Scripts/python build/checks.py
 .venv/Scripts/python build/build_model.py
 .venv/Scripts/python build/build_report.py

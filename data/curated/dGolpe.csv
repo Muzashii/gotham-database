@@ -1,0 +1,25 @@
+IdGolpe,Nome,IdArquetipo,Categoria,Poder,Precisao,Efeito
+1,Plano de Contingência,1,Tático,80,95,
+2,Análise Forense,1,Tático,60,100,próximo golpe com +10% de crítico
+3,Batarangue Preciso,1,Físico,55,95,
+4,Combo Acrobático,2,Físico,75,90,
+5,Contragolpe,2,Físico,60,100,age primeiro no turno
+6,Chute Giratório,2,Físico,90,80,
+7,Investida Brutal,3,Físico,100,75,
+8,Agarrão Esmagador,3,Físico,80,85,
+9,Rugido Intimidador,3,Tático,40,100,reduz o ataque do alvo em 1 estágio
+10,Raio Congelante,4,Tático,85,85,10% de chance de congelar (perde o turno)
+11,Drone de Suporte,4,Tático,55,100,
+12,Pulso EMP,4,Tático,70,90,anula a próxima transformação do alvo
+13,Rajada de Energia,5,Tático,95,85,
+14,Fúria Meta-humana,5,Físico,90,85,
+15,Regeneração,5,Tático,0,100,cura 25% do PV máximo
+16,Feitiço Reverso,6,Tático,85,90,
+17,Chamas Infernais,6,Tático,95,80,
+18,Selo Arcano,6,Tático,50,100,reduz a precisão do alvo em 1 estágio
+19,Gás do Medo,7,Tático,70,90,20% de chance de amedrontar (perde o turno)
+20,Enigma Mortal,7,Tático,80,85,
+21,Manipulação,7,Tático,50,100,confunde o alvo por 1 turno
+22,Ataque Furtivo,8,Físico,85,90,+10% de crítico
+23,Tiro Certeiro,8,Físico,80,100,
+24,Bomba de Fumaça,8,Tático,40,100,aumenta a esquiva em 1 estágio

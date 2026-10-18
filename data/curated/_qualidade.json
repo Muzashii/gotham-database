@@ -1,0 +1,117 @@
+{
+ "aparicoes_por_midia": {
+  "Animação": 288,
+  "Filme": 41,
+  "Game": 137,
+  "HQ": 202,
+  "Série": 21
+ },
+ "fontes": {
+  "Comic Vine": {
+   "status": "não coletado (sem COMICVINE_API_KEY)"
+  },
+  "SuperHero API — id preenchido no seed": {
+   "casados": 32,
+   "total": 50
+  },
+  "Wikidata — QID preenchido no seed": {
+   "casados": 50,
+   "total": 50
+  },
+  "Wikidata — personagens com obras (P674)": {
+   "casados": 43,
+   "total": 50
+  },
+  "Wikidata — personagens com relações": {
+   "casados": 46,
+   "total": 50
+  }
+ },
+ "gerado_em": "2026-10-18",
+ "granularidade": {
+  "Episódio": 86,
+  "Obra": 172,
+  "Série": 61
+ },
+ "hubs": [
+  "Batman (0.839)",
+  "Asa Noturna (0.076)",
+  "Oráculo (0.072)",
+  "Comissário Gordon (0.037)",
+  "Talia al Ghul (0.037)"
+ ],
+ "isolados": [
+  "Professor Pyg",
+  "Zatanna",
+  "Etrigan"
+ ],
+ "linhas": {
+  "bPersonagemAfiliacao": 54,
+  "bVersaoGolpe": 200,
+  "dAfiliacao": 6,
+  "dArquetipo": 8,
+  "dBairro": 6,
+  "dCentralidade": 50,
+  "dEra": 8,
+  "dGadget": 4,
+  "dGolpe": 24,
+  "dMidia": 5,
+  "dObra": 319,
+  "dPersonagem": 50,
+  "dStat": 6,
+  "dVersao": 50,
+  "fAparicao": 689,
+  "fEncontro": 42,
+  "fMatchup": 64,
+  "fRelacao": 116
+ },
+ "obras": {
+  "duplicadas_com_seed": [
+   "Q1623280 “Batman: Son of the Demon” = obra-seed 6 “Batman: Son of the Demon”",
+   "Q18245775 “Detective Comics #27” = obra-seed 1 “Detective Comics #27”",
+   "Q5229132 “Action Comics #1” = obra-seed 46 “Action Comics #1”",
+   "Q6269708 “Batman: The Animated Series — Joker's Favor” = obra-seed 19 “Batman: The Animated Series — Joker's Favor”"
+  ],
+  "obras_antes_da_1a_era": 1,
+  "obras_brutas": 350,
+  "obras_fora_do_escopo": 10,
+  "obras_futuras": 1,
+  "obras_no_modelo": 275,
+  "obras_sem_data": 59,
+  "obras_sem_rotulo": 4,
+  "total_no_modelo": 319
+ },
+ "orfas": {
+  "bPersonagemAfiliacao.IdAfiliacao": 0,
+  "bPersonagemAfiliacao.IdPersonagem": 0,
+  "bVersaoGolpe.IdGolpe": 0,
+  "bVersaoGolpe.IdVersao": 0,
+  "dCentralidade.IdPersonagem": 0,
+  "dGadget.SoContraArquetipo": 0,
+  "dGolpe.IdArquetipo": 0,
+  "dObra.IdEra": 0,
+  "dObra.IdMidia": 0,
+  "dPersonagem.IdArquetipo": 0,
+  "dPersonagem.IdEra": 0,
+  "dVersao.IdArquetipo": 0,
+  "dVersao.IdMidia": 0,
+  "dVersao.IdPersonagem": 0,
+  "fAparicao.IdObra": 0,
+  "fAparicao.IdPersonagem": 0,
+  "fAparicao.IdVersao": 0,
+  "fEncontro.IdBairro": 0,
+  "fEncontro.IdPersonagem": 0,
+  "fMatchup.IdAtaque": 0,
+  "fMatchup.IdDefesa": 0,
+  "fRelacao.IdDestino": 0,
+  "fRelacao.IdOrigem": 0
+ },
+ "relacoes": {
+  "aliado": 11,
+  "família": 21,
+  "inimigo": 40,
+  "mentor": 14,
+  "organização": 19,
+  "romance": 11
+ }
+}

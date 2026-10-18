@@ -1,0 +1,117 @@
+IdOrigem,IdDestino,TipoRelacao,Peso,Fonte
+1,2,organização,1,seed personagem_afiliacao (afiliação 1)
+1,3,família,3,Wikidata P22
+1,3,mentor,3,Wikidata P1066
+1,3,organização,1,seed personagem_afiliacao (afiliação 1)
+1,4,família,3,Wikidata P22
+1,4,mentor,3,Wikidata P1066
+1,4,organização,1,seed personagem_afiliacao (afiliação 1)
+1,5,família,3,Wikidata P22
+1,5,mentor,3,Wikidata P1066
+1,5,organização,1,seed personagem_afiliacao (afiliação 1)
+1,6,família,3,Wikidata P22
+1,6,mentor,3,Wikidata P1066
+1,6,organização,1,seed personagem_afiliacao (afiliação 1)
+1,7,organização,1,seed personagem_afiliacao (afiliação 1)
+1,8,família,3,Wikidata P22
+1,8,mentor,3,Wikidata P1066
+1,8,organização,1,seed personagem_afiliacao (afiliação 1)
+1,9,mentor,3,Wikidata P1066
+1,9,organização,1,seed personagem_afiliacao (afiliação 1)
+1,10,família,3,Wikidata P1038
+1,10,organização,1,seed personagem_afiliacao (afiliação 1)
+1,11,mentor,3,Wikidata P802
+1,11,organização,1,seed personagem_afiliacao (afiliação 1)
+1,12,organização,1,seed personagem_afiliacao (afiliação 1)
+1,13,organização,1,seed personagem_afiliacao (afiliação 1)
+1,14,mentor,3,Wikidata P1066
+1,14,organização,1,seed personagem_afiliacao (afiliação 1)
+1,15,organização,1,seed personagem_afiliacao (afiliação 1)
+1,19,inimigo,1,Wikidata P7047
+1,20,inimigo,1,Wikidata P7047
+1,21,inimigo,1,Wikidata P7047
+1,22,inimigo,1,Wikidata P7047
+1,23,inimigo,1,Wikidata P7047
+1,24,romance,2,Wikidata P451
+1,25,inimigo,1,Wikidata P7047
+1,26,inimigo,1,Wikidata P7047
+1,27,inimigo,1,Wikidata P7047
+1,28,inimigo,1,Wikidata P7047
+1,29,inimigo,1,Wikidata P7047
+1,30,inimigo,1,Wikidata P7047
+1,31,inimigo,1,Wikidata P7047
+1,32,inimigo,1,Wikidata P7047
+1,33,inimigo,1,Wikidata P7047
+1,34,inimigo,1,Wikidata P7047
+1,35,inimigo,1,Wikidata P7047
+1,36,inimigo,1,Wikidata P7047
+1,37,inimigo,1,Wikidata P7047
+1,38,inimigo,1,Wikidata P7047
+1,39,inimigo,1,Wikidata P7047
+1,40,inimigo,1,Wikidata P7047
+1,41,inimigo,1,Wikidata P7047
+1,42,inimigo,1,Wikidata P7047
+1,42,romance,2,Wikidata P451
+1,45,inimigo,1,Wikidata P7047
+1,47,inimigo,1,Wikidata P7047
+1,48,aliado,2,Wikidata P3342
+2,19,inimigo,1,Wikidata P7047
+3,1,aliado,2,Wikidata P2546
+3,4,família,3,Wikidata P3373
+3,5,família,3,Wikidata P3373
+3,6,família,3,Wikidata P3373
+3,7,romance,2,Wikidata P451
+3,8,família,3,Wikidata P3373
+3,12,romance,2,Wikidata P451
+3,44,inimigo,1,Wikidata P7047
+4,1,aliado,2,Wikidata P2546
+4,5,família,3,Wikidata P3373
+4,6,família,3,Wikidata P3373
+4,8,família,3,Wikidata P3373
+4,19,inimigo,1,Wikidata P7047
+4,33,inimigo,1,Wikidata P7047
+4,41,inimigo,1,Wikidata P7047
+4,42,romance,2,Wikidata P451
+5,1,aliado,2,Wikidata P2546
+5,6,família,3,Wikidata P3373
+5,8,família,3,Wikidata P3373
+5,9,romance,2,Wikidata P451
+5,19,inimigo,1,Wikidata P7047
+5,41,inimigo,1,Wikidata P7047
+6,1,aliado,2,Wikidata P2546
+6,3,aliado,2,Wikidata P2546
+6,8,família,3,Wikidata P3373
+6,41,família,3,Wikidata P1038
+6,42,família,3,Wikidata P40
+6,42,inimigo,1,Wikidata P7047
+7,1,aliado,2,Wikidata P2546
+7,9,mentor,3,Wikidata P802
+7,16,família,3,Wikidata P40
+8,1,aliado,2,Wikidata P2546
+8,43,família,3,Wikidata P25
+8,43,inimigo,1,Wikidata P7047
+9,1,aliado,2,Wikidata P2546
+10,17,romance,2,Wikidata P451
+13,29,inimigo,1,Wikidata P7047
+16,17,organização,1,seed personagem_afiliacao (afiliação 5)
+16,18,organização,1,seed personagem_afiliacao (afiliação 5)
+18,28,inimigo,1,Wikidata P7047
+19,20,inimigo,1,Wikidata P7047
+19,20,romance,2,Wikidata P451
+20,19,aliado,2,Wikidata P2546
+20,25,romance,2,Wikidata P451
+20,33,inimigo,1,Wikidata P7047
+20,39,romance,2,Wikidata P451
+24,33,inimigo,1,Wikidata P7047
+29,42,romance,2,Wikidata P451
+40,48,inimigo,1,Wikidata P7047
+41,6,mentor,3,Wikidata P802
+41,6,organização,1,seed personagem_afiliacao (afiliação 4)
+41,42,família,3,Wikidata P40
+41,42,mentor,3,Wikidata P802
+41,42,organização,1,seed personagem_afiliacao (afiliação 4)
+41,43,organização,1,seed personagem_afiliacao (afiliação 4)
+43,4,mentor,3,Wikidata P1066
+43,5,mentor,3,Wikidata P1066
+43,8,mentor,3,Wikidata P1066
+48,1,aliado,2,Wikidata P3342

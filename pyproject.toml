@@ -6,7 +6,7 @@ description = "Gotham Database — Batcomputador em Power BI (ETL + build)"
 
 [project.optional-dependencies]
 dev = ["pytest>=8", "jsonschema>=4.23"]
-etl = ["httpx", "pandas", "pyarrow", "pandera", "networkx", "python-dotenv"]
+etl = ["pandas>=3", "pandera>=0.34", "networkx>=3.7", "scipy"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

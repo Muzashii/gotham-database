@@ -73,3 +73,34 @@ def test_queda_de_conexao_repete(cache_tmp, monkeypatch):
 def test_trechos_nao_corta_volume():
     from etl.curadoria.checar import trechos
     assert any(concorda("Batman (vol. 2) #21 (2013)", t) for t in trechos("''Batman'' (vol. 2) #21 (New 52) (2014)"))
+
+
+def _cv(monkeypatch, resultados):
+    from etl.extract import comicvine
+    monkeypatch.setattr(comicvine, "get_json", lambda url, **kw: {"status_code": 1, "results": resultados(url)})
+    return comicvine
+
+
+def _pers(nome, real, edicoes, cid):
+    return {"id": cid, "name": nome, "real_name": real, "count_of_issue_appearances": edicoes,
+            "publisher": {"name": "DC Comics"}, "first_appeared_in_issue": {"name": "X", "issue_number": "1"}}
+
+
+def test_comicvine_terry_nao_casa_com_o_batman_de_bruce(monkeypatch):
+    """N1 da revisão F2: manto compartilhado no título da Wikipédia."""
+    todos = [_pers("Batman", "Bruce Wayne", 9000, 1), _pers("Terry McGinnis", "Terrence McGinnis", 300, 2)]
+    cv = _cv(monkeypatch, lambda url: todos)
+    r = cv.buscar("Batman (Terry McGinnis)", "Terry McGinnis", "chave")
+    assert r["id"] == 2
+
+
+def test_comicvine_casa_por_nome_civil_e_ignora_outras_editoras(monkeypatch):
+    todos = [_pers("Robin", "Damian Wayne", 50, 3), _pers("Robin", "Dick Grayson", 5000, 4),
+             {**_pers("Damian", "Damian Wayne", 9, 5), "publisher": {"name": "Marvel"}}]
+    cv = _cv(monkeypatch, lambda url: todos)
+    assert cv.buscar("Damian Wayne", "Damian Wayne", "chave")["id"] == 3
+
+
+def test_comicvine_sem_casamento_exato_devolve_none(monkeypatch):
+    cv = _cv(monkeypatch, lambda url: [_pers("Joker Jr.", "", 5, 6)])
+    assert cv.buscar("Joker (character)", "desconhecida", "chave") is None

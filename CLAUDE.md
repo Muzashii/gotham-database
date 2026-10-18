@@ -37,6 +37,8 @@ python build/checks.py
 python build/build_model.py
 python build/build_report.py
 python build/build_preview.py
+python -m etl.run_etl            # seeds + Wikidata (+ Comic Vine c/ chave) -> data/curated
+python -m etl.run_etl --offline  # só cache local
 python -m pytest
 npm test        # Vitest (requer Node 20)
 ```

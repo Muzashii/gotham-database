@@ -1,7 +1,7 @@
 # Dicionário de dados
 
 - **Dono:** modelador-semantico (Gordon) · **Consumidores:** engenheiro-dados, engenheiro-dax, revisor-qa
-- **Versão:** 0.2 (F1). Seeds congelados; tabelas do modelo seguem rascunho até a F3.
+- **Versão:** 0.3 (F2). Seeds e tabelas curadas definidos; o modelo TMDL segue na F3.
 
 Convenções: chaves `Id*` são `int64`; texto apenas em dimensões; prefixos `d` (dimensão),
 `f` (fato), `b` (ponte). Relações 1:N unidirecionais das dimensões para os fatos.
@@ -34,6 +34,26 @@ Textos sem aspas duplas (vão para HTML/JS). Teste: `tests/etl/test_seeds.py`.
 | `gadgets.csv` | `dGadget` (novo) | `IdGadget` | `MultCaptura`, `SoContraArquetipo` (vazio = todos) — §8.5 |
 | `bairros.csv` | `dBairro` | `IdBairro` | `BonusCaptura`, `TemRecarga`, `Cor` |
 | `encontros.csv` | `fEncontro` | (`IdBairro`, `IdPersonagem`) | só não-heróis; `Raridade` = da versão |
+
+## Tabelas curadas da F2 (`data/curated/*.csv`) — v0.3
+
+Saída de `python -m etl.run_etl`; tipos e regras em `etl/quality/schemas.py` (pandera, `strict=True`) —
+**esta é a fonte da verdade das colunas que o Power Query lê na F3**. Ordenadas pela chave, UTF-8, LF.
+Colunas de proveniência dos seeds (`fonte`, `nota`, `WikipediaTitulo`) ficam fora do modelo.
+**Power Query:** os CSVs não têm BOM — declarar `Encoding=65001` em `Csv.Document`. `IdObra` cabe em Int64 (máx. ≈ 1,2 bi).
+
+| Tabela | Linhas (F2) | Diferenças em relação ao §6 / aos seeds |
+|---|---|---|
+| `dPersonagem` | 50 | + `WikidataQid`, `IdSuperHeroApi`, `ComicVineId`, `EdicoesComicVine` (Int64 anuláveis), `confianca` |
+| `dVersao` | 50 | sem `fonte`. `EhTransformacao` é inteiro 0/1 (não booleano) |
+| `dEra`, `dAfiliacao`, `dArquetipo`, `dGolpe`, `dGadget`, `dBairro` | 8, 6, 8, 24, 4, 6 | sem `fonte`/`nota` |
+| `dMidia` (nova) | 5 | `IdMidia`, `Nome` (HQ, Animação, Série, Filme, Game) |
+| `dObra` | 319 | + `IdMidia`, `Granularidade` (Obra/Série/Episódio — séries e episódios coexistem; filtre por granularidade em análises), `WikidataQid`. `IdObra` 1–48 = obras de estreia; Wikidata = número do QID + 1.000.000.000 (estável) |
+| `fAparicao` | 689 | estreias (`Relevancia` 3) + obras do Wikidata P674 (`Relevancia` 1) |
+| `fRelacao` | 115 | + `Fonte` (propriedade Wikidata ou afiliação). `TipoRelacao` ∈ aliado/inimigo/mentor/família/romance/rival/organização; `Peso` por tipo. Tipos simétricos (todos menos mentor e organização) guardados uma vez, com `IdOrigem` < `IdDestino` |
+| `dCentralidade` | 50 | `Grau`, `Intermediacao`, `PageRank` (grafo não dirigido, ponderado) |
+| `dStat` | 6 | INT, FOR, VEL, DUR, POD, COM |
+| `bPersonagemAfiliacao`, `bVersaoGolpe`, `fMatchup`, `fEncontro` | 54, 200, 64, 42 | sem `fonte` |
 
 ## Tabelas planejadas (F1–F3) — ver `docs/plano.md` §6
 
