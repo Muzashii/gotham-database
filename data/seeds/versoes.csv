@@ -1,0 +1,51 @@
+IdVersao,IdPersonagem,NomeVersao,IdMidia,Int,For,Vel,Dur,Pod,Com,IdArquetipo,EhTransformacao,Raridade,UrlImagem,fonte,confianca
+101,1,Batman,1,100,26,27,50,47,100,1,0,lendario,https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/md/70-batman.jpg,https://akabab.github.io/superhero-api/api/id/70.json,alta
+201,2,Alfred Pennyworth,1,63,10,17,10,7,55,4,0,incomum,https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/md/17-alfred-pennyworth.jpg,https://akabab.github.io/superhero-api/api/id/17.json,alta
+301,3,Asa Noturna,1,88,11,33,28,36,100,2,0,raro,https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/md/491-nightwing.jpg,https://akabab.github.io/superhero-api/api/id/491.json,alta
+401,4,Capuz Vermelho,1,75,12,23,28,35,95,8,0,raro,https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/md/546-red-hood.jpg,https://akabab.github.io/superhero-api/api/id/546.json,alta
+501,5,Tim Drake,1,81,11,27,32,29,80,1,0,incomum,https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/md/549-red-robin.jpg,https://akabab.github.io/superhero-api/api/id/549.json,alta
+601,6,Damian Wayne,1,69,8,33,16,29,65,2,0,incomum,https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/md/564-robin-v.jpg,https://akabab.github.io/superhero-api/api/id/564.json,alta
+701,7,Oráculo,1,75,11,23,28,19,76,1,0,raro,https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/md/505-oracle.jpg,https://akabab.github.io/superhero-api/api/id/505.json,alta
+801,8,Cassandra Cain,1,69,12,27,56,46,100,2,0,incomum,https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/md/66-batgirl-iv.jpg,https://akabab.github.io/superhero-api/api/id/66.json,alta
+901,9,Spoiler,1,75,10,23,28,22,80,2,0,comum,https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/md/68-batgirl-vi.jpg,https://akabab.github.io/superhero-api/api/id/68.json,alta
+1001,10,Batwoman,1,81,8,29,25,27,80,8,0,incomum,https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/md/73-batwoman-v.jpg,https://akabab.github.io/superhero-api/api/id/73.json,alta
+1101,11,Signal,1,70,15,40,30,70,70,5,0,comum,,estimativa do curador (escala da SuperHero API),baixa
+1201,12,Caçadora,1,69,10,23,28,34,95,8,0,incomum,https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/md/334-huntress.jpg,https://akabab.github.io/superhero-api/api/id/334.json,alta
+1301,13,Azrael,1,65,30,35,45,40,95,2,0,raro,,estimativa do curador (escala da SuperHero API),baixa
+1401,14,Batman do Futuro,1,81,40,29,55,63,90,4,0,raro,https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/md/69-batman.jpg,https://akabab.github.io/superhero-api/api/id/69.json,alta
+1501,15,Lucius Fox,1,95,10,12,10,20,15,4,0,comum,,estimativa do curador (escala da SuperHero API),baixa
+1601,16,Comissário Gordon,1,80,12,15,25,20,45,1,0,incomum,,estimativa do curador (escala da SuperHero API),baixa
+1701,17,Renee Montoya,1,70,12,23,28,20,65,1,0,comum,,estimativa do curador (escala da SuperHero API),baixa
+1801,18,Harvey Bullock,1,55,25,12,40,15,50,3,0,comum,,estimativa do curador (escala da SuperHero API),baixa
+1901,19,Coringa,1,100,10,12,60,43,70,7,0,lendario,https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/md/370-joker.jpg,https://akabab.github.io/superhero-api/api/id/370.json,alta
+2001,20,Arlequina,1,88,12,33,65,55,80,2,0,incomum,https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/md/309-harley-quinn.jpg,https://akabab.github.io/superhero-api/api/id/309.json,alta
+2101,21,Pinguim,1,75,10,12,28,30,45,1,0,incomum,https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/md/514-penguin.jpg,https://akabab.github.io/superhero-api/api/id/514.json,alta
+2201,22,Charada,1,100,10,12,14,10,14,7,0,raro,https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/md/558-riddler.jpg,https://akabab.github.io/superhero-api/api/id/558.json,alta
+2301,23,Duas-Caras,1,88,10,12,14,9,28,8,0,incomum,https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/md/678-two-face.jpg,https://akabab.github.io/superhero-api/api/id/678.json,alta
+2401,24,Mulher-Gato,1,69,11,33,28,27,85,8,0,raro,https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/md/165-catwoman.jpg,https://akabab.github.io/superhero-api/api/id/165.json,alta
+2501,25,Hera Venenosa,1,81,14,21,40,100,40,5,0,raro,https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/md/522-poison-ivy.jpg,https://akabab.github.io/superhero-api/api/id/522.json,alta
+2601,26,Espantalho,1,81,10,12,14,48,50,7,0,incomum,https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/md/576-scarecrow.jpg,https://akabab.github.io/superhero-api/api/id/576.json,alta
+2701,27,Sr. Frio,1,75,32,12,70,37,28,4,0,raro,https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/md/457-mister-freeze.jpg,https://akabab.github.io/superhero-api/api/id/457.json,alta
+2801,28,Chapeleiro Louco,1,80,10,12,14,40,15,4,0,comum,,estimativa do curador (escala da SuperHero API),baixa
+2901,29,Bane,1,88,38,23,56,51,95,3,0,raro,https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/md/60-bane.jpg,https://akabab.github.io/superhero-api/api/id/60.json,alta
+3001,30,Crocodilo,1,19,53,35,90,53,60,3,0,incomum,https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/md/386-killer-croc.jpg,https://akabab.github.io/superhero-api/api/id/386.json,alta
+3101,31,Cara-de-Barro,1,40,70,25,90,75,40,5,0,incomum,,estimativa do curador (escala da SuperHero API),baixa
+3201,32,Hugo Strange,1,100,10,12,14,25,30,7,0,incomum,,estimativa do curador (escala da SuperHero API),baixa
+3301,33,Máscara Negra,1,70,15,15,30,25,55,1,0,comum,,estimativa do curador (escala da SuperHero API),baixa
+3401,34,Vagalume,1,60,15,30,40,55,40,4,0,comum,,estimativa do curador (escala da SuperHero API),baixa
+3501,35,Morcego Humano,1,38,18,50,70,33,30,5,0,comum,https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/md/427-man-bat.jpg,https://akabab.github.io/superhero-api/api/id/427.json,alta
+3601,36,Silêncio,1,95,12,23,28,25,70,1,0,raro,,estimativa do curador (escala da SuperHero API),baixa
+3701,37,Victor Zsasz,1,88,22,33,28,18,85,8,0,comum,,https://akabab.github.io/superhero-api/api/id/461.json,alta
+3801,38,Ventríloquo,1,50,8,10,10,20,20,7,0,comum,,estimativa do curador (escala da SuperHero API),baixa
+3901,39,Pistoleiro,1,50,10,23,28,55,80,8,0,incomum,https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/md/214-deadshot.jpg,https://akabab.github.io/superhero-api/api/id/214.json,alta
+4001,40,Solomon Grundy,1,9,93,13,100,92,30,3,0,incomum,https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/md/609-solomon-grundy.jpg,https://akabab.github.io/superhero-api/api/id/609.json,alta
+4101,41,Ra's al Ghul,1,100,28,32,42,27,100,1,0,lendario,https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/md/538-ras-al-ghul.jpg,https://akabab.github.io/superhero-api/api/id/538.json,alta
+4201,42,Talia al Ghul,1,88,12,27,28,30,85,8,0,incomum,,estimativa do curador (escala da SuperHero API),baixa
+4301,43,Lady Shiva,1,75,15,40,35,30,100,2,0,raro,,estimativa do curador (escala da SuperHero API),baixa
+4401,44,Exterminador,1,75,30,35,100,47,90,8,0,raro,https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/md/216-deathstroke.jpg,https://akabab.github.io/superhero-api/api/id/216.json,alta
+4501,45,Homem-Calendário,1,88,12,12,20,15,30,1,0,comum,,estimativa do curador (escala da SuperHero API),baixa
+4601,46,Professor Pyg,1,75,15,15,25,35,40,7,0,comum,,estimativa do curador (escala da SuperHero API),baixa
+4701,47,Batman Que Ri,1,100,40,35,60,75,100,6,0,lendario,,estimativa do curador (escala da SuperHero API),baixa
+4801,48,Superman,1,94,100,100,100,100,85,5,0,lendario,https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/md/644-superman.jpg,https://akabab.github.io/superhero-api/api/id/644.json,alta
+4901,49,Zatanna,1,81,10,23,28,100,56,6,0,raro,https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/md/730-zatanna.jpg,https://akabab.github.io/superhero-api/api/id/730.json,alta
+5001,50,Etrigan,1,50,85,17,100,100,50,6,0,raro,https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/md/246-etrigan.jpg,https://akabab.github.io/superhero-api/api/id/246.json,alta

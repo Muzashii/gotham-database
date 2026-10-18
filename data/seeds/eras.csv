@@ -1,0 +1,9 @@
+IdEra,Nome,AnoInicio,AnoFim,Ordem,fonte,nota
+1,Era de Ouro,1938,1955,1,https://en.wikipedia.org/wiki/Golden_Age_of_Comic_Books,limites de eras são convenção e variam entre autores; 9999 = em andamento
+2,Era de Prata,1956,1969,2,https://en.wikipedia.org/wiki/Silver_Age_of_Comic_Books,limites de eras são convenção e variam entre autores
+3,Era de Bronze,1970,1985,3,https://en.wikipedia.org/wiki/Bronze_Age_of_Comic_Books,limites de eras são convenção e variam entre autores
+4,Era Moderna,1986,2010,4,https://en.wikipedia.org/wiki/Modern_Age_of_Comic_Books,limites de eras são convenção e variam entre autores
+5,Novos 52,2011,2015,5,https://en.wikipedia.org/wiki/The_New_52,limites de eras são convenção e variam entre autores
+6,Renascimento,2016,2020,6,https://en.wikipedia.org/wiki/DC_Rebirth,limites de eras são convenção e variam entre autores
+7,Infinite Frontier,2021,2022,7,https://en.wikipedia.org/wiki/Infinite_Frontier,limites de eras são convenção e variam entre autores
+8,Dawn of DC / Absolute,2023,9999,8,https://en.wikipedia.org/wiki/Dawn_of_DC,limites de eras são convenção e variam entre autores; 9999 = em andamento

@@ -4,7 +4,7 @@ Relatório Power BI que parece um Batcomputador: ficha de personagens do univers
 relações, linha do tempo, arena de confrontos, quiz e minijogo — tudo renderizado por **medidas DAX
 que geram HTML/CSS/SVG/JavaScript** no visual *HTML Content*.
 
-> **Status:** Fase 0 concluída (spike técnico). Plano completo em [`docs/plano.md`](docs/plano.md).
+> **Status:** Fase 1 concluída (curadoria de 50 personagens). Plano completo em [`docs/plano.md`](docs/plano.md).
 >
 > 🔗 **[Ver online no Power BI](https://app.powerbi.com/view?r=eyJrIjoiZGFiYTA5YzktMjk4YS00ZmQ5LTk1NGYtMTFlMjllN2E0ZGUyIiwidCI6IjExZGJiZmUyLTg5YjgtNDU0OS1iZTEwLWNlYzM2NGU1OTU1MSIsImMiOjR9)**
 > — por enquanto mostra o painel de diagnóstico da F0 (JS rodando no visual, estado na `window`, limite de tamanho).

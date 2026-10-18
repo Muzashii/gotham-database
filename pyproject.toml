@@ -10,6 +10,6 @@ etl = ["httpx", "pandas", "pyarrow", "pandera", "networkx", "python-dotenv"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = ["build"]
+pythonpath = ["build", "."]
 norecursedirs = [".*", ".venv", "node_modules", "dist", "data"]
 markers = ["rede: baixa schemas da Microsoft (pule com -m 'not rede')"]
