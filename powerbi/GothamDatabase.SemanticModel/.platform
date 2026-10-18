@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "GothamDatabase"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "57c07813-2e39-4f68-9263-7d391e903fb3"
+  }
+}

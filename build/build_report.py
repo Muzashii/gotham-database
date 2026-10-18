@@ -154,7 +154,8 @@ def main() -> int:
     })
 
     report = dict(report_atual)  # preserva o que o Desktop gravou
-    report["$schema"] = f"{SCHEMA}/item/report/definition/report/3.0.0/schema.json"
+    # mantém a versão de schema que o Desktop gravou (pode ser mais nova que a nossa)
+    report.setdefault("$schema", f"{SCHEMA}/item/report/definition/report/3.0.0/schema.json")
     report.setdefault("themeCollection", {})["customTheme"] = {
         "name": TEMA,
         "reportVersionAtImport": {"visual": "2.0.0", "report": "3.0.0", "page": "2.0.0"},

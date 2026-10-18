@@ -24,6 +24,9 @@ Plano completo: `docs/plano.md`. Fase atual e pendências: último `handoffs/Fx-
 - `python build/checks.py` reprova aspas duplas, crases triplas, slots quebrados,
   tokens CSS inexistentes e medidas acima do orçamento (`build/budget.json`).
 - `python build/build_model.py` regrava `tables/_Medidas.tmdl` (arquivo gerado — não editar à mão).
+- O Power BI Desktop regrava `_Medidas.tmdl` ao salvar: depois de salvar no Desktop, rode
+  `build/build_model.py` de novo (o teste de sincronia acusa se esquecer).
+- Limite medido na F0: uma medida até ~1 milhão de caracteres renderiza; 5 milhões falha.
 - `python build/build_preview.py` gera `dist/preview/*.html` com valores mock
   (`src/html/*.mock.json`) para testar no navegador sem Power BI.
 

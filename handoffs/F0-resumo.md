@@ -1,7 +1,7 @@
 # F0 — Resumo (Alfred)
 
-**Status:** código e build aprovados pela Coruja (`handoffs/review-F0.md`). **O gate F0 ainda não fechou:**
-falta ver o spike rodando dentro do Power BI Desktop, que não está instalado nesta máquina.
+**Status:** código e build aprovados pela Coruja (`handoffs/review-F0.md`); spike validado no Power BI
+Desktop e publicado na web em 18/10/2026 (resultados abaixo). **Gate F0 aprovado.**
 
 ## O que foi feito
 
@@ -46,19 +46,31 @@ falta ver o spike rodando dentro do Power BI Desktop, que não está instalado n
 
 → Roteiro de 10 minutos em `docs/f0-spike.md`. Os resultados devem ser preenchidos aqui:
 
+**Medido em 18/10/2026** — Power BI Desktop 2.159.883.0 (Microsoft Store) e Power BI Service:
+
 | Medição | Resultado |
 |---|---|
-| Edição do HTML Content / GUID | _pendente_ |
-| JS via script / via onerror | _pendente_ |
-| Estado após trocar filtro / trocar página | _pendente_ |
-| Maior payload que renderiza bem | _pendente_ |
-| Tempo do visual (1 mil / 100 mil / 1 mi) | _pendente_ |
+| Abertura do PBIP (TMDL + PBIR gerados pelo build) | ✔ abriu sem erro; Desktop só reformatou (CRLF, `lineageTag`, compat. 1606, report schema 3.3.0) |
+| Edição do HTML Content / GUID | *HTML Content* padrão (Daniel Marsh-Patrick) — `htmlContent443BE3AD55E043BF878BED274D3A6855` |
+| JS via script / via onerror | ✔ / ✔ (Desktop **e** Service **e** Publicar na Web) |
+| Estado após trocar o filtro | ✔ contador 3 → 3 após 1 mil → 100 mil → 1 milhão (renderizações 2 → 3 → 4) |
+| Estado após erro do visual | ✖ o visual é recriado e `window.GOTHAM_STATE` zera — apps devem tolerar perda de estado |
+| Troca de página | não testado (relatório tem 1 página) — testar na F5 |
+| Maior payload que renderiza bem | **1.000.000 chars ✔**; 5.000.000 ✖ (“Failed to move the data reader to the next row”) |
+| Tempo do visual | não medido com o Analisador de desempenho; 1 milhão respondeu em poucos segundos (observação visual) |
+| Publicar na Web | ✔ link público funcionando (ver README) |
+
+**Gate F0: APROVADO** (exceto troca de página e tempo formal, que passam para os gates F4a/F5).
+
+Consequências para o projeto:
+- Orçamento: `[JS Gotham]` único é viável — 250 personagens × ~200 chars ≈ 50 mil, 20× abaixo do limite.
+  Manter teto de 500 mil por medida no `budget.json` como margem de segurança.
+- Fluxo PBIP: depois de salvar no Desktop, rodar `build/build_model.py` (o Desktop regrava `_Medidas.tmdl`).
 
 ## Recomendação para a F1
 
-1. Fechar o gate F0 com as medições acima. O orçamento de tamanho (`build/budget.json`) e a decisão
-   entre `[JS Gotham]` único ou paginado (§15) dependem do limite medido.
-2. Em seguida, F1: Oráculo seleciona os 50 primeiros personagens (sprint 1) com coluna `fonte`, e
+1. ~~Fechar o gate F0~~ feito: `[JS Gotham]` único (não paginado).
+2. F1: Oráculo seleciona os 50 primeiros personagens (sprint 1) com coluna `fonte`, e
    Ra's transcreve a matriz §8.2 e os arquétipos para `data/seeds/`. Antes de qualquer ETL, verificar
    os termos e limites de uso das APIs (§4).
 

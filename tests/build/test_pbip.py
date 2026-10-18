@@ -26,7 +26,9 @@ def baixar(url: str) -> dict:
 def arquivos_json():
     return sorted(
         p for p in PBI.rglob("*")
-        if p.suffix in (".json", ".pbir", ".pbism", ".pbip") and "StaticResources" not in p.parts
+        if p.suffix in (".json", ".pbir", ".pbism", ".pbip")
+        and "StaticResources" not in p.parts
+        and ".pbi" not in p.parts  # configurações locais do Desktop, sem $schema
     )
 
 

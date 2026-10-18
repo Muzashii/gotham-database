@@ -1,16 +1,19 @@
 /// F0: tabela desconectada para medir o limite prático de tamanho de string no visual.
 /// Dono: modelador-semantico. Remover na F3.
 table SpikeTamanho
+	lineageTag: b023d811-0e80-4de8-a7a0-06d15120d283
 
 	column Caracteres
 		dataType: int64
-		formatString: #,0
 		isHidden
+		formatString: #,0
+		lineageTag: 7c610c75-fd90-4653-9481-a647b0bb49a6
 		summarizeBy: none
 		sourceColumn: Caracteres
 
 	column Rotulo
 		dataType: string
+		lineageTag: aef11e02-424b-4091-91dc-1a7c4b30e88c
 		summarizeBy: none
 		sourceColumn: Rotulo
 		sortByColumn: Caracteres
@@ -28,3 +31,4 @@ table SpikeTamanho
 				    )
 				in
 				    Fonte
+
