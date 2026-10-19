@@ -1,0 +1,40 @@
+/// Grupos (Bat-família, GCPD, Liga das Sombras…).
+table dAfiliacao
+	lineageTag: 5b07939e-5e62-5a33-a624-107b6ede1107
+
+	column IdAfiliacao
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: da7ee6b3-4ecc-583f-9719-5c1537e76f44
+		summarizeBy: none
+		sourceColumn: IdAfiliacao
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nome
+		dataType: string
+		lineageTag: ef3c69e6-435b-5345-a71c-ea9d78266097
+		summarizeBy: none
+		sourceColumn: Nome
+
+		annotation SummarizationSetBy = Automatic
+
+	column Tipo
+		dataType: string
+		lineageTag: b58512a6-c59c-552f-bfc5-a9c4c0b2e262
+		summarizeBy: none
+		sourceColumn: Tipo
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dAfiliacao = m
+		mode: import
+		source =
+				let
+				    Fonte = LerCsv("dAfiliacao"),
+				    Tipos = Table.TransformColumnTypes(Fonte, {{"IdAfiliacao", Int64.Type}, {"Nome", type text}, {"Tipo", type text}}, "en-US")
+				in
+				    Tipos
+
+	annotation PBI_ResultType = Table

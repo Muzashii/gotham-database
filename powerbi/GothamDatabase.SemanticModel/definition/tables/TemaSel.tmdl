@@ -1,0 +1,40 @@
+/// Desconectada. Tema visual por facção (classes fx-* de contracts/design-tokens.md).
+table TemaSel
+	lineageTag: 7983296e-821e-548d-b126-0bb5ece429fb
+
+	column Ordem
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f16fbab0-e9c3-5a96-b1d2-353f3ac5a4a3
+		summarizeBy: none
+		sourceColumn: Ordem
+
+		annotation SummarizationSetBy = Automatic
+
+	column Faccao
+		dataType: string
+		lineageTag: 1e1f6bde-c6d3-5a6f-bc61-3511f778ed21
+		summarizeBy: none
+		sourceColumn: Faccao
+
+		annotation SummarizationSetBy = Automatic
+
+	column Tema
+		dataType: string
+		lineageTag: 4c39bc17-340b-5295-8083-f4b100115639
+		summarizeBy: none
+		sourceColumn: Tema
+		sortByColumn: Ordem
+
+		annotation SummarizationSetBy = Automatic
+
+	partition TemaSel = m
+		mode: import
+		source =
+				let
+				    Fonte = #table(type table [Ordem = Int64.Type, Faccao = text, Tema = text], {{1, "gotham", "Gotham (chuva)"}, {2, "batfamilia", "Bat-família"}, {3, "coringa", "Coringa"}, {4, "espantalho", "Espantalho"}, {5, "frio", "Sr. Frio"}, {6, "hera", "Hera Venenosa"}, {7, "charada", "Charada"}, {8, "duascaras", "Duas-Caras"}, {9, "corujas", "Corte das Corujas"}, {10, "vagalume", "Vagalume"}})
+				in
+				    Fonte
+
+	annotation PBI_ResultType = Table

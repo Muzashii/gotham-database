@@ -1,0 +1,76 @@
+/// Golpes/gadgets de batalha (design).
+table dGolpe
+	lineageTag: c4e70f85-bb52-5c00-beaf-21e6c245a25e
+
+	column IdGolpe
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 678e8270-c90a-5bd2-8cab-7fc7b97f23ad
+		summarizeBy: none
+		sourceColumn: IdGolpe
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nome
+		dataType: string
+		lineageTag: 466eeaa4-65ca-5d46-9035-42d13585dec7
+		summarizeBy: none
+		sourceColumn: Nome
+
+		annotation SummarizationSetBy = Automatic
+
+	column IdArquetipo
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: deb47698-2cda-5dac-bcf4-e388e2a6f9cb
+		summarizeBy: none
+		sourceColumn: IdArquetipo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Categoria
+		dataType: string
+		lineageTag: 57f49752-a11e-5335-96a4-d84cb70e9e5f
+		summarizeBy: none
+		sourceColumn: Categoria
+
+		annotation SummarizationSetBy = Automatic
+
+	column Poder
+		dataType: int64
+		formatString: 0
+		lineageTag: 38135043-9d4d-593b-b3b3-68f05bc0bae8
+		summarizeBy: none
+		sourceColumn: Poder
+
+		annotation SummarizationSetBy = Automatic
+
+	column Precisao
+		dataType: int64
+		formatString: 0
+		lineageTag: 8f08a6ff-e915-5cf3-9481-41d3e4ae4dd2
+		summarizeBy: none
+		sourceColumn: Precisao
+
+		annotation SummarizationSetBy = Automatic
+
+	column Efeito
+		dataType: string
+		lineageTag: 293d8fc7-acee-578b-bf63-901ebba381eb
+		summarizeBy: none
+		sourceColumn: Efeito
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dGolpe = m
+		mode: import
+		source =
+				let
+				    Fonte = LerCsv("dGolpe"),
+				    Tipos = Table.TransformColumnTypes(Fonte, {{"IdGolpe", Int64.Type}, {"Nome", type text}, {"IdArquetipo", Int64.Type}, {"Categoria", type text}, {"Poder", Int64.Type}, {"Precisao", Int64.Type}, {"Efeito", type text}}, "en-US")
+				in
+				    Tipos
+
+	annotation PBI_ResultType = Table

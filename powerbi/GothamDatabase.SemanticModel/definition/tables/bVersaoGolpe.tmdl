@@ -1,0 +1,34 @@
+/// Ponte versão × golpe (4 por versão).
+table bVersaoGolpe
+	lineageTag: 9f330b2e-1114-5592-8bb6-5487d90740a5
+
+	column IdVersao
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 76c79ca9-38a4-5c0a-8ea9-1f104437e651
+		summarizeBy: none
+		sourceColumn: IdVersao
+
+		annotation SummarizationSetBy = Automatic
+
+	column IdGolpe
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 8ad510e8-884c-5039-b47e-0aa913f4ee00
+		summarizeBy: none
+		sourceColumn: IdGolpe
+
+		annotation SummarizationSetBy = Automatic
+
+	partition bVersaoGolpe = m
+		mode: import
+		source =
+				let
+				    Fonte = LerCsv("bVersaoGolpe"),
+				    Tipos = Table.TransformColumnTypes(Fonte, {{"IdVersao", Int64.Type}, {"IdGolpe", Int64.Type}}, "en-US")
+				in
+				    Tipos
+
+	annotation PBI_ResultType = Table

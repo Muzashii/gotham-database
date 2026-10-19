@@ -1,0 +1,41 @@
+/// Os 6 atributos, na ordem do radar.
+table dStat
+	lineageTag: 1b489ccd-ac22-5da7-81be-fa9a38390e9d
+
+	column Ordem
+		dataType: int64
+		formatString: 0
+		lineageTag: 4278592e-ec95-519a-b83c-857837231ed4
+		summarizeBy: none
+		sourceColumn: Ordem
+
+		annotation SummarizationSetBy = Automatic
+
+	column Codigo
+		dataType: string
+		lineageTag: 3df92a3a-5505-5365-8121-85ad9769cd90
+		summarizeBy: none
+		sourceColumn: Codigo
+		sortByColumn: Ordem
+
+		annotation SummarizationSetBy = Automatic
+
+	column Rotulo
+		dataType: string
+		lineageTag: 1124fef0-6833-5182-b308-7eed7432d623
+		summarizeBy: none
+		sourceColumn: Rotulo
+		sortByColumn: Ordem
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dStat = m
+		mode: import
+		source =
+				let
+				    Fonte = LerCsv("dStat"),
+				    Tipos = Table.TransformColumnTypes(Fonte, {{"Ordem", Int64.Type}, {"Codigo", type text}, {"Rotulo", type text}}, "en-US")
+				in
+				    Tipos
+
+	annotation PBI_ResultType = Table

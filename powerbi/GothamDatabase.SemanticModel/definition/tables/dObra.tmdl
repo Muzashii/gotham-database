@@ -1,0 +1,105 @@
+/// Obras (estreias + Wikidata P674) com mídia e granularidade.
+table dObra
+	lineageTag: 1c4db3d8-e849-53fd-852c-bd917800a532
+
+	column IdObra
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d502ccbd-b8d9-5bb9-8e49-cf8c5624f30f
+		summarizeBy: none
+		sourceColumn: IdObra
+
+		annotation SummarizationSetBy = Automatic
+
+	column Titulo
+		dataType: string
+		lineageTag: 8db86542-512c-5098-b43c-0f941f140dc5
+		summarizeBy: none
+		sourceColumn: Titulo
+
+		annotation SummarizationSetBy = Automatic
+
+	column TipoMidia
+		dataType: string
+		lineageTag: 48e1bd56-9d38-5ff9-bfbd-effdfc43e321
+		summarizeBy: none
+		sourceColumn: TipoMidia
+
+		annotation SummarizationSetBy = Automatic
+
+	column IdMidia
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 6fecbf01-af52-51d1-aa0f-f85b4ff95ce7
+		summarizeBy: none
+		sourceColumn: IdMidia
+
+		annotation SummarizationSetBy = Automatic
+
+	column Granularidade
+		dataType: string
+		lineageTag: 31a189ef-8196-5ceb-abf4-d51ad4878d2d
+		summarizeBy: none
+		sourceColumn: Granularidade
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ano
+		dataType: int64
+		formatString: 0
+		lineageTag: cee8501f-ea70-5a7f-80fd-459cfd55f1a5
+		summarizeBy: none
+		sourceColumn: Ano
+
+		annotation SummarizationSetBy = Automatic
+
+	column IdEra
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 18e8a8d7-402b-565f-81b1-f194ca40ee3c
+		summarizeBy: none
+		sourceColumn: IdEra
+
+		annotation SummarizationSetBy = Automatic
+
+	column Plataforma
+		dataType: string
+		isHidden
+		lineageTag: dd4a6c9b-1191-5888-856e-adc4abea6d12
+		summarizeBy: none
+		sourceColumn: Plataforma
+
+		annotation SummarizationSetBy = Automatic
+
+	column UrlCapa
+		dataType: string
+		isHidden
+		lineageTag: fe830228-5f81-59ce-8a24-870c0125ef62
+		summarizeBy: none
+		sourceColumn: UrlCapa
+		dataCategory: ImageUrl
+
+		annotation SummarizationSetBy = Automatic
+
+	column WikidataQid
+		dataType: string
+		isHidden
+		lineageTag: 39d37e09-5431-5626-bf25-a0fba4e059ce
+		summarizeBy: none
+		sourceColumn: WikidataQid
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dObra = m
+		mode: import
+		source =
+				let
+				    Fonte = LerCsv("dObra"),
+				    Tipos = Table.TransformColumnTypes(Fonte, {{"IdObra", Int64.Type}, {"Titulo", type text}, {"TipoMidia", type text}, {"IdMidia", Int64.Type}, {"Granularidade", type text}, {"Ano", Int64.Type}, {"IdEra", Int64.Type}, {"Plataforma", type text}, {"UrlCapa", type text}, {"WikidataQid", type text}}, "en-US")
+				in
+				    Tipos
+
+	annotation PBI_ResultType = Table

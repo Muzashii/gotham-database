@@ -1,0 +1,42 @@
+/// Ponte personagem × afiliação. Filtro só da dimensão para a ponte; use TREATAS no DAX.
+table bPersonagemAfiliacao
+	lineageTag: 134c441b-d0b9-5998-8913-9eed5ec7d516
+
+	column IdPersonagem
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: ed27a3ff-b4f1-5f36-8c6d-b53eea792478
+		summarizeBy: none
+		sourceColumn: IdPersonagem
+
+		annotation SummarizationSetBy = Automatic
+
+	column IdAfiliacao
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 439f96f4-5a27-52ec-93d9-dbb77bc67fef
+		summarizeBy: none
+		sourceColumn: IdAfiliacao
+
+		annotation SummarizationSetBy = Automatic
+
+	column Papel
+		dataType: string
+		lineageTag: 2f64caab-f495-50ee-801b-0383685b8b82
+		summarizeBy: none
+		sourceColumn: Papel
+
+		annotation SummarizationSetBy = Automatic
+
+	partition bPersonagemAfiliacao = m
+		mode: import
+		source =
+				let
+				    Fonte = LerCsv("bPersonagemAfiliacao"),
+				    Tipos = Table.TransformColumnTypes(Fonte, {{"IdPersonagem", Int64.Type}, {"IdAfiliacao", Int64.Type}, {"Papel", type text}}, "en-US")
+				in
+				    Tipos
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,51 @@
+/// Grau, intermediação e PageRank da rede de relações (calculados no ETL).
+table dCentralidade
+	lineageTag: 643baaa5-2244-54b3-9531-6ead3b735265
+
+	column IdPersonagem
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 4275aed8-4b3c-5a0e-b786-6022078a6c94
+		summarizeBy: none
+		sourceColumn: IdPersonagem
+
+		annotation SummarizationSetBy = Automatic
+
+	column Grau
+		dataType: int64
+		formatString: 0
+		lineageTag: 53885f01-a44e-5c66-8f04-0ebdb70fb6ef
+		summarizeBy: none
+		sourceColumn: Grau
+
+		annotation SummarizationSetBy = Automatic
+
+	column Intermediacao
+		dataType: double
+		formatString: 0.000
+		lineageTag: 3f76b511-4644-5b5d-820b-7c4b78cc37ac
+		summarizeBy: none
+		sourceColumn: Intermediacao
+
+		annotation SummarizationSetBy = Automatic
+
+	column PageRank
+		dataType: double
+		formatString: 0.000
+		lineageTag: 54a7b96b-b643-5821-a040-7acf099061cb
+		summarizeBy: none
+		sourceColumn: PageRank
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dCentralidade = m
+		mode: import
+		source =
+				let
+				    Fonte = LerCsv("dCentralidade"),
+				    Tipos = Table.TransformColumnTypes(Fonte, {{"IdPersonagem", Int64.Type}, {"Grau", Int64.Type}, {"Intermediacao", type number}, {"PageRank", type number}}, "en-US")
+				in
+				    Tipos
+
+	annotation PBI_ResultType = Table

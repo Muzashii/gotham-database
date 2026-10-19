@@ -1,0 +1,58 @@
+/// 8 arquétipos de combate (design).
+table dArquetipo
+	lineageTag: 205d6972-33a2-5a72-a5ba-1ae721a3f8bf
+
+	column IdArquetipo
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d0c66d1c-1962-55c4-985c-a751825c0ab5
+		summarizeBy: none
+		sourceColumn: IdArquetipo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nome
+		dataType: string
+		lineageTag: b897a5dd-5ed8-5274-ba31-2a08a0374dde
+		summarizeBy: none
+		sourceColumn: Nome
+		sortByColumn: IdArquetipo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sigla
+		dataType: string
+		lineageTag: 84ae383c-6a90-5722-ba58-6ae218dee939
+		summarizeBy: none
+		sourceColumn: Sigla
+		sortByColumn: IdArquetipo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cor
+		dataType: string
+		lineageTag: 028e732a-a12f-5061-aded-124016ae2077
+		summarizeBy: none
+		sourceColumn: Cor
+
+		annotation SummarizationSetBy = Automatic
+
+	column Icone
+		dataType: string
+		lineageTag: 0c711ede-aba7-53c2-ab4f-7dc24bce685a
+		summarizeBy: none
+		sourceColumn: Icone
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dArquetipo = m
+		mode: import
+		source =
+				let
+				    Fonte = LerCsv("dArquetipo"),
+				    Tipos = Table.TransformColumnTypes(Fonte, {{"IdArquetipo", Int64.Type}, {"Nome", type text}, {"Sigla", type text}, {"Cor", type text}, {"Icone", type text}}, "en-US")
+				in
+				    Tipos
+
+	annotation PBI_ResultType = Table

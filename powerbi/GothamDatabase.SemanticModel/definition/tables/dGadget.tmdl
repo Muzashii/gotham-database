@@ -1,0 +1,59 @@
+/// Gadgets de captura da Patrulha.
+table dGadget
+	lineageTag: 0927b23f-ae7a-5522-b41c-7a7931935f1a
+
+	column IdGadget
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 50dc7104-6722-5d0a-95be-f952a6a0191a
+		summarizeBy: none
+		sourceColumn: IdGadget
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nome
+		dataType: string
+		lineageTag: 2c2758e2-aca0-51c4-b9b5-1f45e4b2d6ad
+		summarizeBy: none
+		sourceColumn: Nome
+
+		annotation SummarizationSetBy = Automatic
+
+	column MultCaptura
+		dataType: double
+		formatString: 0.0#
+		lineageTag: 5b990fe5-d8d2-577c-ba25-1c4696400dd2
+		summarizeBy: none
+		sourceColumn: MultCaptura
+
+		annotation SummarizationSetBy = Automatic
+
+	column SoContraArquetipo
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: cb28c836-7f67-5639-80f9-f975dd7ba912
+		summarizeBy: none
+		sourceColumn: SoContraArquetipo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Efeito
+		dataType: string
+		lineageTag: 76909a27-ba96-5574-b73f-76af9fadbc0b
+		summarizeBy: none
+		sourceColumn: Efeito
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dGadget = m
+		mode: import
+		source =
+				let
+				    Fonte = LerCsv("dGadget"),
+				    Tipos = Table.TransformColumnTypes(Fonte, {{"IdGadget", Int64.Type}, {"Nome", type text}, {"MultCaptura", type number}, {"SoContraArquetipo", Int64.Type}, {"Efeito", type text}}, "en-US")
+				in
+				    Tipos
+
+	annotation PBI_ResultType = Table

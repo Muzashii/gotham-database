@@ -1,0 +1,62 @@
+/// Personagem × obra. EhEstreia=1 marca a primeira aparição.
+table fAparicao
+	lineageTag: 0f9a2230-fbb1-5472-be81-d89b47ea6993
+
+	column IdPersonagem
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 513bb758-b598-5474-9446-45b0e0c7c243
+		summarizeBy: none
+		sourceColumn: IdPersonagem
+
+		annotation SummarizationSetBy = Automatic
+
+	column IdObra
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: ac467294-9205-51b7-a03a-5f11b1fe42d3
+		summarizeBy: none
+		sourceColumn: IdObra
+
+		annotation SummarizationSetBy = Automatic
+
+	column IdVersao
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 3d030edd-627d-532c-b12e-33d3c9aed3ef
+		summarizeBy: none
+		sourceColumn: IdVersao
+
+		annotation SummarizationSetBy = Automatic
+
+	column EhEstreia
+		dataType: int64
+		formatString: 0
+		lineageTag: ca7d0cb0-4a21-5000-8005-836d2c63f221
+		summarizeBy: none
+		sourceColumn: EhEstreia
+
+		annotation SummarizationSetBy = Automatic
+
+	column Relevancia
+		dataType: int64
+		formatString: 0
+		lineageTag: c0b02f4d-a812-50d5-b210-f7c5b4347f23
+		summarizeBy: none
+		sourceColumn: Relevancia
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fAparicao = m
+		mode: import
+		source =
+				let
+				    Fonte = LerCsv("fAparicao"),
+				    Tipos = Table.TransformColumnTypes(Fonte, {{"IdPersonagem", Int64.Type}, {"IdObra", Int64.Type}, {"IdVersao", Int64.Type}, {"EhEstreia", Int64.Type}, {"Relevancia", Int64.Type}}, "en-US")
+				in
+				    Tipos
+
+	annotation PBI_ResultType = Table

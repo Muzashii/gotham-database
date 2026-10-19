@@ -1,0 +1,33 @@
+/// HQ, Animação, Série, Filme, Game.
+table dMidia
+	lineageTag: fe3927fc-48d9-5d00-b395-5fd290910d5e
+
+	column IdMidia
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 7b3a352d-fa15-5ed3-9bee-74c9ac93be97
+		summarizeBy: none
+		sourceColumn: IdMidia
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nome
+		dataType: string
+		lineageTag: ecb6eed6-a079-507e-b0cf-88004eac52d1
+		summarizeBy: none
+		sourceColumn: Nome
+		sortByColumn: IdMidia
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dMidia = m
+		mode: import
+		source =
+				let
+				    Fonte = LerCsv("dMidia"),
+				    Tipos = Table.TransformColumnTypes(Fonte, {{"IdMidia", Int64.Type}, {"Nome", type text}}, "en-US")
+				in
+				    Tipos
+
+	annotation PBI_ResultType = Table

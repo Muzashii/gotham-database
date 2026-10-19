@@ -1,5 +1,5 @@
 /// F0: tabela desconectada para medir o limite prático de tamanho de string no visual.
-/// Dono: modelador-semantico. Remover na F3.
+/// Dono: modelador-semantico. Mantida na F3 (o link público mostra a página F0); sai na F5.
 table SpikeTamanho
 	lineageTag: b023d811-0e80-4de8-a7a0-06d15120d283
 

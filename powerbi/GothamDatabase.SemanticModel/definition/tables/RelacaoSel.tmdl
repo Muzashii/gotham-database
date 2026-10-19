@@ -1,0 +1,31 @@
+/// Desconectada. Cópia desconectada dos personagens (clique em nó do grafo).
+table RelacaoSel
+	lineageTag: d5758878-1809-5924-8027-5c72c887aaee
+
+	column IdPersonagem
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 749ad50a-abd7-564a-90b6-a6471426a3a2
+		summarizeBy: none
+		sourceColumn: IdPersonagem
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nome
+		dataType: string
+		lineageTag: eebdbd5b-d57a-598b-afb5-52e85c5af5f2
+		summarizeBy: none
+		sourceColumn: Nome
+
+		annotation SummarizationSetBy = Automatic
+
+	partition RelacaoSel = m
+		mode: import
+		source =
+				let
+				    Fonte = Table.SelectColumns(dPersonagem, {"IdPersonagem", "Nome"})
+				in
+				    Fonte
+
+	annotation PBI_ResultType = Table

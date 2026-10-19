@@ -1,0 +1,151 @@
+/// Encarnação de um personagem com atributos de batalha (0–100). F2: só a versão padrão (Id×100+1).
+table dVersao
+	lineageTag: 8516fb9d-9310-5c18-b733-41bff2a2a961
+
+	column IdVersao
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f7876577-f103-55db-9d23-440290f0a1ce
+		summarizeBy: none
+		sourceColumn: IdVersao
+
+		annotation SummarizationSetBy = Automatic
+
+	column IdPersonagem
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: e27c9bb6-a251-5b48-a433-506abd0e08e8
+		summarizeBy: none
+		sourceColumn: IdPersonagem
+
+		annotation SummarizationSetBy = Automatic
+
+	column NomeVersao
+		dataType: string
+		lineageTag: e99f45f4-fafa-50d5-856d-fdd3e7b93869
+		summarizeBy: none
+		sourceColumn: NomeVersao
+
+		annotation SummarizationSetBy = Automatic
+
+	column IdMidia
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: bb3dc4da-daf5-5d8a-9689-9397ddebc588
+		summarizeBy: none
+		sourceColumn: IdMidia
+
+		annotation SummarizationSetBy = Automatic
+
+	column Int
+		dataType: int64
+		formatString: 0
+		lineageTag: b78be768-5726-59ce-a2b2-654862c4ee1c
+		summarizeBy: none
+		sourceColumn: Int
+
+		annotation SummarizationSetBy = Automatic
+
+	column For
+		dataType: int64
+		formatString: 0
+		lineageTag: 6f3446dd-52f6-512a-81fa-7655dae79f9b
+		summarizeBy: none
+		sourceColumn: For
+
+		annotation SummarizationSetBy = Automatic
+
+	column Vel
+		dataType: int64
+		formatString: 0
+		lineageTag: 83199c08-627a-5506-b817-2e5ff2e55375
+		summarizeBy: none
+		sourceColumn: Vel
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dur
+		dataType: int64
+		formatString: 0
+		lineageTag: a165b8e3-067e-5d27-8aef-866c3ab86320
+		summarizeBy: none
+		sourceColumn: Dur
+
+		annotation SummarizationSetBy = Automatic
+
+	column Pod
+		dataType: int64
+		formatString: 0
+		lineageTag: 104f8488-7389-5f5a-bdc8-993049ece9d6
+		summarizeBy: none
+		sourceColumn: Pod
+
+		annotation SummarizationSetBy = Automatic
+
+	column Com
+		dataType: int64
+		formatString: 0
+		lineageTag: a7eef005-cae3-5621-a934-f926662bd187
+		summarizeBy: none
+		sourceColumn: Com
+
+		annotation SummarizationSetBy = Automatic
+
+	column IdArquetipo
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 6c094170-17f7-5e65-987b-b08d4cfa46bb
+		summarizeBy: none
+		sourceColumn: IdArquetipo
+
+		annotation SummarizationSetBy = Automatic
+
+	column EhTransformacao
+		dataType: int64
+		formatString: 0
+		lineageTag: dd136282-50da-5335-850d-49fdaddcdf72
+		summarizeBy: none
+		sourceColumn: EhTransformacao
+
+		annotation SummarizationSetBy = Automatic
+
+	column Raridade
+		dataType: string
+		lineageTag: 4cd732ee-75a3-57f1-b512-fbe8cf1eeebf
+		summarizeBy: none
+		sourceColumn: Raridade
+
+		annotation SummarizationSetBy = Automatic
+
+	column UrlImagem
+		dataType: string
+		isHidden
+		lineageTag: 23cbe91f-7529-5d34-97d5-28bcf08b0ee3
+		summarizeBy: none
+		sourceColumn: UrlImagem
+		dataCategory: ImageUrl
+
+		annotation SummarizationSetBy = Automatic
+
+	column confianca
+		dataType: string
+		lineageTag: 53bed509-971f-56c4-b226-fea4fadbdbe9
+		summarizeBy: none
+		sourceColumn: confianca
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dVersao = m
+		mode: import
+		source =
+				let
+				    Fonte = LerCsv("dVersao"),
+				    Tipos = Table.TransformColumnTypes(Fonte, {{"IdVersao", Int64.Type}, {"IdPersonagem", Int64.Type}, {"NomeVersao", type text}, {"IdMidia", Int64.Type}, {"Int", Int64.Type}, {"For", Int64.Type}, {"Vel", Int64.Type}, {"Dur", Int64.Type}, {"Pod", Int64.Type}, {"Com", Int64.Type}, {"IdArquetipo", Int64.Type}, {"EhTransformacao", Int64.Type}, {"Raridade", type text}, {"UrlImagem", type text}, {"confianca", type text}}, "en-US")
+				in
+				    Tipos
+
+	annotation PBI_ResultType = Table

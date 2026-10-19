@@ -1,0 +1,60 @@
+/// Arestas tipadas entre personagens (simétricas em forma canônica Origem < Destino).
+table fRelacao
+	lineageTag: 514f6123-c397-5d23-884b-21ff8d34367c
+
+	column IdOrigem
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 749399fd-f7a2-5acb-a511-c368564d6c5e
+		summarizeBy: none
+		sourceColumn: IdOrigem
+
+		annotation SummarizationSetBy = Automatic
+
+	column IdDestino
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 9e8d00c9-35f2-5832-a7d5-dd57e20511af
+		summarizeBy: none
+		sourceColumn: IdDestino
+
+		annotation SummarizationSetBy = Automatic
+
+	column TipoRelacao
+		dataType: string
+		lineageTag: 9e989ccd-0bff-587c-b021-28ce562ac86e
+		summarizeBy: none
+		sourceColumn: TipoRelacao
+
+		annotation SummarizationSetBy = Automatic
+
+	column Peso
+		dataType: int64
+		formatString: 0
+		lineageTag: 31decb45-9cd4-5357-b292-9153d363a9a3
+		summarizeBy: none
+		sourceColumn: Peso
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fonte
+		dataType: string
+		isHidden
+		lineageTag: e4c42681-a559-5e37-83c9-7966e8117ba2
+		summarizeBy: none
+		sourceColumn: Fonte
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fRelacao = m
+		mode: import
+		source =
+				let
+				    Fonte = LerCsv("fRelacao"),
+				    Tipos = Table.TransformColumnTypes(Fonte, {{"IdOrigem", Int64.Type}, {"IdDestino", Int64.Type}, {"TipoRelacao", type text}, {"Peso", Int64.Type}, {"Fonte", type text}}, "en-US")
+				in
+				    Tipos
+
+	annotation PBI_ResultType = Table

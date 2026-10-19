@@ -1,0 +1,98 @@
+relationship aac20f29-c1a2-51fe-8b7c-612a12f0eb17
+	fromColumn: dPersonagem.IdArquetipo
+	toColumn: dArquetipo.IdArquetipo
+
+relationship 3e5f19d5-9bfb-5cad-a532-c6c5f52b140f
+	isActive: false
+	fromColumn: dPersonagem.IdEra
+	toColumn: dEra.IdEra
+
+relationship 179a5c91-9809-5310-ba31-3a52d1432ff8
+	fromColumn: dVersao.IdPersonagem
+	toColumn: dPersonagem.IdPersonagem
+
+relationship 7d2e056b-98c9-53b4-b882-de0ce0345fb5
+	isActive: false
+	fromColumn: dVersao.IdArquetipo
+	toColumn: dArquetipo.IdArquetipo
+
+relationship 7cb2d4bb-d842-5a93-8905-0bb83dc652be
+	fromColumn: dVersao.IdMidia
+	toColumn: dMidia.IdMidia
+
+relationship 8eb267a4-eaed-596f-a97c-13d66b59d9e5
+	fromColumn: bPersonagemAfiliacao.IdPersonagem
+	toColumn: dPersonagem.IdPersonagem
+
+relationship 61e34055-f85e-592a-bdd6-3ea6e5cab691
+	fromColumn: bPersonagemAfiliacao.IdAfiliacao
+	toColumn: dAfiliacao.IdAfiliacao
+
+relationship 9a2ef438-2bdc-5d28-8bed-d4d59592e6fc
+	fromColumn: dObra.IdEra
+	toColumn: dEra.IdEra
+
+relationship c08cb522-e119-506d-94a0-7bbb40796cc9
+	fromColumn: dObra.IdMidia
+	toColumn: dMidia.IdMidia
+
+relationship 9e78e063-a3dd-513e-b856-4380b2ee727d
+	fromColumn: fAparicao.IdPersonagem
+	toColumn: dPersonagem.IdPersonagem
+
+relationship 29356d95-8a94-5d10-96bc-a475a6581752
+	fromColumn: fAparicao.IdObra
+	toColumn: dObra.IdObra
+
+relationship a19a5ddc-9ce5-5dfa-abf9-f6d2bc4e42e7
+	isActive: false
+	fromColumn: fAparicao.IdVersao
+	toColumn: dVersao.IdVersao
+
+relationship 1e3bc4f9-7027-5d0b-80d6-655755787ff3
+	fromColumn: fRelacao.IdOrigem
+	toColumn: dPersonagem.IdPersonagem
+
+relationship 9b5c8a8d-f987-5224-82b9-21ae64f3d984
+	isActive: false
+	fromColumn: fRelacao.IdDestino
+	toColumn: dPersonagem.IdPersonagem
+
+relationship bb6cd2bc-4035-5df3-98bf-f8c161768e6e
+	fromColumn: fMatchup.IdAtaque
+	toColumn: dArquetipo.IdArquetipo
+
+relationship 967fc78c-cc4a-5dbc-86ca-7a9ce8b9d1bd
+	isActive: false
+	fromColumn: fMatchup.IdDefesa
+	toColumn: dArquetipo.IdArquetipo
+
+relationship b94e5b43-aba2-516c-bf1d-d414f45ea8c8
+	isActive: false
+	fromColumn: dGolpe.IdArquetipo
+	toColumn: dArquetipo.IdArquetipo
+
+relationship 97fcb585-2281-5dfb-8a2f-265b9bbe9c62
+	fromColumn: bVersaoGolpe.IdVersao
+	toColumn: dVersao.IdVersao
+
+relationship 49a76289-7a2c-58d8-969f-484edaca1aac
+	fromColumn: bVersaoGolpe.IdGolpe
+	toColumn: dGolpe.IdGolpe
+
+relationship d66e0715-25e8-5574-9b0c-3aec19ac412a
+	isActive: false
+	fromColumn: dGadget.SoContraArquetipo
+	toColumn: dArquetipo.IdArquetipo
+
+relationship e500d895-7425-5323-83c2-cfecc33e2410
+	fromColumn: fEncontro.IdBairro
+	toColumn: dBairro.IdBairro
+
+relationship 45b669b4-9f53-5cce-92ee-95f505bdf239
+	fromColumn: fEncontro.IdPersonagem
+	toColumn: dPersonagem.IdPersonagem
+
+relationship 9efb0e91-6bce-59ff-8e2d-8c8f571adb2e
+	fromColumn: dCentralidade.IdPersonagem
+	toColumn: dPersonagem.IdPersonagem

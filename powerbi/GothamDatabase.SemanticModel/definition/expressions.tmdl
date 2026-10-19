@@ -1,0 +1,15 @@
+/// Lê um CSV de data/curated do repositório público. Web.Contents com URL base fixa + RelativePath
+/// é o padrão que o serviço do Power BI consegue atualizar (fonte não dinâmica).
+expression LerCsv =
+		(nome as text) as table =>
+		let
+		    Bruto = Web.Contents("https://raw.githubusercontent.com", [RelativePath = "Muzashii/gotham-database/main/data/curated/" & nome & ".csv"]),
+		    Csv = Csv.Document(Bruto, [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+		    Cabecalho = Table.PromoteHeaders(Csv, [PromoteAllScalars = true]),
+		    // célula vazia no CSV = ausente (null), não texto vazio: ISBLANK() funciona no DAX
+		    Nulos = Table.ReplaceValue(Cabecalho, "", null, Replacer.ReplaceValue, Table.ColumnNames(Cabecalho))
+		in
+		    Nulos
+	lineageTag: 57bd128a-9562-53aa-bbeb-7c57afc220c5
+
+	annotation PBI_ResultType = Function

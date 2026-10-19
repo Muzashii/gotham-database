@@ -1,0 +1,40 @@
+/// Desconectada. Modo da ficha do Batcomputador.
+table Modo
+	lineageTag: f4076b38-e746-5d7b-ad9c-687799a69112
+
+	column Ordem
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b72fb625-14b5-5f52-930c-442cbf14b54c
+		summarizeBy: none
+		sourceColumn: Ordem
+
+		annotation SummarizationSetBy = Automatic
+
+	column Modo
+		dataType: string
+		lineageTag: 8341ec82-3221-52df-a726-3c46215aaef5
+		summarizeBy: none
+		sourceColumn: Modo
+		sortByColumn: Ordem
+
+		annotation SummarizationSetBy = Automatic
+
+	column Icone
+		dataType: string
+		lineageTag: bcde7bc3-ff56-5080-9ce0-6b61d25615dd
+		summarizeBy: none
+		sourceColumn: Icone
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Modo = m
+		mode: import
+		source =
+				let
+				    Fonte = #table(type table [Ordem = Int64.Type, Modo = text, Icone = text], {{1, "Arquivo", "🦇"}, {2, "Arkham", "🏥"}, {3, "Versões", "🎭"}, {4, "Capas", "📚"}})
+				in
+				    Fonte
+
+	annotation PBI_ResultType = Table

@@ -7,10 +7,32 @@ model Model
 		legacyRedirects
 		returnErrorValuesAsNull
 
-annotation PBI_QueryOrder = ["_Medidas","SpikeTamanho"]
+annotation PBI_QueryOrder = ["_Medidas","SpikeTamanho","dPersonagem","dVersao","dEra","dMidia","dAfiliacao","bPersonagemAfiliacao","dObra","fAparicao","fRelacao","dArquetipo","fMatchup","dGolpe","bVersaoGolpe","dGadget","dBairro","fEncontro","dCentralidade","dStat","Modo","TemaSel","VersaoSel","RelacaoSel","ObraSel"]
 
 annotation PBI_ProTooling = ["DevMode"]
 
 ref table _Medidas
 ref table SpikeTamanho
-
+ref table dPersonagem
+ref table dVersao
+ref table dEra
+ref table dMidia
+ref table dAfiliacao
+ref table bPersonagemAfiliacao
+ref table dObra
+ref table fAparicao
+ref table fRelacao
+ref table dArquetipo
+ref table fMatchup
+ref table dGolpe
+ref table bVersaoGolpe
+ref table dGadget
+ref table dBairro
+ref table fEncontro
+ref table dCentralidade
+ref table dStat
+ref table Modo
+ref table TemaSel
+ref table VersaoSel
+ref table RelacaoSel
+ref table ObraSel

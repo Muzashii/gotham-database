@@ -1,0 +1,31 @@
+/// Desconectada. Cópia desconectada das obras (clique em marco da linha do tempo).
+table ObraSel
+	lineageTag: e8bc46f9-fd05-5e33-b456-1a1b8601c66a
+
+	column IdObra
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 59e19155-d2dd-5d47-9cf8-a7056a8e3af4
+		summarizeBy: none
+		sourceColumn: IdObra
+
+		annotation SummarizationSetBy = Automatic
+
+	column Titulo
+		dataType: string
+		lineageTag: a904f945-4baf-5493-8f8b-0b0d7ac8857b
+		summarizeBy: none
+		sourceColumn: Titulo
+
+		annotation SummarizationSetBy = Automatic
+
+	partition ObraSel = m
+		mode: import
+		source =
+				let
+				    Fonte = Table.SelectColumns(dObra, {"IdObra", "Titulo"})
+				in
+				    Fonte
+
+	annotation PBI_ResultType = Table

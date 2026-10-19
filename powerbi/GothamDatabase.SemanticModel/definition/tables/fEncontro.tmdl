@@ -1,0 +1,51 @@
+/// Bairro × personagem com peso de sorteio.
+table fEncontro
+	lineageTag: ee601c1b-d37e-5e93-abcd-c0f079c0a17d
+
+	column IdBairro
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 947815e5-f39f-5cf9-aaa1-9d53c461c1e3
+		summarizeBy: none
+		sourceColumn: IdBairro
+
+		annotation SummarizationSetBy = Automatic
+
+	column IdPersonagem
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: e5d1825c-d07e-5b88-8599-12d5aa3dd246
+		summarizeBy: none
+		sourceColumn: IdPersonagem
+
+		annotation SummarizationSetBy = Automatic
+
+	column Peso
+		dataType: int64
+		formatString: 0
+		lineageTag: f9414369-8718-5dd1-bc2d-5920d6ceb3dc
+		summarizeBy: none
+		sourceColumn: Peso
+
+		annotation SummarizationSetBy = Automatic
+
+	column Raridade
+		dataType: string
+		lineageTag: a9a54110-01b2-54fb-b23c-8f72c32855f2
+		summarizeBy: none
+		sourceColumn: Raridade
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fEncontro = m
+		mode: import
+		source =
+				let
+				    Fonte = LerCsv("fEncontro"),
+				    Tipos = Table.TransformColumnTypes(Fonte, {{"IdBairro", Int64.Type}, {"IdPersonagem", Int64.Type}, {"Peso", Int64.Type}, {"Raridade", type text}}, "en-US")
+				in
+				    Tipos
+
+	annotation PBI_ResultType = Table

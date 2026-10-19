@@ -1,0 +1,43 @@
+/// Multiplicador de dano arquétipo atacante × defensor.
+table fMatchup
+	lineageTag: a53bed8f-8e88-5926-81c2-638d3f63203d
+
+	column IdAtaque
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: fed35c97-9aff-522d-b278-11b401880ec2
+		summarizeBy: none
+		sourceColumn: IdAtaque
+
+		annotation SummarizationSetBy = Automatic
+
+	column IdDefesa
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 3e59f0a4-4e35-54e9-9bd8-568dcce46b45
+		summarizeBy: none
+		sourceColumn: IdDefesa
+
+		annotation SummarizationSetBy = Automatic
+
+	column Multiplicador
+		dataType: double
+		formatString: 0.0#
+		lineageTag: 69cf74ce-3754-58a5-ae42-de82603bd045
+		summarizeBy: none
+		sourceColumn: Multiplicador
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fMatchup = m
+		mode: import
+		source =
+				let
+				    Fonte = LerCsv("fMatchup"),
+				    Tipos = Table.TransformColumnTypes(Fonte, {{"IdAtaque", Int64.Type}, {"IdDefesa", Int64.Type}, {"Multiplicador", type number}}, "en-US")
+				in
+				    Tipos
+
+	annotation PBI_ResultType = Table

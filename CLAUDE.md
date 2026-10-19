@@ -24,6 +24,8 @@ Plano completo: `docs/plano.md`. Fase atual e pendências: último `handoffs/Fx-
 - `python build/checks.py` reprova aspas duplas, crases triplas, slots quebrados,
   tokens CSS inexistentes e medidas acima do orçamento (`build/budget.json`).
 - `python build/build_model.py` regrava `tables/_Medidas.tmdl` (arquivo gerado — não editar à mão).
+- `python build/build_tabelas.py` regrava as tabelas curadas/desconectadas, `relationships.tmdl`,
+  `expressions.tmdl` e a seção do modelo no dicionário. Decisões de modelagem: `build/modelo_spec.py`.
 - O Power BI Desktop regrava `_Medidas.tmdl` ao salvar: depois de salvar no Desktop, rode
   `build/build_model.py` de novo (o teste de sincronia acusa se esquecer).
 - Limite medido na F0: uma medida até ~1 milhão de caracteres renderiza; 5 milhões falha.
@@ -35,6 +37,7 @@ Plano completo: `docs/plano.md`. Fase atual e pendências: último `handoffs/Fx-
 ```bash
 python build/checks.py
 python build/build_model.py
+python build/build_tabelas.py    # modelo em estrela (TMDL) + seção do dicionário
 python build/build_report.py
 python build/build_preview.py
 python -m etl.run_etl            # seeds + Wikidata (+ Comic Vine c/ chave) -> data/curated

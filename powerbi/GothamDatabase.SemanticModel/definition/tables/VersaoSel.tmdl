@@ -1,0 +1,31 @@
+/// Desconectada. Cópia desconectada das versões (clique no carrossel de versões).
+table VersaoSel
+	lineageTag: 6c41e8fe-6022-5b7a-99c3-37077ab87a78
+
+	column IdVersao
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 927e46bf-5ce1-5420-839c-e8013d3dd49f
+		summarizeBy: none
+		sourceColumn: IdVersao
+
+		annotation SummarizationSetBy = Automatic
+
+	column NomeVersao
+		dataType: string
+		lineageTag: 1a930f95-9c79-5108-be65-e91a977a20c1
+		summarizeBy: none
+		sourceColumn: NomeVersao
+
+		annotation SummarizationSetBy = Automatic
+
+	partition VersaoSel = m
+		mode: import
+		source =
+				let
+				    Fonte = Table.SelectColumns(dVersao, {"IdVersao", "NomeVersao"})
+				in
+				    Fonte
+
+	annotation PBI_ResultType = Table

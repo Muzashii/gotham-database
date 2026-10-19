@@ -2,6 +2,7 @@
 e o contraste AA dos tokens de texto."""
 import json
 import re
+import urllib.error
 import urllib.request
 from pathlib import Path
 
@@ -40,7 +41,12 @@ def test_json_pbip_valida_no_schema_oficial(arq: Path):
     dados = json.loads(arq.read_text(encoding="utf-8"))
     url = dados["$schema"]
     registro = referencing.Registry(retrieve=lambda u: referencing.Resource.from_contents(baixar(u)))
-    schema = baixar(url)
+    try:
+        schema = baixar(url)
+    except urllib.error.HTTPError as e:
+        if e.code == 404:  # o Desktop grava versões de schema que a Microsoft ainda não publicou
+            pytest.skip(f"schema ainda não publicado pela Microsoft: {url}")
+        raise
     validador = jsonschema.validators.validator_for(schema)(schema, registry=registro)
     erros = sorted(validador.iter_errors(dados), key=lambda e: list(e.path))
     assert not erros, "\n".join(f"{list(e.path)}: {e.message[:200]}" for e in erros[:10])

@@ -1,0 +1,58 @@
+/// Bairros de Gotham da Patrulha.
+table dBairro
+	lineageTag: 574a29ea-df0f-594e-9fcc-3d7326730bdd
+
+	column IdBairro
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 8e17bcc9-3895-5a52-b6eb-f8b852ef7140
+		summarizeBy: none
+		sourceColumn: IdBairro
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nome
+		dataType: string
+		lineageTag: bbf51dd3-9b37-5bd6-9658-0b2a5bbf06f8
+		summarizeBy: none
+		sourceColumn: Nome
+
+		annotation SummarizationSetBy = Automatic
+
+	column BonusCaptura
+		dataType: double
+		formatString: 0.0#
+		lineageTag: c7137c89-2e07-5329-b358-00664998e3f6
+		summarizeBy: none
+		sourceColumn: BonusCaptura
+
+		annotation SummarizationSetBy = Automatic
+
+	column TemRecarga
+		dataType: int64
+		formatString: 0
+		lineageTag: 8e23f7a9-71c1-5425-8fee-e476d9610586
+		summarizeBy: none
+		sourceColumn: TemRecarga
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cor
+		dataType: string
+		lineageTag: 150e36f8-86fb-5767-9139-47c3cf526301
+		summarizeBy: none
+		sourceColumn: Cor
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dBairro = m
+		mode: import
+		source =
+				let
+				    Fonte = LerCsv("dBairro"),
+				    Tipos = Table.TransformColumnTypes(Fonte, {{"IdBairro", Int64.Type}, {"Nome", type text}, {"BonusCaptura", type number}, {"TemRecarga", Int64.Type}, {"Cor", type text}}, "en-US")
+				in
+				    Tipos
+
+	annotation PBI_ResultType = Table

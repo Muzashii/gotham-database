@@ -1,0 +1,173 @@
+/// Um personagem por linha (50 na F2). Chave canônica do projeto.
+table dPersonagem
+	lineageTag: 573d9204-0335-5b1b-8fd9-a7589ce96dfe
+
+	column IdPersonagem
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: df052b8f-a1ac-55a6-a9ee-8bcf6f3a6b53
+		summarizeBy: none
+		sourceColumn: IdPersonagem
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nome
+		dataType: string
+		lineageTag: d6b0b8b8-4a75-5214-b4d6-acc7de1505ef
+		summarizeBy: none
+		sourceColumn: Nome
+
+		annotation SummarizationSetBy = Automatic
+
+	column Codinome
+		dataType: string
+		lineageTag: 0e11c099-83a3-5121-8c37-c88cdbb20376
+		summarizeBy: none
+		sourceColumn: Codinome
+
+		annotation SummarizationSetBy = Automatic
+
+	column IdentidadeCivil
+		dataType: string
+		lineageTag: f50151f5-83bd-5e40-8444-cc8dc51d55c3
+		summarizeBy: none
+		sourceColumn: IdentidadeCivil
+
+		annotation SummarizationSetBy = Automatic
+
+	column Alinhamento
+		dataType: string
+		lineageTag: 887addc1-3851-527e-82d8-70b9b13f44e8
+		summarizeBy: none
+		sourceColumn: Alinhamento
+
+		annotation SummarizationSetBy = Automatic
+
+	column IdArquetipo
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: a4badbe9-aae5-5ca2-86ee-4c6e7ae3d90b
+		summarizeBy: none
+		sourceColumn: IdArquetipo
+
+		annotation SummarizationSetBy = Automatic
+
+	column JustificativaArquetipo
+		dataType: string
+		isHidden
+		lineageTag: cccb3707-1160-544c-89f6-4dbc4a91034b
+		summarizeBy: none
+		sourceColumn: JustificativaArquetipo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Faccao
+		dataType: string
+		lineageTag: d0d72791-c9e6-559b-8ecf-a28bbfcec8f3
+		summarizeBy: none
+		sourceColumn: Faccao
+
+		annotation SummarizationSetBy = Automatic
+
+	column PrimeiraAparicao
+		dataType: string
+		lineageTag: 29e9bd8f-f5e8-5cac-8648-1a63093d3445
+		summarizeBy: none
+		sourceColumn: PrimeiraAparicao
+
+		annotation SummarizationSetBy = Automatic
+
+	column AnoEstreia
+		dataType: int64
+		formatString: 0
+		lineageTag: ecdc85ff-6993-53f8-87d6-b8d4101d7389
+		summarizeBy: none
+		sourceColumn: AnoEstreia
+
+		annotation SummarizationSetBy = Automatic
+
+	column IdEra
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 1a542d1d-90f6-5896-b26a-37a6ffb7b0e2
+		summarizeBy: none
+		sourceColumn: IdEra
+
+		annotation SummarizationSetBy = Automatic
+
+	column MidiaEstreia
+		dataType: string
+		lineageTag: fcfdaaaa-3d7c-50f2-8911-fb66dc39bc85
+		summarizeBy: none
+		sourceColumn: MidiaEstreia
+
+		annotation SummarizationSetBy = Automatic
+
+	column Criadores
+		dataType: string
+		lineageTag: 3bdee6ff-cf26-51cb-a2e9-e1b87d9b3323
+		summarizeBy: none
+		sourceColumn: Criadores
+
+		annotation SummarizationSetBy = Automatic
+
+	column WikidataQid
+		dataType: string
+		isHidden
+		lineageTag: 3a31e8f6-b23e-592e-95b8-d7c41d2a5dfc
+		summarizeBy: none
+		sourceColumn: WikidataQid
+
+		annotation SummarizationSetBy = Automatic
+
+	column IdSuperHeroApi
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d5804c6a-184f-5ed2-b388-0c5d451bdfd2
+		summarizeBy: none
+		sourceColumn: IdSuperHeroApi
+
+		annotation SummarizationSetBy = Automatic
+
+	column ComicVineId
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 7aaa4f10-fc1a-5885-9672-2b938a1bb6b0
+		summarizeBy: none
+		sourceColumn: ComicVineId
+
+		annotation SummarizationSetBy = Automatic
+
+	column EdicoesComicVine
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: c9260f78-01aa-5ef7-a99b-d9830fe165ba
+		summarizeBy: sum
+		sourceColumn: EdicoesComicVine
+
+		annotation SummarizationSetBy = Automatic
+
+	column confianca
+		dataType: string
+		lineageTag: 2a3825a1-c2d9-5d7f-86e8-149f48cae032
+		summarizeBy: none
+		sourceColumn: confianca
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dPersonagem = m
+		mode: import
+		source =
+				let
+				    Fonte = LerCsv("dPersonagem"),
+				    Tipos = Table.TransformColumnTypes(Fonte, {{"IdPersonagem", Int64.Type}, {"Nome", type text}, {"Codinome", type text}, {"IdentidadeCivil", type text}, {"Alinhamento", type text}, {"IdArquetipo", Int64.Type}, {"JustificativaArquetipo", type text}, {"Faccao", type text}, {"PrimeiraAparicao", type text}, {"AnoEstreia", Int64.Type}, {"IdEra", Int64.Type}, {"MidiaEstreia", type text}, {"Criadores", type text}, {"WikidataQid", type text}, {"IdSuperHeroApi", Int64.Type}, {"ComicVineId", Int64.Type}, {"EdicoesComicVine", Int64.Type}, {"confianca", type text}}, "en-US")
+				in
+				    Tipos
+
+	annotation PBI_ResultType = Table

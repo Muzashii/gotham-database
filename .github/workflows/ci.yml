@@ -14,11 +14,12 @@ jobs:
       - run: pip install 'pytest>=8' 'jsonschema>=4.23' 'pandas>=3' 'pandera>=0.34' 'networkx>=3.7' scipy
       - name: checks (aspas, tokens, orçamento)
         run: python build/checks.py
-      - name: TMDL gerado está atualizado
+      - name: TMDL e dicionário gerados estão atualizados
         run: |
           python build/build_model.py
+          python build/build_tabelas.py
           python build/build_report.py
-          git diff --exit-code -- powerbi
+          git diff --exit-code -- powerbi contracts
       - run: python -m pytest
 
   js:

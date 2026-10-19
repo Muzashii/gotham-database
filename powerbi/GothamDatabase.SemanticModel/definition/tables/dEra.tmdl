@@ -1,0 +1,60 @@
+/// Eras editoriais (limites por convenção).
+table dEra
+	lineageTag: b4cd4641-f943-5516-a4ff-a1b828f7297e
+
+	column IdEra
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b3921418-f4a6-5605-971a-490f48e93c80
+		summarizeBy: none
+		sourceColumn: IdEra
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nome
+		dataType: string
+		lineageTag: a6cfa512-676f-5189-8bcf-13964ca449b8
+		summarizeBy: none
+		sourceColumn: Nome
+		sortByColumn: Ordem
+
+		annotation SummarizationSetBy = Automatic
+
+	column AnoInicio
+		dataType: int64
+		formatString: 0
+		lineageTag: 0a13238e-e6f9-5273-9aaf-638be5e0c19c
+		summarizeBy: none
+		sourceColumn: AnoInicio
+
+		annotation SummarizationSetBy = Automatic
+
+	column AnoFim
+		dataType: int64
+		formatString: 0
+		lineageTag: f7288da5-f158-5676-8836-ce10dc83d224
+		summarizeBy: none
+		sourceColumn: AnoFim
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ordem
+		dataType: int64
+		formatString: 0
+		lineageTag: 609b06cf-e01d-5166-9154-a04fcf7ab2c8
+		summarizeBy: none
+		sourceColumn: Ordem
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dEra = m
+		mode: import
+		source =
+				let
+				    Fonte = LerCsv("dEra"),
+				    Tipos = Table.TransformColumnTypes(Fonte, {{"IdEra", Int64.Type}, {"Nome", type text}, {"AnoInicio", Int64.Type}, {"AnoFim", Int64.Type}, {"Ordem", Int64.Type}}, "en-US")
+				in
+				    Tipos
+
+	annotation PBI_ResultType = Table
