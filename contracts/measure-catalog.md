@@ -13,7 +13,6 @@ Pastas de exibição: `00 Seleção`, `10 Ficha HTML`, `20 CSS`, `30 SVG`, `40 J
 | `Spike Linhas` | 99 Spike | Prova de leitura do modelo (contagem de linhas) | `SpikeTamanho` |
 | `HTML Spike` | 99 Spike | HTML + CSS + JS do spike (template `src/html/spike.html`) | todas acima |
 | `Tamanho HTML Spike` | 99 Spike | `LEN([HTML Spike])` — tamanho real entregue ao visual | `[HTML Spike]` |
-
 | `Painel KPIs` | 50 Analítico | Cartões HTML: personagens, obras, aparições, relações, % vilões | dPersonagem, dObra, fAparicao, fRelacao |
 | `Painel Barras Midia` | 50 Analítico | Barras de aparições por mídia | dMidia → dObra → fAparicao |
 | `Painel Barras Era` | 50 Analítico | Colunas de obras por era (ordem de `dEra[Ordem]`) | dEra → dObra |
