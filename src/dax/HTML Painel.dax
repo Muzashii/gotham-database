@@ -1,0 +1,3 @@
+-- @pasta: 10 Ficha HTML
+-- Página Painel do Comissário. O build expande o template src/html/painel.html
+TEMPLATE(painel.html)

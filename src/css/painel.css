@@ -1,0 +1,80 @@
+/* Painel do Comissário (plano §3.7) — layout em grade, barras e cards de personagem */
+.gd-painel {
+  position: relative;
+  overflow: hidden;
+  min-height: 100%;
+  padding: 16px 20px 12px;
+  box-sizing: border-box;
+  background: radial-gradient(ellipse at 50% -10%, #1a2330 0%, var(--g-bg) 55%);
+  color: var(--g-text);
+  font-family: var(--font-ui);
+}
+.gd-rain {
+  position: absolute;
+  inset: -50% -50% 0 -50%;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(105deg, transparent 0 18px, rgba(215, 221, 228, 0.05) 18px 19px);
+  animation: gd-chuva 0.7s linear infinite;
+}
+@keyframes gd-chuva {
+  from { transform: translate3d(0, -40px, 0); }
+  to { transform: translate3d(-11px, 0, 0); }
+}
+.gd-top, .gd-kpis, .gd-cols, .gd-arquivo, .gd-rodape { position: relative; }
+.gd-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 1px solid var(--g-line);
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+}
+.gd-title { font-family: var(--font-title); font-size: 30px; letter-spacing: 2px; color: var(--bat-yellow); }
+.gd-pag { margin-left: 12px; font-family: var(--font-mono); font-size: 13px; color: var(--g-text); text-transform: uppercase; letter-spacing: 2px; }
+.gd-sub { color: var(--g-muted); font-size: 13px; }
+.gd-kpis { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 12px; }
+.gd-kpi { background: var(--g-panel); border: 1px solid var(--g-line); border-left: 3px solid var(--bat-yellow); border-radius: 6px; padding: 8px 12px; }
+.gd-kpi b { display: block; font-family: var(--font-mono); font-size: 26px; color: var(--g-text); }
+.gd-kpi span { color: var(--g-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+.gd-cols { display: grid; grid-template-columns: 1fr 1.3fr 1fr; gap: 12px; margin-bottom: 12px; }
+.gd-box { background: rgba(16, 20, 26, 0.92); border: 1px solid var(--g-line); border-radius: 6px; padding: 10px 14px; }
+.gd-box h2 { margin: 0 0 8px; font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: var(--bat-yellow); text-transform: uppercase; letter-spacing: 1.5px; }
+.gd-nota { margin: -6px 0 8px; color: var(--g-muted); font-size: 11px; }
+.gd-bar { display: grid; grid-template-columns: 92px 1fr 52px; align-items: center; gap: 8px; margin: 5px 0; font-size: 13px; }
+.gd-bl { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.gd-bt { height: 10px; background: var(--g-line); border-radius: 5px; overflow: hidden; }
+.gd-bt i { display: block; height: 100%; background: linear-gradient(90deg, var(--bat-yellow), #c99c00); border-radius: 5px; transform-origin: left; animation: gd-cresce 0.9s ease-out; }
+.gd-bv { text-align: right; font-family: var(--font-mono); font-size: 12px; color: var(--g-muted); }
+.gd-colunas { display: flex; align-items: flex-end; gap: 6px; height: 150px; }
+.gd-col { flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%; }
+.gd-cv { font-family: var(--font-mono); font-size: 11px; color: var(--g-muted); }
+.gd-ct { flex: 1; width: 70%; display: flex; align-items: flex-end; }
+.gd-ct i { display: block; width: 100%; background: linear-gradient(0deg, #c99c00, var(--bat-yellow)); border-radius: 3px 3px 0 0; transform-origin: bottom; animation: gd-sobe 0.9s ease-out; }
+.gd-cl { margin-top: 4px; font-size: 10px; color: var(--g-muted); text-align: center; line-height: 1.1; height: 24px; }
+@keyframes gd-cresce { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes gd-sobe { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+.gd-grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 8px; }
+.gd-ficha { position: relative; background: var(--g-panel); border: 1px solid var(--g-line); border-radius: 6px; overflow: hidden; transition: transform var(--t-fast); }
+.gd-ficha:hover { transform: translateY(-3px); }
+.gd-foto { height: 120px; background: radial-gradient(circle at 50% 35%, #2a3542 0 22%, transparent 23%), radial-gradient(ellipse at 50% 100%, #2a3542 0 45%, var(--g-bg) 46%); }
+.gd-foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.gd-faixa { height: 4px; background: var(--g-muted); }
+.gd-ficha b { display: block; padding: 6px 8px 0; font-size: 14px; line-height: 1.15; }
+.gd-ficha span { display: block; padding: 0 8px; color: var(--g-muted); font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.gd-ficha em { display: block; padding: 4px 8px 7px; font-style: normal; font-family: var(--font-mono); font-size: 9px; color: var(--g-muted); }
+.fx-batfamilia .gd-faixa { background: var(--bat-yellow); }
+.fx-coringa .gd-faixa { background: var(--joker-purple); }
+.fx-espantalho .gd-faixa, .fx-charada .gd-faixa { background: var(--arkham-green); }
+.fx-frio .gd-faixa { background: var(--ice); }
+.fx-hera .gd-faixa { background: var(--ivy); }
+.fx-duascaras .gd-faixa, .fx-vagalume .gd-faixa { background: var(--blood); }
+.fx-corujas .gd-faixa { background: var(--owl-bronze); }
+.gd-rodape { margin-top: 10px; color: var(--g-muted); font-size: 11px; text-align: center; }
+@media (prefers-reduced-motion: reduce) {
+  .gd-rain, .gd-bt i, .gd-ct i { animation: none; }
+  .gd-ficha { transition: none; }
+}
+@media (max-width: 900px) {
+  .gd-kpis { grid-template-columns: repeat(2, 1fr); }
+  .gd-cols { grid-template-columns: 1fr; }
+}

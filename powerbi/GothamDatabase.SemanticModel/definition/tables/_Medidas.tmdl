@@ -1,6 +1,138 @@
 /// Gerado por build/build_model.py a partir de src/dax — NÃO EDITAR À MÃO.
 table _Medidas
 
+	measure 'HTML Painel' = ```
+			-- Página Painel do Comissário. O build expande o template src/html/painel.html
+			"<style>/* Gotham Noir — design tokens (dono: designer-ui). Contrato: contracts/design-tokens.md */
+			:root {
+			--g-bg: #07090c;
+			--g-panel: #10141a;
+			--g-line: #1f2a36;
+			--g-text: #d7dde4;
+			--g-muted: #7d8794;
+			--bat-yellow: #f5c518;
+			--arkham-green: #39d98a;
+			--joker-purple: #7b2cbf;
+			--blood: #c1121f;
+			--ice: #8ecae6;
+			--ivy: #2d6a4f;
+			--owl-bronze: #a47148;
+			--font-ui: 'Rajdhani', 'Barlow Condensed', 'Arial Narrow', sans-serif;
+			--font-mono: 'JetBrains Mono', Consolas, monospace;
+			--font-title: 'Bebas Neue', Impact, sans-serif;
+			--t-fast: 150ms;
+			--t-med: 300ms;
+			}
+			/* Painel do Comissário (plano §3.7) — layout em grade, barras e cards de personagem */
+			.gd-painel {
+			position: relative;
+			overflow: hidden;
+			min-height: 100%;
+			padding: 16px 20px 12px;
+			box-sizing: border-box;
+			background: radial-gradient(ellipse at 50% -10%, #1a2330 0%, var(--g-bg) 55%);
+			color: var(--g-text);
+			font-family: var(--font-ui);
+			}
+			.gd-rain {
+			position: absolute;
+			inset: -50% -50% 0 -50%;
+			pointer-events: none;
+			background-image: repeating-linear-gradient(105deg, transparent 0 18px, rgba(215, 221, 228, 0.05) 18px 19px);
+			animation: gd-chuva 0.7s linear infinite;
+			}
+			@keyframes gd-chuva {
+			from { transform: translate3d(0, -40px, 0); }
+			to { transform: translate3d(-11px, 0, 0); }
+			}
+			.gd-top, .gd-kpis, .gd-cols, .gd-arquivo, .gd-rodape { position: relative; }
+			.gd-top {
+			display: flex;
+			justify-content: space-between;
+			align-items: baseline;
+			border-bottom: 1px solid var(--g-line);
+			padding-bottom: 8px;
+			margin-bottom: 12px;
+			}
+			.gd-title { font-family: var(--font-title); font-size: 30px; letter-spacing: 2px; color: var(--bat-yellow); }
+			.gd-pag { margin-left: 12px; font-family: var(--font-mono); font-size: 13px; color: var(--g-text); text-transform: uppercase; letter-spacing: 2px; }
+			.gd-sub { color: var(--g-muted); font-size: 13px; }
+			.gd-kpis { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 12px; }
+			.gd-kpi { background: var(--g-panel); border: 1px solid var(--g-line); border-left: 3px solid var(--bat-yellow); border-radius: 6px; padding: 8px 12px; }
+			.gd-kpi b { display: block; font-family: var(--font-mono); font-size: 26px; color: var(--g-text); }
+			.gd-kpi span { color: var(--g-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+			.gd-cols { display: grid; grid-template-columns: 1fr 1.3fr 1fr; gap: 12px; margin-bottom: 12px; }
+			.gd-box { background: rgba(16, 20, 26, 0.92); border: 1px solid var(--g-line); border-radius: 6px; padding: 10px 14px; }
+			.gd-box h2 { margin: 0 0 8px; font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: var(--bat-yellow); text-transform: uppercase; letter-spacing: 1.5px; }
+			.gd-nota { margin: -6px 0 8px; color: var(--g-muted); font-size: 11px; }
+			.gd-bar { display: grid; grid-template-columns: 92px 1fr 52px; align-items: center; gap: 8px; margin: 5px 0; font-size: 13px; }
+			.gd-bl { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+			.gd-bt { height: 10px; background: var(--g-line); border-radius: 5px; overflow: hidden; }
+			.gd-bt i { display: block; height: 100%; background: linear-gradient(90deg, var(--bat-yellow), #c99c00); border-radius: 5px; transform-origin: left; animation: gd-cresce 0.9s ease-out; }
+			.gd-bv { text-align: right; font-family: var(--font-mono); font-size: 12px; color: var(--g-muted); }
+			.gd-colunas { display: flex; align-items: flex-end; gap: 6px; height: 150px; }
+			.gd-col { flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%; }
+			.gd-cv { font-family: var(--font-mono); font-size: 11px; color: var(--g-muted); }
+			.gd-ct { flex: 1; width: 70%; display: flex; align-items: flex-end; }
+			.gd-ct i { display: block; width: 100%; background: linear-gradient(0deg, #c99c00, var(--bat-yellow)); border-radius: 3px 3px 0 0; transform-origin: bottom; animation: gd-sobe 0.9s ease-out; }
+			.gd-cl { margin-top: 4px; font-size: 10px; color: var(--g-muted); text-align: center; line-height: 1.1; height: 24px; }
+			@keyframes gd-cresce { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+			@keyframes gd-sobe { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+			.gd-grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 8px; }
+			.gd-ficha { position: relative; background: var(--g-panel); border: 1px solid var(--g-line); border-radius: 6px; overflow: hidden; transition: transform var(--t-fast); }
+			.gd-ficha:hover { transform: translateY(-3px); }
+			.gd-foto { height: 120px; background: radial-gradient(circle at 50% 35%, #2a3542 0 22%, transparent 23%), radial-gradient(ellipse at 50% 100%, #2a3542 0 45%, var(--g-bg) 46%); }
+			.gd-foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+			.gd-faixa { height: 4px; background: var(--g-muted); }
+			.gd-ficha b { display: block; padding: 6px 8px 0; font-size: 14px; line-height: 1.15; }
+			.gd-ficha span { display: block; padding: 0 8px; color: var(--g-muted); font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+			.gd-ficha em { display: block; padding: 4px 8px 7px; font-style: normal; font-family: var(--font-mono); font-size: 9px; color: var(--g-muted); }
+			.fx-batfamilia .gd-faixa { background: var(--bat-yellow); }
+			.fx-coringa .gd-faixa { background: var(--joker-purple); }
+			.fx-espantalho .gd-faixa, .fx-charada .gd-faixa { background: var(--arkham-green); }
+			.fx-frio .gd-faixa { background: var(--ice); }
+			.fx-hera .gd-faixa { background: var(--ivy); }
+			.fx-duascaras .gd-faixa, .fx-vagalume .gd-faixa { background: var(--blood); }
+			.fx-corujas .gd-faixa { background: var(--owl-bronze); }
+			.gd-rodape { margin-top: 10px; color: var(--g-muted); font-size: 11px; text-align: center; }
+			@media (prefers-reduced-motion: reduce) {
+			.gd-rain, .gd-bt i, .gd-ct i { animation: none; }
+			.gd-ficha { transition: none; }
+			}
+			@media (max-width: 900px) {
+			.gd-kpis { grid-template-columns: repeat(2, 1fr); }
+			.gd-cols { grid-template-columns: 1fr; }
+			}
+			</style>
+			<div class='gd-painel'>
+			<div class='gd-rain'></div>
+			<header class='gd-top'>
+			<div><span class='gd-title'>GOTHAM DATABASE</span><span class='gd-pag'>Painel do Comissário</span></div>
+			<span class='gd-sub'>Batcomputador em Power BI · medidas DAX que geram HTML/CSS</span>
+			</header>
+			<section class='gd-kpis'>"
+			& ( [Painel KPIs] )
+			& "</section>
+			<div class='gd-cols'>
+			<section class='gd-box'><h2>Aparições por mídia</h2>"
+			& ( [Painel Barras Midia] )
+			& "</section>
+			<section class='gd-box'><h2>Obras por era editorial</h2><div class='gd-colunas'>"
+			& ( [Painel Barras Era] )
+			& "</div></section>
+			<section class='gd-box'><h2>Quem conecta o universo</h2><p class='gd-nota'>intermediação na rede de relações</p>"
+			& ( [Painel Hubs] )
+			& "</section>
+			</div>
+			<section class='gd-box gd-arquivo'><h2>Arquivo de personagens</h2><div class='gd-grade'>"
+			& ( [Painel Grade] )
+			& "</div></section>
+			<footer class='gd-rodape'>Dados: Wikidata (CC0), Wikipédia, SuperHero API · projeto pessoal, sem fins comerciais · Batman e personagens © DC Comics</footer>
+			</div>
+			"
+			```
+		displayFolder: 10 Ficha HTML
+
 	measure 'HTML Spike' = ```
 			-- HTML + CSS + JS do spike. O build expande o template src/html/spike.html
 			"<style>/* Gotham Noir — design tokens (dono: designer-ui). Contrato: contracts/design-tokens.md */
@@ -226,6 +358,96 @@ table _Medidas
 			"
 			```
 		displayFolder: 99 Spike
+
+	measure 'Painel Barras Era' = ```
+			-- Barras verticais: obras por era editorial
+			VAR _max = MAXX ( dEra, CALCULATE ( COUNTROWS ( dObra ) ) )
+			RETURN
+			    CONCATENATEX (
+			        dEra,
+			        VAR _n = CALCULATE ( COUNTROWS ( dObra ) ) + 0
+			        RETURN
+			            "<div class='gd-col'><span class='gd-cv'>" & FORMAT ( _n, "0", "en-US" )
+			                & "</span><span class='gd-ct'><i style='height:" & FORMAT ( DIVIDE ( _n, _max ) * 100, "0.0", "en-US" )
+			                & "%'></i></span><span class='gd-cl'>" & dEra[Nome] & "</span></div>",
+			        "",
+			        dEra[Ordem], ASC
+			    )
+			```
+		displayFolder: 50 Analítico
+
+	measure 'Painel Barras Midia' = ```
+			-- Barras horizontais: aparições por mídia
+			VAR _max = MAXX ( dMidia, CALCULATE ( COUNTROWS ( fAparicao ) ) )
+			RETURN
+			    CONCATENATEX (
+			        dMidia,
+			        VAR _n = CALCULATE ( COUNTROWS ( fAparicao ) ) + 0
+			        RETURN
+			            "<div class='gd-bar'><span class='gd-bl'>" & dMidia[Nome] & "</span><span class='gd-bt'><i style='width:"
+			                & FORMAT ( DIVIDE ( _n, _max ) * 100, "0.0", "en-US" ) & "%'></i></span><span class='gd-bv'>"
+			                & FORMAT ( _n, "0", "en-US" ) & "</span></div>",
+			        "",
+			        CALCULATE ( COUNTROWS ( fAparicao ) ), DESC
+			    )
+			```
+		displayFolder: 50 Analítico
+
+	measure 'Painel Grade' = ```
+			-- Grade de cards do arquivo de personagens: retrato (com fallback de silhueta), nome, codinome e faixa da facção
+			CONCATENATEX (
+			    dPersonagem,
+			    VAR _img = LOOKUPVALUE ( dVersao[UrlImagem], dVersao[IdVersao], dPersonagem[IdPersonagem] * 100 + 1 )
+			    VAR _nome = SUBSTITUTE ( SUBSTITUTE ( dPersonagem[Nome], "&", "&amp;" ), "<", "&lt;" )
+			    VAR _civil = SUBSTITUTE ( SUBSTITUTE ( dPersonagem[IdentidadeCivil], "&", "&amp;" ), "<", "&lt;" )
+			    VAR _arq = LOOKUPVALUE ( dArquetipo[Sigla], dArquetipo[IdArquetipo], dPersonagem[IdArquetipo] )
+			    RETURN
+			        "<div class='gd-ficha fx-" & dPersonagem[Faccao] & "'><div class='gd-foto'>"
+			            & IF ( ISBLANK ( _img ), "", "<img src='" & _img & "' alt='' loading='lazy' onerror='this.remove()'>" )
+			            & "</div><div class='gd-faixa'></div><b>" & _nome & "</b><span>" & _civil & "</span><em>#BAT-"
+			            & FORMAT ( dPersonagem[IdPersonagem], "000", "en-US" ) & " · " & _arq & " · " & dPersonagem[Alinhamento]
+			            & "</em></div>",
+			    "",
+			    dPersonagem[IdPersonagem], ASC
+			)
+			```
+		displayFolder: 50 Analítico
+
+	measure 'Painel Hubs' = ```
+			-- Top 8 personagens por intermediação na rede de relações (quem conecta o universo)
+			VAR _top = TOPN ( 8, dCentralidade, dCentralidade[Intermediacao], DESC, dCentralidade[Grau], DESC )
+			VAR _max = MAXX ( _top, dCentralidade[Intermediacao] )
+			RETURN
+			    CONCATENATEX (
+			        _top,
+			        VAR _nome = LOOKUPVALUE ( dPersonagem[Nome], dPersonagem[IdPersonagem], dCentralidade[IdPersonagem] )
+			        VAR _seguro = SUBSTITUTE ( SUBSTITUTE ( _nome, "&", "&amp;" ), "<", "&lt;" )
+			        RETURN
+			            "<div class='gd-bar'><span class='gd-bl'>" & _seguro & "</span><span class='gd-bt'><i style='width:"
+			                & FORMAT ( DIVIDE ( dCentralidade[Intermediacao], _max ) * 100, "0.0", "en-US" )
+			                & "%'></i></span><span class='gd-bv'>" & FORMAT ( dCentralidade[Grau], "0", "en-US" ) & " lig.</span></div>",
+			        "",
+			        dCentralidade[Intermediacao], DESC
+			    )
+			```
+		displayFolder: 50 Analítico
+
+	measure 'Painel KPIs' = ```
+			-- Cartões de KPI do Painel do Comissário (HTML)
+			VAR _pers = COUNTROWS ( dPersonagem )
+			VAR _obras = COUNTROWS ( dObra )
+			VAR _apar = COUNTROWS ( fAparicao )
+			VAR _rel = COUNTROWS ( fRelacao )
+			VAR _viloes = DIVIDE ( COUNTROWS ( FILTER ( dPersonagem, dPersonagem[Alinhamento] = "Vilão" ) ), _pers )
+			VAR _card = "<div class='gd-kpi'><b>"
+			RETURN
+			    _card & FORMAT ( _pers, "0", "en-US" ) & "</b><span>personagens</span></div>"
+			        & _card & FORMAT ( _obras, "0", "en-US" ) & "</b><span>obras</span></div>"
+			        & _card & FORMAT ( _apar, "0", "en-US" ) & "</b><span>aparições</span></div>"
+			        & _card & FORMAT ( _rel, "0", "en-US" ) & "</b><span>relações</span></div>"
+			        & _card & FORMAT ( _viloes, "0%", "en-US" ) & "</b><span>vilões</span></div>"
+			```
+		displayFolder: 50 Analítico
 
 	measure 'Spike Linhas' = ```
 			-- Prova de leitura do modelo; ignora o filtro do slicer

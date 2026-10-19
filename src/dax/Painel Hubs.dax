@@ -1,0 +1,16 @@
+-- @pasta: 50 Analítico
+-- Top 8 personagens por intermediação na rede de relações (quem conecta o universo)
+VAR _top = TOPN ( 8, dCentralidade, dCentralidade[Intermediacao], DESC, dCentralidade[Grau], DESC )
+VAR _max = MAXX ( _top, dCentralidade[Intermediacao] )
+RETURN
+    CONCATENATEX (
+        _top,
+        VAR _nome = LOOKUPVALUE ( dPersonagem[Nome], dPersonagem[IdPersonagem], dCentralidade[IdPersonagem] )
+        VAR _seguro = SUBSTITUTE ( SUBSTITUTE ( _nome, "&", "&amp;" ), "<", "&lt;" )
+        RETURN
+            "<div class='gd-bar'><span class='gd-bl'>" & _seguro & "</span><span class='gd-bt'><i style='width:"
+                & FORMAT ( DIVIDE ( dCentralidade[Intermediacao], _max ) * 100, "0.0", "en-US" )
+                & "%'></i></span><span class='gd-bv'>" & FORMAT ( dCentralidade[Grau], "0", "en-US" ) & " lig.</span></div>",
+        "",
+        dCentralidade[Intermediacao], DESC
+    )

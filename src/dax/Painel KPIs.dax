@@ -1,0 +1,14 @@
+-- @pasta: 50 Analítico
+-- Cartões de KPI do Painel do Comissário (HTML)
+VAR _pers = COUNTROWS ( dPersonagem )
+VAR _obras = COUNTROWS ( dObra )
+VAR _apar = COUNTROWS ( fAparicao )
+VAR _rel = COUNTROWS ( fRelacao )
+VAR _viloes = DIVIDE ( COUNTROWS ( FILTER ( dPersonagem, dPersonagem[Alinhamento] = "Vilão" ) ), _pers )
+VAR _card = "<div class='gd-kpi'><b>"
+RETURN
+    _card & FORMAT ( _pers, "0", "en-US" ) & "</b><span>personagens</span></div>"
+        & _card & FORMAT ( _obras, "0", "en-US" ) & "</b><span>obras</span></div>"
+        & _card & FORMAT ( _apar, "0", "en-US" ) & "</b><span>aparições</span></div>"
+        & _card & FORMAT ( _rel, "0", "en-US" ) & "</b><span>relações</span></div>"
+        & _card & FORMAT ( _viloes, "0%", "en-US" ) & "</b><span>vilões</span></div>"

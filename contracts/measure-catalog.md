@@ -14,4 +14,11 @@ Pastas de exibição: `00 Seleção`, `10 Ficha HTML`, `20 CSS`, `30 SVG`, `40 J
 | `HTML Spike` | 99 Spike | HTML + CSS + JS do spike (template `src/html/spike.html`) | todas acima |
 | `Tamanho HTML Spike` | 99 Spike | `LEN([HTML Spike])` — tamanho real entregue ao visual | `[HTML Spike]` |
 
+| `Painel KPIs` | 50 Analítico | Cartões HTML: personagens, obras, aparições, relações, % vilões | dPersonagem, dObra, fAparicao, fRelacao |
+| `Painel Barras Midia` | 50 Analítico | Barras de aparições por mídia | dMidia → dObra → fAparicao |
+| `Painel Barras Era` | 50 Analítico | Colunas de obras por era (ordem de `dEra[Ordem]`) | dEra → dObra |
+| `Painel Hubs` | 50 Analítico | Top 8 por intermediação, com grau | dCentralidade, dPersonagem |
+| `Painel Grade` | 50 Analítico | Cards do arquivo de personagens (retrato com fallback, faixa da facção) | dPersonagem, dVersao, dArquetipo |
+| `HTML Painel` | 10 Ficha HTML | Página Painel do Comissário (template `src/html/painel.html`) | todas `Painel *` |
+
 Medidas de produção (F4a) seguem `docs/plano.md` §7: `Id Selecionado`, `SVG Radar`, `HTML Ficha`, `CSS Base`, `CSS Faccao`, `JS Gotham`…

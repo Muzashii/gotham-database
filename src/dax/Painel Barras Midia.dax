@@ -1,0 +1,14 @@
+-- @pasta: 50 Analítico
+-- Barras horizontais: aparições por mídia
+VAR _max = MAXX ( dMidia, CALCULATE ( COUNTROWS ( fAparicao ) ) )
+RETURN
+    CONCATENATEX (
+        dMidia,
+        VAR _n = CALCULATE ( COUNTROWS ( fAparicao ) ) + 0
+        RETURN
+            "<div class='gd-bar'><span class='gd-bl'>" & dMidia[Nome] & "</span><span class='gd-bt'><i style='width:"
+                & FORMAT ( DIVIDE ( _n, _max ) * 100, "0.0", "en-US" ) & "%'></i></span><span class='gd-bv'>"
+                & FORMAT ( _n, "0", "en-US" ) & "</span></div>",
+        "",
+        CALCULATE ( COUNTROWS ( fAparicao ) ), DESC
+    )

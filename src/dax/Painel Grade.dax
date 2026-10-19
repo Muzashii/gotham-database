@@ -1,0 +1,17 @@
+-- @pasta: 50 Analítico
+-- Grade de cards do arquivo de personagens: retrato (com fallback de silhueta), nome, codinome e faixa da facção
+CONCATENATEX (
+    dPersonagem,
+    VAR _img = LOOKUPVALUE ( dVersao[UrlImagem], dVersao[IdVersao], dPersonagem[IdPersonagem] * 100 + 1 )
+    VAR _nome = SUBSTITUTE ( SUBSTITUTE ( dPersonagem[Nome], "&", "&amp;" ), "<", "&lt;" )
+    VAR _civil = SUBSTITUTE ( SUBSTITUTE ( dPersonagem[IdentidadeCivil], "&", "&amp;" ), "<", "&lt;" )
+    VAR _arq = LOOKUPVALUE ( dArquetipo[Sigla], dArquetipo[IdArquetipo], dPersonagem[IdArquetipo] )
+    RETURN
+        "<div class='gd-ficha fx-" & dPersonagem[Faccao] & "'><div class='gd-foto'>"
+            & IF ( ISBLANK ( _img ), "", "<img src='" & _img & "' alt='' loading='lazy' onerror='this.remove()'>" )
+            & "</div><div class='gd-faixa'></div><b>" & _nome & "</b><span>" & _civil & "</span><em>#BAT-"
+            & FORMAT ( dPersonagem[IdPersonagem], "000", "en-US" ) & " · " & _arq & " · " & dPersonagem[Alinhamento]
+            & "</em></div>",
+    "",
+    dPersonagem[IdPersonagem], ASC
+)

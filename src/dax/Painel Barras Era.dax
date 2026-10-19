@@ -1,0 +1,14 @@
+-- @pasta: 50 Analítico
+-- Barras verticais: obras por era editorial
+VAR _max = MAXX ( dEra, CALCULATE ( COUNTROWS ( dObra ) ) )
+RETURN
+    CONCATENATEX (
+        dEra,
+        VAR _n = CALCULATE ( COUNTROWS ( dObra ) ) + 0
+        RETURN
+            "<div class='gd-col'><span class='gd-cv'>" & FORMAT ( _n, "0", "en-US" )
+                & "</span><span class='gd-ct'><i style='height:" & FORMAT ( DIVIDE ( _n, _max ) * 100, "0.0", "en-US" )
+                & "%'></i></span><span class='gd-cl'>" & dEra[Nome] & "</span></div>",
+        "",
+        dEra[Ordem], ASC
+    )

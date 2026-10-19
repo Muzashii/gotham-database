@@ -24,7 +24,9 @@ DEF = REL / "definition"
 SCHEMA = "https://developer.microsoft.com/json-schemas/fabric"
 TEMA = "GothamNoir.json"
 
+# a primeira página é a principal (abre no link público)
 PAGINAS = [
+    {"name": "gdPainel", "displayName": "Painel do Comissário", "visuais": ["gdPainelHtml"]},
     {"name": "gdF0Spike", "displayName": "F0 Spike", "visuais": ["gdSpikeSlicer", "gdSpikeTamanho", "gdSpikeHtml"]},
 ]
 
@@ -89,6 +91,14 @@ def visuais_f0(guid_html: str | None, papel_html: str) -> dict[str, dict]:
         ),
     }
     if guid_html:
+        v["gdPainelHtml"] = container(
+            "gdPainelHtml", 0, 0, 1280, 720, 0,
+            {
+                "visualType": guid_html,
+                "query": {"queryState": {papel_html: {"projections": [campo_medida("HTML Painel")]}}},
+                "drillFilterOtherVisuals": True,
+            },
+        )
         v["gdSpikeHtml"] = container(
             "gdSpikeHtml", 292, 16, 972, 688, 2000,
             {
@@ -173,14 +183,12 @@ def main() -> int:
     gravar(REL / "StaticResources" / "RegisteredResources" / TEMA, tema())
 
     meta = ler(DEF / "pages" / "pages.json")
-    ordem = meta.get("pageOrder", [])
-    for pg in PAGINAS:
-        if pg["name"] not in ordem:
-            ordem.append(pg["name"])
+    nossas = [pg["name"] for pg in PAGINAS]
+    ordem = nossas + [p for p in meta.get("pageOrder", []) if p not in nossas]  # páginas feitas à mão vão depois
     gravar(DEF / "pages" / "pages.json", {
         "$schema": f"{SCHEMA}/item/report/definition/pagesMetadata/1.0.0/schema.json",
         "pageOrder": ordem,
-        "activePageName": meta.get("activePageName", ordem[0]),
+        "activePageName": ordem[0],
     })
 
     visuais = visuais_f0(guid, papel)
