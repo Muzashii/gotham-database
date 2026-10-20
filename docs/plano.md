@@ -269,6 +269,10 @@ Funcionalidades que a Pokédex não tem e que tornam o projeto mais técnico e m
 
 ## 7. Padrões DAX → HTML/SVG/JS
 
+> **Nota de implementação (F4, 19/10/2026):** a seleção, a ficha e o radar foram implementados em JavaScript sobre
+> a medida `[JS Gotham]` (como na Pokédex de referência), não com as medidas DAX de seleção abaixo. A troca de
+> personagem é client-side e instantânea; o gate F4a passa a medir o 1º render da medida. Ver `contracts/measure-catalog.md`.
+
 ### 7.1 Medida de seleção com prioridade
 
 ```dax

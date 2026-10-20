@@ -179,3 +179,39 @@ def test_checks_varre_subpastas(src_falso):
 
 def test_checks_do_repositorio_passa():
     assert checks.main() == 0
+
+
+def test_js_gotham_itera_dimensoes_sem_membro_em_branco():
+    """Regressão F4: ALL(dArquetipo) trazia o membro em branco (FK vazia em dGadget) e deslocava a matriz."""
+    expr = (gb.DIR_DAX / "JS Gotham.dax").read_text(encoding="utf-8")
+    assert not re.search(r"\bALL\s*\(\s*d[A-Z]\w*\s*\)", expr)
+    assert not re.search(r"CONCATENATEX\s*\(\s*d[A-Z]", expr)
+
+
+def test_js_gotham_escapa_todo_texto_que_entra_em_string_js():
+    """Revisão F4 (M1): nenhuma coluna entra entre aspas simples sem passar pelo escape (inclui LF/CR)."""
+    expr = (gb.DIR_DAX / "JS Gotham.dax").read_text(encoding="utf-8")
+    cru = re.findall(r"'\"\s*&\s*([dfb][A-Z]\w*\[\w+\])", expr)
+    assert cru == [], f"colunas sem escape dentro de string JS: {cru}"
+    bs = chr(92)  # barra invertida
+    escapes = [
+        f'"{bs}", "{bs}{bs}"',              # \  -> \\
+        f'"\'", "{bs}\'"',                  # '  -> \'
+        f'"</", "<{bs}/"',                  # </ -> <\/
+        f'UNICHAR ( 10 ), "{bs}n"',         # LF -> \n
+        f'UNICHAR ( 13 ), "{bs}r"',         # CR -> \r
+    ]
+    for alvo in escapes:
+        assert expr.count(alvo) >= 21, f"escape ausente ou incompleto: {alvo}"
+
+
+def test_contraste_aa_do_item_selecionado_da_lista():
+    """Revisão F4 (B1): fundo opaco do item selecionado com texto secundário claro."""
+    from test_pbip import contraste
+    css = (gb.DIR_CSS / "batcomputador.css").read_text(encoding="utf-8")
+    fundo = re.search(r"\.bc-sel \{[^}]*background: (#[0-9a-f]{6})", css).group(1)
+    # a regra do selecionado precisa VENCER a cascata: especificidade maior que .bc-in small (0,1,1)
+    assert ".bc-sel .bc-in small { color: var(--g-text); }" in css
+    assert ".bc-sel small {" not in css, "seletor fraco: perderia para .bc-in small (achado do ciclo 2)"
+    assert contraste("#d7dde4", fundo) >= 4.5
+    assert contraste("#7d8794", fundo) < 4.5  # documenta por que o texto secundário não pode ficar em --g-muted

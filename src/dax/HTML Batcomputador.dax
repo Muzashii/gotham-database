@@ -1,0 +1,3 @@
+-- @pasta: 10 Ficha HTML
+-- Página Batcomputador: dados ([JS Gotham]) + app JS + CSS. O build expande o template src/html/batcomputador.html
+TEMPLATE(batcomputador.html)

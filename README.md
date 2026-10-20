@@ -4,11 +4,15 @@ Relatório Power BI que parece um Batcomputador: ficha de personagens do univers
 relações, linha do tempo, arena de confrontos, quiz e minijogo — tudo renderizado por **medidas DAX
 que geram HTML/CSS/SVG/JavaScript** no visual *HTML Content*.
 
-> **Status:** Fase 3 concluída — modelo em estrela publicado e primeira página real no ar. Plano completo em [`docs/plano.md`](docs/plano.md).
+> **Status:** Fase 4 (sprint 2) concluída — **Batcomputador** no ar. Plano completo em [`docs/plano.md`](docs/plano.md).
 >
 > 🔗 **[Ver online no Power BI](https://app.powerbi.com/view?r=eyJrIjoiZGFiYTA5YzktMjk4YS00ZmQ5LTk1NGYtMTFlMjllN2E0ZGUyIiwidCI6IjExZGJiZmUyLTg5YjgtNDU0OS1iZTEwLWNlYzM2NGU1OTU1MSIsImMiOjR9)**
-> — **Painel do Comissário**: KPIs, aparições por mídia, obras por era, hubs da rede de relações e o arquivo
-> dos 50 personagens, tudo renderizado por medidas DAX que geram HTML/CSS. A 2ª página é o diagnóstico técnico da F0.
+>
+> 1. **Batcomputador** — busque e filtre 50 personagens; ficha com radar de atributos, Índice de Ameaça,
+>    arquétipo com vantagens/vulnerabilidades, rede de relações clicável, aparições por mídia e fundo animado
+>    por facção. Tudo em uma medida DAX que serializa o modelo + um app JS dentro do visual.
+> 2. **Painel do Comissário** — KPIs, aparições por mídia, obras por era e os hubs da rede.
+> 3. **F0 Spike** — diagnóstico técnico (JS no visual, estado na `window`, limite de tamanho).
 
 ## Arquitetura (resumo)
 

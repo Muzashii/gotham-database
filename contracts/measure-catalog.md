@@ -1,7 +1,7 @@
 # Catálogo de medidas
 
 - **Dono:** engenheiro-dax (Batcomputador) · **Consumidores:** revisor-qa, documentador
-- **Versão:** 0.1 (F0). Fonte: `src/dax/*.dax` (1 arquivo por medida). Orçamentos em `build/budget.json`.
+- **Versão:** 0.2 (F4). Fonte: `src/dax/*.dax` (1 arquivo por medida). Orçamentos em `build/budget.json`.
 
 Pastas de exibição: `00 Seleção`, `10 Ficha HTML`, `20 CSS`, `30 SVG`, `40 JS`, `50 Analítico`, `99 Spike` (temporária).
 
@@ -19,5 +19,8 @@ Pastas de exibição: `00 Seleção`, `10 Ficha HTML`, `20 CSS`, `30 SVG`, `40 J
 | `Painel Hubs` | 50 Analítico | Top 8 por intermediação, com grau | dCentralidade, dPersonagem |
 | `Painel Grade` | 50 Analítico | Cards do arquivo de personagens (retrato com fallback, faixa da facção) | dPersonagem, dVersao, dArquetipo |
 | `HTML Painel` | 10 Ficha HTML | Página Painel do Comissário (template `src/html/painel.html`) | todas `Painel *` |
+| `JS Gotham` | 40 JS | Serializa o modelo em `window.GOTHAM` (contrato `js-data-schema.json` v0.2); dimensões com `ALLNOBLANKROW` | todas as tabelas curadas |
+| `Tamanho JS Gotham` | 40 JS | `LEN([JS Gotham])` — ~26,6 mil caracteres (2,7% do limite medido na F0) | `[JS Gotham]` |
+| `HTML Batcomputador` | 10 Ficha HTML | Página Batcomputador: dados + app `src/js/batcomputador.js` + CSS por facção | `[JS Gotham]` |
 
-Medidas de produção (F4a) seguem `docs/plano.md` §7: `Id Selecionado`, `SVG Radar`, `HTML Ficha`, `CSS Base`, `CSS Faccao`, `JS Gotham`…
+Decisão F4: seleção, radar e ficha são renderizados em JS a partir de `[JS Gotham]` (como na Pokédex de referência), em vez das medidas DAX de seleção do plano §7.1–7.3 (`Id Selecionado`, `SVG Radar`, `HTML Ficha`). Troca de personagem é instantânea (sem consulta ao modelo).

@@ -1,0 +1,4 @@
+-- @pasta: 40 JS
+-- @formato: #,0
+-- Tamanho da serialização (orçamento: limite prático medido na F0 é ~1 milhão de caracteres)
+LEN ( [JS Gotham] )

@@ -1,6 +1,548 @@
 /// Gerado por build/build_model.py a partir de src/dax — NÃO EDITAR À MÃO.
 table _Medidas
 
+	measure 'HTML Batcomputador' = ```
+			-- Página Batcomputador: dados ([JS Gotham]) + app JS + CSS. O build expande o template src/html/batcomputador.html
+			"<style>/* Gotham Noir — design tokens (dono: designer-ui). Contrato: contracts/design-tokens.md */
+			:root {
+			--g-bg: #07090c;
+			--g-panel: #10141a;
+			--g-line: #1f2a36;
+			--g-text: #d7dde4;
+			--g-muted: #7d8794;
+			--bat-yellow: #f5c518;
+			--arkham-green: #39d98a;
+			--joker-purple: #7b2cbf;
+			--blood: #c1121f;
+			--ice: #8ecae6;
+			--ivy: #2d6a4f;
+			--owl-bronze: #a47148;
+			--font-ui: 'Rajdhani', 'Barlow Condensed', 'Arial Narrow', sans-serif;
+			--font-mono: 'JetBrains Mono', Consolas, monospace;
+			--font-title: 'Bebas Neue', Impact, sans-serif;
+			--t-fast: 150ms;
+			--t-med: 300ms;
+			}
+			/* Batcomputador — layout 3 colunas + temas animados por facção (plano §9.2). Dono: designer-ui. */
+			.bc {
+			position: relative;
+			overflow: hidden;
+			height: 100vh; /* cada coluna rola por dentro; a página inteira nunca rola */
+			box-sizing: border-box;
+			display: grid;
+			/* colunas proporcionais: o iframe do visual é mais estreito que a página (zoom/escala do Power BI) */
+			grid-template-columns: minmax(200px, 23%) minmax(0, 1fr) minmax(220px, 24%);
+			grid-template-rows: auto minmax(0, 1fr);
+			gap: 12px;
+			padding: 12px 16px;
+			background: radial-gradient(ellipse at 50% -10%, #1a2330 0%, var(--g-bg) 60%);
+			color: var(--g-text);
+			font-family: var(--font-ui);
+			}
+			.bc *, .bc *::before, .bc *::after { box-sizing: border-box; }
+			.bc-fx, .bc-part { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+			.bc-top, .bc-lista, .bc-ficha, .bc-lado { position: relative; z-index: 1; min-height: 0; }
+			.bc-top { grid-column: 1 / -1; display: flex; align-items: baseline; gap: 14px; border-bottom: 1px solid var(--g-line); padding-bottom: 6px; }
+			.bc-logo { font-family: var(--font-title); font-size: 28px; letter-spacing: 2px; color: var(--bat-yellow); }
+			.bc-pag { font-family: var(--font-mono); font-size: 13px; letter-spacing: 2px; text-transform: uppercase; }
+			.bc-cont { margin-left: auto; font-family: var(--font-mono); font-size: 12px; color: var(--g-muted); }
+			/* ---------------- lista */
+			.bc-lista { display: flex; flex-direction: column; gap: 8px; }
+			.bc-busca, .bc-filtros select {
+			width: 100%; background: var(--g-panel); color: var(--g-text); border: 1px solid var(--g-line);
+			border-radius: 4px; padding: 6px 8px; font: inherit; font-size: 13px;
+			}
+			.bc-busca:focus, .bc-filtros select:focus, .bc-favbtn:focus-visible, .bc-rel:focus-visible { outline: 2px solid var(--bat-yellow); outline-offset: 1px; }
+			.bc-filtros { display: grid; grid-template-columns: 1fr 1fr 1fr 34px; gap: 6px; }
+			.bc-filtros select { padding: 4px; font-size: 12px; }
+			.bc-favbtn { background: var(--g-panel); color: var(--bat-yellow); border: 1px solid var(--g-line); border-radius: 4px; cursor: pointer; font-size: 16px; }
+			.bc-itens { list-style: none; margin: 0; padding: 0 4px 0 0; overflow-y: auto; flex: 1; scrollbar-width: thin; scrollbar-color: var(--g-line) transparent; }
+			.bc-item {
+			display: grid; grid-template-columns: 36px 1fr 20px; align-items: center; gap: 8px; padding: 4px 6px; margin-bottom: 4px;
+			background: var(--g-panel); border: 1px solid var(--g-line); border-left: 3px solid var(--g-muted);
+			border-radius: 4px; cursor: pointer; transition: transform var(--t-fast);
+			}
+			.bc-item:hover { transform: translateX(3px); }
+			/* fundo opaco (#22221a = painel + 8% de amarelo): o texto não depende do tema animado atrás — AA garantido */
+			.bc-sel { border-color: var(--bat-yellow); background: #22221a; }
+			.bc-sel .bc-in small { color: var(--g-text); } /* especificidade (0,2,1) vence .bc-in small */
+			.bc-mini { width: 36px; height: 36px; border-radius: 3px; overflow: hidden; background: radial-gradient(circle at 50% 38%, #2a3542 0 24%, transparent 25%), radial-gradient(ellipse at 50% 105%, #2a3542 0 45%, var(--g-bg) 46%); }
+			.bc-mini img, .bc-foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+			.bc-in b { display: block; font-size: 14px; line-height: 1.1; }
+			.bc-in small { color: var(--g-muted); font-size: 11px; }
+			.bc-estrela { color: var(--g-muted); font-size: 15px; text-align: center; background: none; border: 0; padding: 0; cursor: pointer; font-family: inherit; }
+			.bc-estrela:focus-visible, .bc-item:focus-visible { outline: 2px solid var(--bat-yellow); outline-offset: 1px; }
+			.bc-on { color: var(--bat-yellow); }
+			.bc-vazio { color: var(--g-muted); padding: 12px; font-size: 13px; }
+			/* ---------------- ficha */
+			.bc-ficha { overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--g-line) transparent; }
+			.bc-card { position: relative; background: rgba(16, 20, 26, 0.9); border: 1px solid var(--g-line); border-radius: 8px; padding: 14px 18px; overflow: hidden; }
+			.bc-card::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 3px); }
+			.bc-num { position: absolute; right: 14px; top: 2px; font-family: var(--font-title); font-size: 64px; color: rgba(215, 221, 228, 0.06); letter-spacing: 3px; }
+			.bc-nome { margin: 0; font-family: var(--font-title); font-size: 40px; letter-spacing: 1.5px; line-height: 1; }
+			.bc-sub { margin: 2px 0 8px; color: var(--g-muted); font-size: 14px; }
+			.bc-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+			.bc-chip { display: inline-block; border: 1px solid var(--g-line); border-radius: 999px; padding: 1px 9px; font-size: 12px; background: var(--g-panel); }
+			.bc-amea-baixo { border-color: var(--arkham-green); }
+			.bc-amea-moderado { border-color: var(--ice); }
+			.bc-amea-alto { border-color: var(--bat-yellow); }
+			.bc-amea-extremo { border-color: var(--blood); }
+			.bc-corpo { display: grid; grid-template-columns: minmax(120px, 30%) minmax(0, 1fr); gap: 14px; align-items: start; }
+			.bc-foto { height: 240px; border-radius: 6px; overflow: hidden; border: 1px solid var(--g-line); background: radial-gradient(circle at 50% 34%, #2a3542 0 20%, transparent 21%), radial-gradient(ellipse at 50% 100%, #2a3542 0 42%, var(--g-bg) 43%); }
+			.bc-radar-box { display: grid; grid-template-columns: minmax(140px, 200px) minmax(0, 1fr); gap: 10px; align-items: center; }
+			.bc-radar { width: 100%; height: auto; max-width: 200px; overflow: visible; }
+			.bc-grade { fill: none; stroke: var(--g-line); stroke-width: 1; }
+			.bc-eixo { stroke: var(--g-line); stroke-width: 1; }
+			.bc-area { fill: rgba(245, 197, 24, 0.28); stroke: var(--bat-yellow); stroke-width: 2; transform-origin: 100px 100px; animation: bc-radar 0.6s ease-out; }
+			.bc-rot { fill: var(--g-muted); font-family: var(--font-mono); font-size: 9px; text-anchor: middle; dominant-baseline: middle; }
+			@keyframes bc-radar { from { transform: scale(0.2); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+			.bc-b { display: grid; grid-template-columns: minmax(70px, 92px) minmax(30px, 1fr) 30px; align-items: center; gap: 6px; font-size: 12px; margin: 4px 0; }
+			.bc-b i { height: 8px; background: var(--g-line); border-radius: 4px; overflow: hidden; }
+			.bc-b em { display: block; height: 100%; background: var(--bat-yellow); border-radius: 4px; transform-origin: left; animation: bc-cresce 0.7s ease-out; }
+			.bc-b b { font-family: var(--font-mono); font-weight: 400; font-size: 11px; color: var(--g-muted); text-align: right; }
+			@keyframes bc-cresce { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+			.bc-total { margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--g-line); font-size: 12px; color: var(--g-muted); text-transform: uppercase; letter-spacing: 1px; }
+			.bc-total b { font-family: var(--font-mono); font-size: 20px; color: var(--g-text); margin-left: 6px; }
+			.bc-mini3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 12px 0 8px; }
+			.bc-mini3 div { background: var(--g-panel); border: 1px solid var(--g-line); border-radius: 4px; padding: 6px 10px; }
+			.bc-mini3 b { display: block; font-family: var(--font-mono); font-size: 20px; }
+			.bc-mini3 span { font-size: 11px; color: var(--g-muted); text-transform: uppercase; letter-spacing: 1px; }
+			.bc-estreia { margin: 4px 0 0; font-size: 13px; line-height: 1.5; }
+			.bc-estreia span { color: var(--g-muted); font-size: 11px; text-transform" & ": uppercase; letter-spacing: 1px; margin-right: 6px; }
+			.bc-glitch { animation: bc-glitch var(--t-med) steps(3); }
+			@keyframes bc-glitch {
+			0% { transform: translateX(-4px); opacity: 0.4; }
+			33% { transform: translateX(3px); opacity: 0.8; }
+			66% { transform: translateX(-1px); opacity: 0.9; }
+			100% { transform: none; opacity: 1; }
+			}
+			/* ---------------- coluna direita */
+			.bc-lado { overflow-y: auto; display: flex; flex-direction: column; gap: 10px; scrollbar-width: thin; scrollbar-color: var(--g-line) transparent; }
+			.bc-box { background: rgba(16, 20, 26, 0.9); border: 1px solid var(--g-line); border-radius: 6px; padding: 10px 12px; }
+			.bc-box h2 { margin: 0 0 6px; font-family: var(--font-mono); font-size: 11px; font-weight: 600; color: var(--bat-yellow); text-transform: uppercase; letter-spacing: 1.5px; }
+			.bc-just { margin: 0 0 8px; font-size: 13px; color: var(--g-text); }
+			.bc-vt { margin: 5px 0; display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+			.bc-vt > span:first-child { width: 100%; font-size: 11px; color: var(--g-muted); text-transform: uppercase; letter-spacing: 1px; }
+			.bc-vt b { font-weight: 600; }
+			.bc-nada { color: var(--g-muted); font-size: 12px; }
+			.bc-rel {
+			display: grid; grid-template-columns: 10px 1fr auto; align-items: center; gap: 8px; width: 100%; text-align: left;
+			background: transparent; color: var(--g-text); border: 0; border-bottom: 1px solid var(--g-line); padding: 5px 2px;
+			font: inherit; font-size: 13px; cursor: pointer;
+			}
+			.bc-rel:hover { background: rgba(245, 197, 24, 0.06); }
+			.bc-rel i { width: 9px; height: 9px; border-radius: 50%; }
+			.bc-rel small { color: var(--g-muted); font-size: 11px; }
+			.bc-erro { margin: 6px 0; padding: 8px; border: 1px solid var(--blood); border-radius: 4px; font-family: var(--font-mono); font-size: 11px; color: var(--g-text); }
+			.bc-afs { margin: 8px 0 0; font-size: 12px; color: var(--g-muted); }
+			/* ---------------- faixa da facção na lista */
+			.fx-batfamilia.bc-item { border-left-color: var(--bat-yellow); }
+			.fx-coringa.bc-item { border-left-color: var(--joker-purple); }
+			.fx-espantalho.bc-item, .fx-charada.bc-item { border-left-color: var(--arkham-green); }
+			.fx-frio.bc-item { border-left-color: var(--ice); }
+			.fx-hera.bc-item { border-left-color: var(--ivy); }
+			.fx-duascaras.bc-item, .fx-vagalume.bc-item { border-left-color: var(--blood); }
+			.fx-corujas.bc-item { border-left-color: var(--owl-bronze); }
+			/* ---------------- temas animados por facção (fundo .bc-fx + partículas .bc-part) */
+			.bc-fx::before, .bc-fx::after { content: ''; position: absolute; }
+			/* Gotham: chuva diagonal + relâmpago ocasional */
+			.fx-gotham .bc-fx::before { inset: -50% -50% 0 -50%; background-image: repeating-linear-gradient(105deg, transparent 0 18px, rgba(215, 221, 228, 0.06) 18px 19px); animation: bc-chuva 0.7s linear infinite; }
+			.fx-gotham .bc-fx::after { inset: 0; background: rgba(215, 221, 228, 0.12); opacity: 0; animation: bc-raio 9s infinite; }
+			@keyframes bc-chuva { from { transform: translate3d(0, -40px, 0); } to { transform: translate3d(-11px, 0, 0); } }
+			@keyframes bc-raio { 0%, 92%, 100% { opacity: 0; } 93% { opacity: 1; } 94% { opacity: 0; } 95% { opacity: 0.7; } }
+			/* Bat-família: holofote varrendo o céu */
+			.fx-batfamilia .bc-fx::before { left: 50%; bottom: -10%; width: 160%; height: 160%; margin-left: -80%; transform-origin: 50% 100%;
+			background: conic-gradient(from 345deg at 50% 100%, transparent 0deg, rgba(245, 197, 24, 0.10) 12deg, rgba(245, 197, 24, 0.16) 15deg, rgba(245, 197, 24, 0.10) 18deg, transparent 30deg);
+			animation: bc-holofote 9s ease-in-out infinite alternate; }
+			.fx-batfamilia .bc-fx::after { left: 54%; top: 6%; width: 180px; height: 90px; border-radius: 50%; background: radial-gradient(ellipse, rgba(245, 197, 24, 0.12), transparent 70%); animation: bc-pulso 4s ease-in-out infinite; }
+			@keyframes bc-holofote { from { transform: rotate(-18deg); } to { transform: rotate(18deg); } }
+			/* Coringa / Espantalho: névoa verde pulsante */
+			.fx-coringa .bc-fx::before, .fx-espantalho .bc-fx::before { inset: -20%; background: radial-gradient(ellipse at 20% 80%, rgba(57, 217, 138, 0.16), transparent 50%), radial-gradient(ellipse at 80% 30%, rgba(123, 44, 191, 0.20), transparent 55%); animation: bc-nevoa 7s ease-in-out infinite alternate; }
+			.fx-espantalho .bc-fx::before { background: radial-gradient(ellipse at 30% 70%, rgba(57, 217, 138, 0.22), transparent 55%), radial-gradient(ellipse at 75% 25%, rgba(57, 217, 138, 0.12), transparent 50%); }
+			@keyframes bc-nevoa { from { transform: translate3d(-3%, 2%, 0) scale(1); opacity: 0.7; } to { transform: translate3d(3%, -2%, 0) scale(1.08); opacity: 1; } }
+			/* Sr. Frio: bordas congeladas */
+			.fx-frio .bc-fx::before { inset: 0; box-shadow: inset 0 0 90px rgba(142, 202, 230, 0.35); animation: bc-pulso 5s ease-in-out infinite; }
+			/* Hera Venenosa: vinhas nos cantos */
+			.fx-hera .bc-fx::before, .fx-hera .bc-fx::after { width: 260px; height: 260px; border: 3px solid rgba(45, 106, 79, 0.55); border-radius: 50%; animation: bc-vinha 6s ease-in-out infinite alternate; }
+			.fx-hera .bc-fx::before { left: -130px; bottom: -130px; }
+			.fx-hera .bc-fx::after { right: -130px; top: -130px; animation-delay: -3s; }
+			@keyframes bc-vinha { from { transform: scale(0.85) rotate(0deg); opacity: 0.5; } to { transform: scale(1.1) rotate(25deg); opacity: 1; } }
+			/* Duas-Caras: metade queimada + moeda girando */
+			.fx-duascaras .bc-fx::before { inset: 0 0 0 50%; background: linear-gradient(90deg, rgba(193, 18, 31, 0.10), rgba(193, 18, 31, 0.03)); }
+			.fx-duascaras .bc-fx::after { right: 40px; bottom: 30px; width: 56px; height: 56px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #e9d27a, #9c7a1b); animation: bc-moeda 2.4s linear infinite; }
+			@keyframes bc-moeda { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
+			/* Corte das Corujas: vinheta bronze */
+			.fx-corujas .bc-fx::before { inset: 0; box-shadow: inset 0 0 120px rgba(164, 113, 72, 0.4); }
+			/* Vagalume: brasas no rodapé */
+			.fx-vagalume .bc-fx::before { left: 0; right: 0; bottom: 0; height: 40%; background: linear-gradient(0deg, rgba(193, 18, 31, 0.22), transparent); animation: bc-pulso 3s ease-in-out infinite; }
+			/* Charada: brilho verde */
+			.fx-charada .bc-fx::before { inset: 0; background: radial-gradient(ellipse at 50% 120%, rgba(57, 217, 138, 0.18), transparent 60%); }
+			@keyframes bc-pulso { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+			/* partículas (caracteres gerados pelo JS por facção) */
+			.bc-part span { position: absolute; top: -30px; font-size: 18px; opacity: 0; animation-name: bc-cai; animation-timing-function: linear; animation-iteration-count: infinite; }
+			.fx-coringa .bc-part span { color: rgba(193, 18, 31, 0.5); }
+			.fx-charada .bc-part span { color: rgba(57, 217, 138, 0.55); font-family: var(--font-title); font-size: 26px; animation-name: bc-surge; top: auto; }
+			.fx-frio .bc-part span { color: rgba(142, 202, 230, 0.6); }
+			.fx-hera .bc-part span { color: rgba(45, 106, 79, 0.75); }
+			.fx-corujas .bc-part span { color: rgba(164, 113, 72, 0.7); }
+			.fx-espantalho .bc-part span { color: rgba(57, 217, 138, 0.45); }
+			.fx-duascaras .bc-part span { color: rgba(193, 18, 31, 0.35); }
+			.fx-vagalume .bc-part span { top: auto; bottom: -20px; color: rgba(245, 160, 24, 0.85); font-size: 12px; animation-name: bc-sobe; }
+			@keyframes bc-cai { 0% { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translate3d(30px, 760px, 0) rotate(240deg); opacity: 0; } }
+			@keyframes bc-sobe { 0% { transform: translate3d(0, 0, 0); opacity: 0; } 20% { opacity: 1; } 100% { transform: translate3d(-20px, -620px, 0); opacity: 0; } }
+			@keyframes bc-surge { 0%, 100% { opacity: 0; transform: translate3d(0, 0, 0) scale(0.6); } 50% { opacity: 1; transform: translate3d(0, -20px, 0) scale(1); } }
+			.fx-charada .bc-part span:nth-child(odd) { top: 20%; }
+			.fx-charada .bc-part span:nth-child(even) { top: 65%; }
+			/* filtros legíveis quando a coluna da lista estreita */
+			@media (max-width: 1100px) {
+			.bc-filtros { " & "grid-template-columns: 1fr 1fr; }
+			}
+			/* visual muito estreito: lista | ficha em cima, painel lateral embaixo da ficha */
+			@media (max-width: 900px) {
+			.bc { grid-template-columns: minmax(170px, 30%) minmax(0, 1fr); grid-template-rows: auto minmax(0, 1.3fr) minmax(0, 1fr); }
+			.bc-lista { grid-row: 2 / 4; }
+			.bc-lado { grid-column: 2; grid-row: 3; }
+			.bc-corpo { grid-template-columns: 1fr; }
+			.bc-foto { height: 160px; }
+			.bc-mini3 b { font-size: 16px; }
+			.bc-filtros { grid-template-columns: 1fr 1fr; }
+			}
+			/* visual estreito: radar em cima das barras; números do cabeçalho menores */
+			@media (max-width: 1050px) {
+			.bc-radar-box { grid-template-columns: 1fr; justify-items: center; }
+			.bc-barras { width: 100%; }
+			.bc-num { font-size: 44px; }
+			.bc-nome { font-size: 32px; }
+			}
+			@media (prefers-reduced-motion: reduce) {
+			.bc-fx::before, .bc-fx::after, .bc-part span, .bc-area, .bc-b em, .bc-glitch { animation: none !important; }
+			.bc-item { transition: none; }
+			}
+			</style>
+			<div id='bc-raiz' class='bc fx-gotham' tabindex='0'><div class='bc-top'><span class='bc-logo'>GOTHAM DATABASE</span><span class='bc-pag'>carregando o Batcomputador…</span></div></div>
+			<script id='bc-dados'>"
+			& ( [JS Gotham] )
+			& "</script>
+			<script id='bc-app'>// Batcomputador: ficha de personagem renderizada no visual HTML Content a partir de window.GOTHAM
+			// (contrato: contracts/js-data-schema.json). Estado em window.GOTHAM_STATE.bc: sobrevive ao redesenho.
+			// PROIBIDO aspas duplas (quebram a string DAX).
+			(function (G) {
+			const S = (G.GOTHAM_STATE = G.GOTHAM_STATE || {});
+			const L = (G.GOTHAM_BC = G.GOTHAM_BC || {});
+			const STATS = ['Inteligência', 'Força', 'Velocidade', 'Durabilidade', 'Poder', 'Combate'];
+			const COR_REL = { inimigo: '#c1121f', aliado: '#39d98a', mentor: '#f5c518', 'família': '#8ecae6', romance: '#e07aa8', rival: '#e07a1f', 'organização': '#7d8794' };
+			const PARTICULAS = { coringa: '♠♥♦♣', charada: '?', frio: '❄✦', hera: '❦', corujas: '❧', vagalume: '•', espantalho: '∴', duascaras: '◐' };
+			// ---------------------------------------------------------------- lógica pura (testada em Node)
+			L.esc = function (t) {
+			return String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, '&#39;');
+			};
+			L.normalizar = function (t) {
+			return String(t || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+			};
+			// filtros: { busca, alin, afil (id), era (id), fav (bool), favoritos (array de ids) }
+			L.filtrar = function (pessoas, f) {
+			const q = L.normalizar(f.busca).trim();
+			return pessoas.filter(function (p) {
+			if (q && L.normalizar([p.n, p.c, p.ci].join(' ')).indexOf(q) < 0) return false;
+			if (f.alin && p.al !== f.alin) return false;
+			if (f.afil && p.af.indexOf(f.afil) < 0) return false;
+			if (f.era && p.er !== f.era) return false;
+			if (f.fav && (f.favoritos || []).indexOf(p.id) < 0) return false;
+			return true;
+			});
+			};
+			// Índice de Ameaça = média dos 6 atributos; nível por faixa
+			L.ameaca = function (s) {
+			const v = Math.round(s.reduce(function (a, b) { return a + b; }, 0) / s.length);
+			const nivel = v >= 75 ? 'Extremo' : v >= 55 ? 'Alto' : v >= 35 ? 'Moderado' : 'Baixo';
+			return { valor: v, nivel: nivel };
+			};
+			// vértices do radar: atributo i no ângulo 2πi/n - π/2 (começa no topo, sentido horário)
+			L.pontosRadar = function (s, r, cx, cy) {
+			return s.map(function (v, i) {
+			const ang = (2 * Math.PI * i) / s.length - Math.PI / 2;
+			const k = (Math.max(0, Math.min(100, v)) / 100) * r;
+			return [+(cx + k * Math.cos(ang)).toFixed(1), +(cy + k * Math.sin(ang)).toFixed(1)];
+			});
+			};
+			// vantagens do arquétipo a (1-based) na matriz m[atk][def]
+			L.vantagens = function (m, a) {
+			const i = a - 1;
+			const forte = [], fraco = [], vulneravel = [], resiste = [];
+			const linha = function (k) { return m[k] || []; }; // matriz incompleta não derruba a ficha
+			for (let j = 0; j < m.length; j++) {
+			if (linha(i)[j] >= 2) forte.push(j + 1);
+			if (linha(i)[j] <= 0.5) fraco.push(j + 1);
+			if (linha(j)[i] >= 2) vulneravel.push(j + 1);
+			if (linha(j)[i] <= 0.5) resiste.push(j + 1);
+			}
+			return { forte: forte, fraco: fraco, vulneravel: vulneravel, resiste: resiste };
+			};
+			// relações de um personagem (nos dois sentidos), mais fortes primeiro
+			L.relacoesDe = function (rel, id) {
+			const out = [];
+			rel.forEach(function (r) {
+			if (r[0] === id) out.push({ outro: r[1], tipo: r[2], peso: r[3], sai: true });
+			else if (r[1] === id) out.push({ outro: r[0], tipo: r[2], peso: r[3], sai: false });
+			});
+			return out.sort(function (a, b) { return b.peso - a.peso || a.outro - b.outro; });
+			};
+			L.rotuloRelacao = function (r) {
+			if (r.tipo === 'mentor') return r.sai ? 'pupilo' : 'mentor';
+			if (r.tipo === 'organização') return r.sai ? 'lidera' : 'liderado por';
+			return r.tipo;
+			};
+			// uma linha por pessoa (vários tipos viram 'família · mentor'), peso = o mais forte; ordem estável
+			L.agruparRelacoes = function (rels) {
+			const porOutro = {}, ordem = [];
+			rels.forEach(function (r) {
+			let g = porOutro[r.outro];
+			if (!g) { g = porOutro[r.outro] = { outro: r.outro, peso: 0, rotulos: [], tipos: [] }; ordem.push(g); }
+			g.peso = Math.max(g.peso, r.peso);
+			const rot = L.rotuloRelacao(r);
+			if (g.rotulos.indexOf(rot) < 0) g.rotulos.push(rot);
+			if (g.tipos.indexOf(r.tipo) < 0) g.tipos.push(r.tipo);
+			});
+			return ordem.sort(function (a, b) { return b.peso - a.peso || a.outro - b.outro; });
+			};
+			L.numeroArquivo = function (id) {
+			return '#BAT-' + String(id).padStart(3, '0');
+			};
+			// ---------------------------------------------------------------- renderização (só no navegador)
+			const doc = G.document;
+			const D = G.GOTHAM;
+			if (!doc) return;
+			const raiz = doc.getElementById('bc-raiz');
+			if (!raiz || raiz.dataset.bcRan) return; // já rodou neste DOM (script + onerror)
+			if (!D || !D.p || !D.p.length) {
+			const aviso = raiz.querySelector('.bc-pag');
+			if (aviso) aviso.textContent = 'dados indisponíveis — atualize o relatório';
+			return;
+			}
+			raiz.dataset.bcRan = '1';
+			const st = (S.bc = S.bc || { sel: 1, busca: '', alin: '', afil: 0, era: 0, fav: false, favoritos: [] });
+			const porId = {};
+			D.p.forEach(function (p) { porId[p.id] = p; });
+			const versao = {};
+			D.v.forEach(function (v) { versao[v.id] = v; });
+			const arq = {};
+			D.ar.forEach(function (a) { arq[a.id] = a; });
+			const era = {};
+			D.er.forEach(function (e) { era[e.id] = e; });
+			const E = L.esc;
+			if (!porId[st.sel]) st.sel = D.p[0].id;
+			raiz.innerHTML =
+			`<div class='bc-fx'></div><div class='bc-part'></div>
+			<header class='bc-top'><span class='bc-logo'>GOTHAM DATABASE</span><span class='bc-pag'>Batcomputador</span>
+			<span class='bc-cont' id='bc-cont'></span></header>
+			<aside class='bc-lista'>
+			<input id='bc-busca' class='bc-busca' type='search' placeholder='Buscar nome, codinome, identidade…' aria-label='Buscar personagem'>
+			<div class='bc-filtros'>
+			<select id='bc-alin' aria-label='Alinhamento'><option value=''>Alinhamento</option>
+			${['Herói', 'Vilão', 'Anti-herói', 'Neutro'].map(function (a) { return `<option>${a}</option>`; }).join('')}</select>
+			<select id='bc-afil' aria-label='Afiliação'><option value='0'>Afiliação</option>
+			${D.af.map(function (a) { return `<option value='${a.id}'>${E(a.n)}</option>`; }).join('')}</select>
+			<select id='bc-era' aria-label='Era de estreia'><option value='0'>Era</option>
+			${D.er.map(function (e) { return `<option value='${e.id}'>${E(e.n)}</option>`; }).join('')}</select>
+			<button id='bc-fav' class='bc-favbtn' type='button' title='Só favoritos' aria-pressed='false'>☆</button>
+			</div>
+			<ul id='bc-itens' class='bc-itens' role='listbox' aria-label='Personagens'></ul>
+			</aside>
+			<main id='bc-ficha' class='bc-ficha'></main>
+			<aside id='bc-lado' class='bc-lado'></aside>`;
+			const $ = function (id) { return doc.getElementById(id); };
+			$('bc-busca').value = st.busca;
+			$('bc-alin').value = st.alin;
+			$('bc-afil').value = String(st.afil);
+			$('bc-era').value = String(st.era);
+			function retrato(p, classe) {
+			const img = (versao[p.v] || {}).img;
+			return `<div class='${classe}'>${img ? `<img src='${E(img)}' alt='' loading='lazy' onerror='this.remove()'>` : ''}</div>`;
+			}
+			function pintarLista() {
+			const lista = L.filtrar(D.p, st);
+			$('bc-cont').textContent = lista.length + (lista.length === 1 ? ' arquivo encontrado' : ' arquivos encontrados');
+			// roving tabindex (padrão listbox): só um item entra na ordem do Tab; ↑/↓ navegam; F favorita
+			const focavel = lista.some(function (p) { return p.id === st.sel; }) ? st.sel : (lista[0] || {}).id;
+			$('bc-itens').innerHTML = lista.map(function (p) {
+			const sel = p.id === st.sel;
+			const fav = st.favoritos.indexOf(p.id) >= 0;
+			return `<li class='bc-item fx-${E(p.f)}${sel ? ' bc-sel' : ''}' role='option' aria-selected='${sel}' tabindex='${p.id === focavel ? 0 : -1}' data-id='${p.id}'>
+			${retrato(p, 'bc-mini')}<span class='bc-in'><b>${E(p.n)}</b><small>${E((arq[p.a] || {}).s)} · ${E(p.al)}</small></span>
+			<button type='button' tabindex='-1' class='bc-estrela${fav ? ' bc-on' : ''}' data-fav='${p.id}' aria-pressed='${fav}' aria-label='Favoritar ${E(p.n)} (tecla F)'>${fav ? '★' : '☆'}</button></li>`;
+			}).join('') || `<li class='bc-vazio'>Nenhum arquivo com esses filtros.</li>`;
+			const ativo = $('bc-itens').querySelector('.bc-sel');
+			if (ativo && ativo.scrollIntoView) ativo.scrollIntoView({ block: 'nearest' });
+			}
+			function radar(s) {
+			const R = 74, C = 100;
+			const grade = [0.25, 0.5, 0.75, 1].map(function (k) {
+			return `<polygon cla" & "ss='bc-grade' points='${L.pontosRadar([100, 100, 100, 100, 100, 100], R * k, C, C).map(function (q) { return q.join(','); }).join(' ')}'/>`;
+			}).join('');
+			const eixos = L.pontosRadar([100, 100, 100, 100, 100, 100], R, C, C);
+			const rot = L.pontosRadar([100, 100, 100, 100, 100, 100], R + 16, C, C);
+			return `<svg viewBox='0 0 200 200' class='bc-radar' role='img' aria-label='Atributos: ${s.map(function (v, i) { return STATS[i] + ' ' + v; }).join(', ')}'>
+			${grade}${eixos.map(function (q) { return `<line class='bc-eixo' x1='${C}' y1='${C}' x2='${q[0]}' y2='${q[1]}'/>`; }).join('')}
+			<polygon class='bc-area' points='${L.pontosRadar(s, R, C, C).map(function (q) { return q.join(','); }).join(' ')}'/>
+			${rot.map(function (q, i) { return `<text x='${q[0]}' y='${q[1]}' class='bc-rot'>${STATS[i].slice(0, 3).toUpperCase()}</text>`; }).join('')}
+			</svg>`;
+			}
+			function pintarFicha() {
+			const p = porId[st.sel];
+			const v = versao[p.v];
+			const a = arq[p.a];
+			const am = L.ameaca(v.s);
+			const totalAp = p.ap.reduce(function (x, y) { return x + y; }, 0);
+			raiz.className = 'bc fx-' + p.f;
+			$('bc-ficha').innerHTML =
+			`<div class='bc-card bc-glitch'>
+			<span class='bc-num' aria-hidden='true'>${L.numeroArquivo(p.id)}</span>
+			<h1 class='bc-nome'>${E(p.n)}</h1>
+			<p class='bc-sub'>${E(p.c && p.c !== p.n ? p.c + ' · ' : '')}${E(p.ci)}</p>
+			<div class='bc-chips'>
+			<span class='bc-chip'>${E(era[p.er].n)}</span><span class='bc-chip'>${E(p.me)} · ${p.ano}</span>
+			<span class='bc-chip bc-amea-${am.nivel.toLowerCase()}'>Ameaça ${am.nivel}</span>
+			<span class='bc-chip' style='border-color:${E(a.c)}'>${E(a.s)} · ${E(a.n)}</span>
+			<span class='bc-chip'>${E(p.al)}</span>
+			</div>
+			<div class='bc-corpo'>
+			${retrato(p, 'bc-foto')}
+			<div class='bc-radar-box'>${radar(v.s)}
+			<div class='bc-barras'>${v.s.map(function (x, i) {
+			return `<div class='bc-b'><span>${STATS[i]}</span><i><em style='width:${x}%'></em></i><b>${x}</b></div>`;
+			}).join('')}<div class='bc-total'>Índice de Ameaça <b>${am.valor}</b></div></div>
+			</div>
+			</div>
+			<div class='bc-mini3'>
+			<div><b>${totalAp}</b><span>aparições catalogadas</span></div>
+			<div><b>${p.gr}</b><span>ligações na rede</span></div>
+			<div><b>${p.ano}</b><span>ano de estreia</span></div>
+			</div>
+			<p class='bc-estreia'><span>Primeira aparição</span> ${E(p.e)}<br><span>Criadores</span> ${E(p.cr)}</p>
+			</div>`;
+			const vt = L.vantagens(D.m, p.a);
+			const chips = function (ids, mult) {
+			return ids.filter(function (id) { return arq[id]; }).map(function (id) { return `<span class='bc-chip' style='border-color:${E(arq[id].c)}'>${E(arq[id].s)} <b>${mult}</b></span>`; }).join('') || `<span class='bc-nada'>—</span>`;
+			};
+			const rels = L.agruparRelacoes(L.relacoesDe(D.rel, p.id)).slice(0, 9);
+			const maxAp = Math.max.apply(null, p.ap.concat([1]));
+			const afs = D.af.filter(function (x) { return p.af.indexOf(x.id) >= 0; }).map(function (x) { return E(x.n); });
+			$('bc-lado').innerHTML =
+			`<section class='bc-box'><h2>Arquétipo · ${E(a.n)}</h2><p class='bc-just'>${E(p.j)}</p>
+			<div class='bc-vt'><span>Forte contra ${vt.forte.length}</span>${chips(vt.forte, '×2 ↑')}</div>
+			<div class='bc-vt'><span>Vulnerável a ${vt.vulneravel.length}</span>${chips(vt.vulneravel, '×2 ↓')}</div>
+			<div class='bc-vt'><span>Resiste a ${vt.resiste.length}</span>${chips(vt.resiste, '×½')}</div></section>
+			<section class='bc-box'><h2>Rede de relações</h2>
+			${rels.filter(function (r) { return porId[r.outro]; }).map(function (r) {
+			const o = porId[r.outro];
+			return `<button type='button' class='bc-rel' data-id='${o.id}' aria-label='Abrir ${E(o.n)}: ${E(r.rotulos.join(', '))}'><i style='background:${COR_REL[r.tipos[0]] || '#7d8794'}'></i>${E(o.n)}<small>${E(r.rotulos.join(' · '))}</small></button>`;
+			}).join('') || `<span class='bc-nada'>Sem relações catalogadas no Wikidata.</span>`}
+			${afs.length ? `<p class='bc-afs'>${afs.join(' · ')}</p>` : ''}</section>
+			<section class='bc-box'><h2>Aparições por mídia</h2>
+			${D.md.map(function (m, i) {
+			return `<div class='bc-b'><span>${E(m)}</span><i><em style='width:${(100 * p.ap[i]) / maxAp}%'></em></i><b>${p.ap[i]}</b></div>`;
+			}).join('')}</section>`;
+			particulas(p.f);
+			}
+			function particulas(f) {
+			const box = raiz.querySelector('.bc-part');
+			const chars = PARTICULAS[f];
+			if (!chars || (G.matchMedia && G.matchMedia('(prefers-reduced-motion: reduce)').matches)) { box.innerHTML = ''; return; }
+			let h = '';
+			for (let i = 0; i < 18; i++) {
+			const ch = chars[i % chars.length];
+			h += `<span style='left:${(i * 53) % 100}%;animation-delay:${((i * 0.7) % 6).toFixed(1)}s;animation-duration:${(6 + (i % 5)).toFixed(0)}s'>${ch}</span>`;
+			}
+			box.innerHTML = h;
+			}
+			// falha de render vira aviso na página (o visual não tem console) em vez de coluna vazia
+			function seguro(nome, fn) {
+			try {
+			fn();
+			} catch (e) {
+			const onde = String((e && e.stack) || '').split(String.fromCharCode(10)).slice(0, 3).join(' | ');
+			const msg = `<div class='bc-erro' role='alert'>Erro ao montar ${nome}: ${E(e && e.message)}<br>${E(onde)}</div>`;
+			if (nome === 'lista') {
+			$('bc-itens').innerHTML = msg;
+			} else {
+			$('bc-ficha').innerHTML = msg; // nunca deixa a ficha anterior visível com dados de outro personagem
+			$('bc-lado').innerHTML = '';
+			}
+			}
+			}
+			function selecionar(id, focar) {
+			if (!porId[id] || id === st.sel) return;
+			st.sel = id;
+			seguro('lista', pintarLista);
+			seguro('ficha', pintarFicha);
+			// mantém ↑/↓ funcionando depois de clicar numa relação (o botão clicado some no redesenho)
+			if (focar) {
+			const item = $('bc-itens').querySelector('.bc-sel');
+			if (item) item.focus({ preventScroll: true }); else raiz.focus({ preventScroll: true });
+			}
+			}
+			raiz.addEventListener('click', function (ev) {
+			const fav = ev.target.closest('[data-fav]');
+			if (fav) {
+			alternarFavorito(+fav.getAttribute('data-fav'));
+			return;
+			}
+			const alvo = ev.target.closest('[data-id]');
+			if (alvo) selecionar(+alvo.getAttribute('data-id'), true);
+			if (ev.target.id === 'bc-fav') {
+			st.fav = !st.fav;
+			pintarBotaoFav();
+			pintarLista();
+			}
+			});
+			function alternarFavorito(id) {
+			const k = st.favoritos.indexOf(id);
+			if (k >= 0) st.favoritos.splice(k, 1); else st.favoritos.push(id);
+			pintarLista();
+			}
+			function pintarBotaoFav() {
+			const b = $('bc-fav');
+			b.textContent = st.fav ? '★' : '☆';
+			b.setAttribute('aria-pressed', String(st.fav));
+			}
+			$('bc-busca').addEventListener('input', function (ev) { st.busca = ev.target.value; pintarLista(); });
+			$('bc-alin').addEventListener('change', function (ev) { st.alin = ev.target.value; pintarLista(); });
+			$('bc-afil').addEventListener('change', function (ev) { st.afil = +ev.target.value; pintarLista(); });
+			$('bc-era').addEventListener('change', function (ev) { st.era = +ev.target.value; pintarLista(); });
+			raiz.addEventListener('keydown', function (ev) {
+			const tag = ev.target.tagName;
+			// Enter/Espaço num item da lista seleciona; ↑/↓ navegam — exceto dentro de um <select> (mudaria o filtro)
+			const noItem = ev.target.classList && ev.target.classList.contains('bc-item');
+			if ((ev.key === 'Enter' || ev.key === ' ') && noItem) {
+			ev.preventDefault();
+			selecionar(+ev.target.getAttribute('data-id'), true);
+			return;
+			}
+			if ((ev.key === 'f' || ev.key === 'F') && noItem) {
+			ev.preventDefault();
+			alternarFavorito(+ev.target.getAttribute('data-id'));
+			// com 'Só favoritos', desfavoritar tira o item da lista: o foco vai para o item focável restante ou a raiz
+			const item = $('bc-itens').querySelector(`[data-id='${ev.target.getAttribute('data-id')}']`) ||
+			$('bc-itens').querySelector(`[tabindex='0']`);
+			(item || raiz).focus({ preventScroll: true });
+			return;
+			}
+			if ((ev.key !== 'ArrowDown' && ev.key !== 'ArrowUp') || tag === 'SELECT' || tag === 'TEXTAREA') return;
+			const lista = L.filtrar(D.p, st);
+			const i = lista.findIndex(function (p) { return p.id === st.sel; });
+			const j = Math.max(0, Math.min(lista.length - 1, i + (ev.key === 'ArrowDown' ? 1 : -1)));
+			if (lista[j]) { ev.preventDefault(); selecionar(lista[j].id, tag !== 'INPUT'); }
+			});
+			pintarBotaoFav();
+			seguro('lista', pintarLista);
+			seguro('ficha', pintarFicha);
+			})(typeof window !== 'undefined' ? window : globalThis);
+			</script>
+			<img src='data:,' alt='' style='display:none' onerror='var r=document.getElemen" & "tById(`bc-raiz`);if(r&&!r.dataset.bcRan){new Function(document.getElementById(`bc-dados`).textContent)();new Function(document.getElementById(`bc-app`).textContent)()}'>
+			"
+			```
+		displayFolder: 10 Ficha HTML
+
 	measure 'HTML Painel' = ```
 			-- Página Painel do Comissário. O build expande o template src/html/painel.html
 			"<style>/* Gotham Noir — design tokens (dono: designer-ui). Contrato: contracts/design-tokens.md */
@@ -359,6 +901,138 @@ table _Medidas
 			```
 		displayFolder: 99 Spike
 
+	measure 'JS Gotham' = ```
+			-- Serializa o modelo no objeto window.GOTHAM (contrato: contracts/js-data-schema.json, v0.2).
+			-- TODO texto vindo de dados passa pelo escape de string JS entre aspas simples:
+			--   \ -> \\   ' -> \'   </ -> <\/   LF -> \n   CR -> \r      (teste: tests/build/test_build.py)
+			-- Números com FORMAT en-US. Dimensões iteradas com ALLNOBLANKROW: chave estrangeira vazia
+			-- (ex.: dGadget[SoContraArquetipo]) cria um membro em branco que, com ALL, deslocaria a matriz.
+			VAR _ar =
+			    CONCATENATEX (
+			        ALLNOBLANKROW ( dArquetipo ),
+			        VAR _s = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dArquetipo[Sigla], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+			        VAR _n = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dArquetipo[Nome], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+			        VAR _c = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dArquetipo[Cor], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+			        RETURN "{id:" & dArquetipo[IdArquetipo] & ",s:'" & _s & "',n:'" & _n & "',c:'" & _c & "'}",
+			        ",", dArquetipo[IdArquetipo], ASC
+			    )
+			VAR _m =
+			    CONCATENATEX (
+			        ALLNOBLANKROW ( dArquetipo ),
+			        VAR _atk = dArquetipo[IdArquetipo]
+			        RETURN
+			            "[" & CONCATENATEX (
+			                FILTER ( ALL ( fMatchup ), fMatchup[IdAtaque] = _atk ),
+			                FORMAT ( fMatchup[Multiplicador], "0.0#", "en-US" ),
+			                ",", fMatchup[IdDefesa], ASC
+			            ) & "]",
+			        ",", dArquetipo[IdArquetipo], ASC
+			    )
+			VAR _er =
+			    CONCATENATEX (
+			        ALLNOBLANKROW ( dEra ),
+			        VAR _n = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dEra[Nome], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+			        RETURN "{id:" & dEra[IdEra] & ",n:'" & _n & "',i:" & dEra[AnoInicio] & "}",
+			        ",", dEra[Ordem], ASC
+			    )
+			VAR _af =
+			    CONCATENATEX (
+			        ALLNOBLANKROW ( dAfiliacao ),
+			        VAR _n = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dAfiliacao[Nome], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+			        RETURN "{id:" & dAfiliacao[IdAfiliacao] & ",n:'" & _n & "'}",
+			        ",", dAfiliacao[IdAfiliacao], ASC
+			    )
+			VAR _md =
+			    CONCATENATEX (
+			        ALLNOBLANKROW ( dMidia ),
+			        VAR _n = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dMidia[Nome], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+			        RETURN "'" & _n & "'",
+			        ",", dMidia[IdMidia], ASC
+			    )
+			VAR _v =
+			    CONCATENATEX (
+			        ALLNOBLANKROW ( dVersao ),
+			        VAR _n = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dVersao[NomeVersao], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+			        VAR _img = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dVersao[UrlImagem], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+			        VAR _r = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dVersao[Raridade], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+			        RETURN
+			            "{id:" & dVersao[IdVersao] & ",p:" & dVersao[IdPersonagem] & ",n:'" & _n & "',a:" & dVersao[IdArquetipo]
+			                & ",s:[" & dVersao[Int] & "," & dVersao[For] & "," & dVersao[Vel] & "," & dVersao[Dur] & "," & dVersao[Pod]
+			                & "," & dVersao[Com] & "],img:'" & _img & "',t:" & dVersao[EhTransformacao] & ",r:'" & _r & "'}",
+			        ",", dVersao[IdVersao], ASC
+			    )
+			VAR _p =
+			    CONCATENATEX (
+			        ALLNOBLANKROW ( dPersonagem ),
+			        VAR _id = dPersonagem[IdPersonagem]
+			        -- versão padrão = menor IdVersao do personagem que não é transformação (sem depender de Id×100+1)
+			        VAR _v =
+			            COALESCE (
+			                MINX ( FILTER ( ALLNOBLANKROW ( dVersao ), dVersao[IdPersonagem] = _id && dVersao[EhTransformacao] = 0 ), dVersao[IdVersao] ),
+			                MINX ( FILTER ( ALLNOBLANKROW ( dVersao ), dVersao[IdPersonagem] = _id ), dVersao[IdVersao] ),
+			                0
+			            )
+			        VAR _n = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dPersonagem[Nome], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+			        VAR _c = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dPersonagem[Codinome], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+			        VAR _ci = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dPersonagem[IdentidadeCivil], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+			        VAR _al = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dPersonagem[Alinhamento], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+			        VAR _f = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dPersonagem[Faccao], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+			        VAR _e = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dPersonagem[PrimeiraAparicao], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+			        VAR _me = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dPersonagem[MidiaEstreia], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+			        VAR _cr = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dPersonagem[Criadores], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+			        VAR _j = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dPersonagem[JustificativaArquetipo], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+			        VAR _afs =
+			            CONCATENATEX (
+			                FILTER ( ALL ( bPersonagemAfiliacao ), bPersonagemAfiliacao[IdPersonagem] = _id ),
+			                bPersonagemAfiliacao[IdAfiliacao], ",", bPersonagemAfiliacao[IdAfiliacao], ASC
+			            )
+			        VAR _ap =
+			            CONCATENATEX (
+			                ALLNOBLANKROW ( dMidia ),
+			                VAR _md = dMidia[IdMidia]
+			                RETURN
+			                    COUNTROWS (
+			                        FILTER ( ALL ( fAparicao ), fAparicao[IdPersonagem] = _id && RELATED ( dObra[IdMidia] ) = _md )
+			                    ) + 0,
+			                ",", dMidia[IdMidia], ASC
+			            )
+			        VAR _cen = FILTER ( ALLNOBLANKROW ( dCentralidade ), dCentralidade[IdPersonagem] = _id )
+			        VAR _gr = MAXX ( _cen, dCentralidade[Grau] ) + 0
+			        VAR _in = MAXX ( _cen, dCentralidade[Intermediacao] ) + 0
+			        RETURN
+			            "{id:" & _id & ",n:'" & _n & "',c:'" & _c & "',ci:'" & _ci & "',al:'" & _al & "',a:" & dPersonagem[IdArquetipo]
+			                & ",f:'" & _f & "',e:'" & _e & "',ano:" & dPersonagem[AnoEstreia] & ",er:" & dPersonagem[IdEra]
+			                & ",me:'" & _me & "',cr:'" & _cr & "',j:'" & _j & "',v:" & _v & ",af:[" & _afs & "],ap:[" & _ap
+			                & "],gr:" & _gr & ",in:" & FORMAT ( _in, "0.000###", "en-US" ) & "}",
+			        ",", dPersonagem[IdPersonagem], ASC
+			    )
+			VAR _rel =
+			    CONCATENATEX (
+			        ALL ( fRelacao ),
+			        VAR _t = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( fRelacao[TipoRelacao], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+			        RETURN "[" & fRelacao[IdOrigem] & "," & fRelacao[IdDestino] & ",'" & _t & "'," & fRelacao[Peso] & "]",
+			        ",", fRelacao[IdOrigem], ASC, fRelacao[IdDestino], ASC
+			    )
+			VAR _g =
+			    CONCATENATEX (
+			        ALLNOBLANKROW ( dGolpe ),
+			        VAR _n = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dGolpe[Nome], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+			        VAR _ef = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dGolpe[Efeito], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+			        RETURN
+			            "{id:" & dGolpe[IdGolpe] & ",n:'" & _n & "',a:" & dGolpe[IdArquetipo] & ",c:'"
+			                & IF ( dGolpe[Categoria] = "Físico", "F", "T" ) & "',pw:" & dGolpe[Poder] & ",ac:" & dGolpe[Precisao]
+			                & ",ef:'" & _ef & "'}",
+			        ",", dGolpe[IdGolpe], ASC
+			    )
+			VAR _vg =
+			    CONCATENATEX ( ALL ( bVersaoGolpe ), "[" & bVersaoGolpe[IdVersao] & "," & bVersaoGolpe[IdGolpe] & "]", ",",
+			        bVersaoGolpe[IdVersao], ASC, bVersaoGolpe[IdGolpe], ASC )
+			RETURN
+			    "window.GOTHAM={ar:[" & _ar & "],m:[" & _m & "],er:[" & _er & "],af:[" & _af & "],md:[" & _md & "],v:[" & _v
+			        & "],p:[" & _p & "],rel:[" & _rel & "],g:[" & _g & "],vg:[" & _vg & "]};"
+			```
+		displayFolder: 40 JS
+
 	measure 'Painel Barras Era' = ```
 			-- Barras verticais: obras por era editorial
 			VAR _max = MAXX ( dEra, CALCULATE ( COUNTROWS ( dObra ) ) )
@@ -478,6 +1152,13 @@ table _Medidas
 			```
 		formatString: #,0
 		displayFolder: 99 Spike
+
+	measure 'Tamanho JS Gotham' = ```
+			-- Tamanho da serialização (orçamento: limite prático medido na F0 é ~1 milhão de caracteres)
+			LEN ( [JS Gotham] )
+			```
+		formatString: #,0
+		displayFolder: 40 JS
 
 	column _
 		dataType: string

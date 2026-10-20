@@ -3,6 +3,8 @@
   "padrao": 20000,
   "medidas": {
     "HTML Spike": 30000,
-    "HTML Painel": 30000
+    "HTML Painel": 30000,
+    "HTML Batcomputador": 40000,
+    "JS Gotham": 20000
   }
 }

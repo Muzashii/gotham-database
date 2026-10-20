@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "gotham-database/js-data-schema",
   "title": "Objeto window.GOTHAM serializado pela medida [JS Gotham]",
-  "description": "Dono: engenheiro-dax (Batcomputador). Consumidores: dev-js-apps, game-designer, revisor-qa. Versao 0.1 (rascunho F0, congela na F4a). Chaves curtas para reduzir o tamanho da string DAX.",
+  "description": "Dono: engenheiro-dax (Batcomputador). Consumidores: dev-js-apps, game-designer, revisor-qa. Versao 0.2 (F4: Batcomputador). Chaves curtas para reduzir o tamanho da string DAX. Textos escapados para string JS de aspas simples: barra invertida, apostrofo e a sequencia de fim de script.",
   "type": "object",
   "properties": {
     "v": {
@@ -10,51 +10,337 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "p", "n", "a", "s", "img"],
+        "required": [
+          "id",
+          "p",
+          "n",
+          "a",
+          "s",
+          "img"
+        ],
         "properties": {
-          "id": { "type": "integer", "description": "IdVersao" },
-          "p": { "type": "integer", "description": "IdPersonagem" },
-          "n": { "type": "string", "description": "NomeVersao (apostrofo escapado como \\')" },
-          "a": { "type": "integer", "description": "IdArquetipo" },
+          "id": {
+            "type": "integer",
+            "description": "IdVersao"
+          },
+          "p": {
+            "type": "integer",
+            "description": "IdPersonagem"
+          },
+          "n": {
+            "type": "string",
+            "description": "NomeVersao (apostrofo escapado como \\')"
+          },
+          "a": {
+            "type": "integer",
+            "description": "IdArquetipo"
+          },
           "s": {
             "type": "array",
             "description": "Atributos 0-100 na ordem INT, FOR, VEL, DUR, POD, COM",
-            "items": { "type": "integer", "minimum": 0, "maximum": 100 },
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            },
             "minItems": 6,
             "maxItems": 6
           },
-          "img": { "type": "string", "description": "UrlImagem (pode ser vazia; usar fallback de silhueta)" },
-          "t": { "type": "integer", "enum": [0, 1], "description": "EhTransformacao" },
-          "r": { "type": "string", "enum": ["comum", "incomum", "raro", "lendario"], "description": "Raridade" }
+          "img": {
+            "type": "string",
+            "description": "UrlImagem (pode ser vazia; usar fallback de silhueta)"
+          },
+          "t": {
+            "type": "integer",
+            "enum": [
+              0,
+              1
+            ],
+            "description": "EhTransformacao"
+          },
+          "r": {
+            "type": "string",
+            "enum": [
+              "comum",
+              "incomum",
+              "raro",
+              "lendario"
+            ],
+            "description": "Raridade"
+          }
         }
       }
     },
     "m": {
       "description": "Matriz de arquetipos: m[idAtaque-1][idDefesa-1] = multiplicador",
       "type": "array",
-      "items": { "type": "array", "items": { "type": "number", "enum": [0.5, 1, 2] } }
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "number",
+          "enum": [
+            0.5,
+            1,
+            2
+          ]
+        }
+      }
     },
     "g": {
       "description": "Golpes (dGolpe)",
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "n", "a", "c", "pw", "ac"],
+        "required": [
+          "id",
+          "n",
+          "a",
+          "c",
+          "pw",
+          "ac"
+        ],
         "properties": {
-          "id": { "type": "integer" },
-          "n": { "type": "string" },
-          "a": { "type": "integer", "description": "IdArquetipo" },
-          "c": { "type": "string", "enum": ["F", "T"], "description": "Fisico ou Tatico" },
-          "pw": { "type": "integer", "description": "Poder" },
-          "ac": { "type": "integer", "description": "Precisao 0-100" },
-          "ef": { "type": "string", "description": "Efeito opcional" }
+          "id": {
+            "type": "integer"
+          },
+          "n": {
+            "type": "string"
+          },
+          "a": {
+            "type": "integer",
+            "description": "IdArquetipo"
+          },
+          "c": {
+            "type": "string",
+            "enum": [
+              "F",
+              "T"
+            ],
+            "description": "Fisico ou Tatico"
+          },
+          "pw": {
+            "type": "integer",
+            "description": "Poder"
+          },
+          "ac": {
+            "type": "integer",
+            "description": "Precisao 0-100"
+          },
+          "ef": {
+            "type": "string",
+            "description": "Efeito opcional"
+          }
         }
       }
     },
     "vg": {
       "description": "Ponte versao x golpe: pares [IdVersao, IdGolpe]",
       "type": "array",
-      "items": { "type": "array", "items": { "type": "integer" }, "minItems": 2, "maxItems": 2 }
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "integer"
+        },
+        "minItems": 2,
+        "maxItems": 2
+      }
+    },
+    "ar": {
+      "description": "Arquetipos (dArquetipo), ordem por id",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "s",
+          "n",
+          "c"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "s": {
+            "type": "string",
+            "description": "Sigla"
+          },
+          "n": {
+            "type": "string"
+          },
+          "c": {
+            "type": "string",
+            "description": "Cor hex"
+          }
+        }
+      }
+    },
+    "er": {
+      "description": "Eras (dEra), ordem",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "n",
+          "i"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "n": {
+            "type": "string"
+          },
+          "i": {
+            "type": "integer",
+            "description": "AnoInicio"
+          }
+        }
+      }
+    },
+    "af": {
+      "description": "Afiliacoes (dAfiliacao)",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "n"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "n": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "md": {
+      "description": "Midias (dMidia), na ordem de IdMidia; indices usados em p[].ap",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "p": {
+      "description": "Personagens (dPersonagem) com dados agregados para a ficha",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "n",
+          "c",
+          "ci",
+          "al",
+          "a",
+          "f",
+          "e",
+          "ano",
+          "er",
+          "cr",
+          "j",
+          "v",
+          "af",
+          "ap",
+          "gr",
+          "in"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "n": {
+            "type": "string",
+            "description": "Nome"
+          },
+          "c": {
+            "type": "string",
+            "description": "Codinome (pode ser vazio)"
+          },
+          "ci": {
+            "type": "string",
+            "description": "IdentidadeCivil"
+          },
+          "al": {
+            "type": "string",
+            "enum": [
+              "Herói",
+              "Vilão",
+              "Anti-herói",
+              "Neutro"
+            ]
+          },
+          "a": {
+            "type": "integer",
+            "description": "IdArquetipo"
+          },
+          "f": {
+            "type": "string",
+            "description": "Faccao (classe fx-*)"
+          },
+          "e": {
+            "type": "string",
+            "description": "PrimeiraAparicao"
+          },
+          "ano": {
+            "type": "integer"
+          },
+          "er": {
+            "type": "integer",
+            "description": "IdEra da estreia"
+          },
+          "me": {
+            "type": "string",
+            "description": "MidiaEstreia"
+          },
+          "cr": {
+            "type": "string",
+            "description": "Criadores"
+          },
+          "j": {
+            "type": "string",
+            "description": "JustificativaArquetipo"
+          },
+          "v": {
+            "type": "integer",
+            "description": "IdVersao padrao"
+          },
+          "af": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "description": "IdAfiliacao[]"
+          },
+          "ap": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "description": "Aparicoes por midia, na ordem de md"
+          },
+          "gr": {
+            "type": "integer",
+            "description": "Grau na rede"
+          },
+          "in": {
+            "type": "number",
+            "description": "Intermediacao 0-1"
+          }
+        }
+      }
+    },
+    "rel": {
+      "description": "Relacoes (fRelacao): [IdOrigem, IdDestino, TipoRelacao, Peso]",
+      "type": "array",
+      "items": {
+        "type": "array",
+        "minItems": 4,
+        "maxItems": 4
+      }
     }
   }
 }

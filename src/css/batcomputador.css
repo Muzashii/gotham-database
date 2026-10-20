@@ -1,0 +1,204 @@
+/* Batcomputador — layout 3 colunas + temas animados por facção (plano §9.2). Dono: designer-ui. */
+.bc {
+  position: relative;
+  overflow: hidden;
+  height: 100vh; /* cada coluna rola por dentro; a página inteira nunca rola */
+  box-sizing: border-box;
+  display: grid;
+  /* colunas proporcionais: o iframe do visual é mais estreito que a página (zoom/escala do Power BI) */
+  grid-template-columns: minmax(200px, 23%) minmax(0, 1fr) minmax(220px, 24%);
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 12px;
+  padding: 12px 16px;
+  background: radial-gradient(ellipse at 50% -10%, #1a2330 0%, var(--g-bg) 60%);
+  color: var(--g-text);
+  font-family: var(--font-ui);
+}
+.bc *, .bc *::before, .bc *::after { box-sizing: border-box; }
+.bc-fx, .bc-part { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.bc-top, .bc-lista, .bc-ficha, .bc-lado { position: relative; z-index: 1; min-height: 0; }
+.bc-top { grid-column: 1 / -1; display: flex; align-items: baseline; gap: 14px; border-bottom: 1px solid var(--g-line); padding-bottom: 6px; }
+.bc-logo { font-family: var(--font-title); font-size: 28px; letter-spacing: 2px; color: var(--bat-yellow); }
+.bc-pag { font-family: var(--font-mono); font-size: 13px; letter-spacing: 2px; text-transform: uppercase; }
+.bc-cont { margin-left: auto; font-family: var(--font-mono); font-size: 12px; color: var(--g-muted); }
+
+/* ---------------- lista */
+.bc-lista { display: flex; flex-direction: column; gap: 8px; }
+.bc-busca, .bc-filtros select {
+  width: 100%; background: var(--g-panel); color: var(--g-text); border: 1px solid var(--g-line);
+  border-radius: 4px; padding: 6px 8px; font: inherit; font-size: 13px;
+}
+.bc-busca:focus, .bc-filtros select:focus, .bc-favbtn:focus-visible, .bc-rel:focus-visible { outline: 2px solid var(--bat-yellow); outline-offset: 1px; }
+.bc-filtros { display: grid; grid-template-columns: 1fr 1fr 1fr 34px; gap: 6px; }
+.bc-filtros select { padding: 4px; font-size: 12px; }
+.bc-favbtn { background: var(--g-panel); color: var(--bat-yellow); border: 1px solid var(--g-line); border-radius: 4px; cursor: pointer; font-size: 16px; }
+.bc-itens { list-style: none; margin: 0; padding: 0 4px 0 0; overflow-y: auto; flex: 1; scrollbar-width: thin; scrollbar-color: var(--g-line) transparent; }
+.bc-item {
+  display: grid; grid-template-columns: 36px 1fr 20px; align-items: center; gap: 8px; padding: 4px 6px; margin-bottom: 4px;
+  background: var(--g-panel); border: 1px solid var(--g-line); border-left: 3px solid var(--g-muted);
+  border-radius: 4px; cursor: pointer; transition: transform var(--t-fast);
+}
+.bc-item:hover { transform: translateX(3px); }
+/* fundo opaco (#22221a = painel + 8% de amarelo): o texto não depende do tema animado atrás — AA garantido */
+.bc-sel { border-color: var(--bat-yellow); background: #22221a; }
+.bc-sel .bc-in small { color: var(--g-text); } /* especificidade (0,2,1) vence .bc-in small */
+.bc-mini { width: 36px; height: 36px; border-radius: 3px; overflow: hidden; background: radial-gradient(circle at 50% 38%, #2a3542 0 24%, transparent 25%), radial-gradient(ellipse at 50% 105%, #2a3542 0 45%, var(--g-bg) 46%); }
+.bc-mini img, .bc-foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.bc-in b { display: block; font-size: 14px; line-height: 1.1; }
+.bc-in small { color: var(--g-muted); font-size: 11px; }
+.bc-estrela { color: var(--g-muted); font-size: 15px; text-align: center; background: none; border: 0; padding: 0; cursor: pointer; font-family: inherit; }
+.bc-estrela:focus-visible, .bc-item:focus-visible { outline: 2px solid var(--bat-yellow); outline-offset: 1px; }
+.bc-on { color: var(--bat-yellow); }
+.bc-vazio { color: var(--g-muted); padding: 12px; font-size: 13px; }
+
+/* ---------------- ficha */
+.bc-ficha { overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--g-line) transparent; }
+.bc-card { position: relative; background: rgba(16, 20, 26, 0.9); border: 1px solid var(--g-line); border-radius: 8px; padding: 14px 18px; overflow: hidden; }
+.bc-card::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 3px); }
+.bc-num { position: absolute; right: 14px; top: 2px; font-family: var(--font-title); font-size: 64px; color: rgba(215, 221, 228, 0.06); letter-spacing: 3px; }
+.bc-nome { margin: 0; font-family: var(--font-title); font-size: 40px; letter-spacing: 1.5px; line-height: 1; }
+.bc-sub { margin: 2px 0 8px; color: var(--g-muted); font-size: 14px; }
+.bc-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.bc-chip { display: inline-block; border: 1px solid var(--g-line); border-radius: 999px; padding: 1px 9px; font-size: 12px; background: var(--g-panel); }
+.bc-amea-baixo { border-color: var(--arkham-green); }
+.bc-amea-moderado { border-color: var(--ice); }
+.bc-amea-alto { border-color: var(--bat-yellow); }
+.bc-amea-extremo { border-color: var(--blood); }
+.bc-corpo { display: grid; grid-template-columns: minmax(120px, 30%) minmax(0, 1fr); gap: 14px; align-items: start; }
+.bc-foto { height: 240px; border-radius: 6px; overflow: hidden; border: 1px solid var(--g-line); background: radial-gradient(circle at 50% 34%, #2a3542 0 20%, transparent 21%), radial-gradient(ellipse at 50% 100%, #2a3542 0 42%, var(--g-bg) 43%); }
+.bc-radar-box { display: grid; grid-template-columns: minmax(140px, 200px) minmax(0, 1fr); gap: 10px; align-items: center; }
+.bc-radar { width: 100%; height: auto; max-width: 200px; overflow: visible; }
+.bc-grade { fill: none; stroke: var(--g-line); stroke-width: 1; }
+.bc-eixo { stroke: var(--g-line); stroke-width: 1; }
+.bc-area { fill: rgba(245, 197, 24, 0.28); stroke: var(--bat-yellow); stroke-width: 2; transform-origin: 100px 100px; animation: bc-radar 0.6s ease-out; }
+.bc-rot { fill: var(--g-muted); font-family: var(--font-mono); font-size: 9px; text-anchor: middle; dominant-baseline: middle; }
+@keyframes bc-radar { from { transform: scale(0.2); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.bc-b { display: grid; grid-template-columns: minmax(70px, 92px) minmax(30px, 1fr) 30px; align-items: center; gap: 6px; font-size: 12px; margin: 4px 0; }
+.bc-b i { height: 8px; background: var(--g-line); border-radius: 4px; overflow: hidden; }
+.bc-b em { display: block; height: 100%; background: var(--bat-yellow); border-radius: 4px; transform-origin: left; animation: bc-cresce 0.7s ease-out; }
+.bc-b b { font-family: var(--font-mono); font-weight: 400; font-size: 11px; color: var(--g-muted); text-align: right; }
+@keyframes bc-cresce { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.bc-total { margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--g-line); font-size: 12px; color: var(--g-muted); text-transform: uppercase; letter-spacing: 1px; }
+.bc-total b { font-family: var(--font-mono); font-size: 20px; color: var(--g-text); margin-left: 6px; }
+.bc-mini3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 12px 0 8px; }
+.bc-mini3 div { background: var(--g-panel); border: 1px solid var(--g-line); border-radius: 4px; padding: 6px 10px; }
+.bc-mini3 b { display: block; font-family: var(--font-mono); font-size: 20px; }
+.bc-mini3 span { font-size: 11px; color: var(--g-muted); text-transform: uppercase; letter-spacing: 1px; }
+.bc-estreia { margin: 4px 0 0; font-size: 13px; line-height: 1.5; }
+.bc-estreia span { color: var(--g-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-right: 6px; }
+.bc-glitch { animation: bc-glitch var(--t-med) steps(3); }
+@keyframes bc-glitch {
+  0% { transform: translateX(-4px); opacity: 0.4; }
+  33% { transform: translateX(3px); opacity: 0.8; }
+  66% { transform: translateX(-1px); opacity: 0.9; }
+  100% { transform: none; opacity: 1; }
+}
+
+/* ---------------- coluna direita */
+.bc-lado { overflow-y: auto; display: flex; flex-direction: column; gap: 10px; scrollbar-width: thin; scrollbar-color: var(--g-line) transparent; }
+.bc-box { background: rgba(16, 20, 26, 0.9); border: 1px solid var(--g-line); border-radius: 6px; padding: 10px 12px; }
+.bc-box h2 { margin: 0 0 6px; font-family: var(--font-mono); font-size: 11px; font-weight: 600; color: var(--bat-yellow); text-transform: uppercase; letter-spacing: 1.5px; }
+.bc-just { margin: 0 0 8px; font-size: 13px; color: var(--g-text); }
+.bc-vt { margin: 5px 0; display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+.bc-vt > span:first-child { width: 100%; font-size: 11px; color: var(--g-muted); text-transform: uppercase; letter-spacing: 1px; }
+.bc-vt b { font-weight: 600; }
+.bc-nada { color: var(--g-muted); font-size: 12px; }
+.bc-rel {
+  display: grid; grid-template-columns: 10px 1fr auto; align-items: center; gap: 8px; width: 100%; text-align: left;
+  background: transparent; color: var(--g-text); border: 0; border-bottom: 1px solid var(--g-line); padding: 5px 2px;
+  font: inherit; font-size: 13px; cursor: pointer;
+}
+.bc-rel:hover { background: rgba(245, 197, 24, 0.06); }
+.bc-rel i { width: 9px; height: 9px; border-radius: 50%; }
+.bc-rel small { color: var(--g-muted); font-size: 11px; }
+.bc-erro { margin: 6px 0; padding: 8px; border: 1px solid var(--blood); border-radius: 4px; font-family: var(--font-mono); font-size: 11px; color: var(--g-text); }
+.bc-afs { margin: 8px 0 0; font-size: 12px; color: var(--g-muted); }
+
+/* ---------------- faixa da facção na lista */
+.fx-batfamilia.bc-item { border-left-color: var(--bat-yellow); }
+.fx-coringa.bc-item { border-left-color: var(--joker-purple); }
+.fx-espantalho.bc-item, .fx-charada.bc-item { border-left-color: var(--arkham-green); }
+.fx-frio.bc-item { border-left-color: var(--ice); }
+.fx-hera.bc-item { border-left-color: var(--ivy); }
+.fx-duascaras.bc-item, .fx-vagalume.bc-item { border-left-color: var(--blood); }
+.fx-corujas.bc-item { border-left-color: var(--owl-bronze); }
+
+/* ---------------- temas animados por facção (fundo .bc-fx + partículas .bc-part) */
+.bc-fx::before, .bc-fx::after { content: ''; position: absolute; }
+/* Gotham: chuva diagonal + relâmpago ocasional */
+.fx-gotham .bc-fx::before { inset: -50% -50% 0 -50%; background-image: repeating-linear-gradient(105deg, transparent 0 18px, rgba(215, 221, 228, 0.06) 18px 19px); animation: bc-chuva 0.7s linear infinite; }
+.fx-gotham .bc-fx::after { inset: 0; background: rgba(215, 221, 228, 0.12); opacity: 0; animation: bc-raio 9s infinite; }
+@keyframes bc-chuva { from { transform: translate3d(0, -40px, 0); } to { transform: translate3d(-11px, 0, 0); } }
+@keyframes bc-raio { 0%, 92%, 100% { opacity: 0; } 93% { opacity: 1; } 94% { opacity: 0; } 95% { opacity: 0.7; } }
+/* Bat-família: holofote varrendo o céu */
+.fx-batfamilia .bc-fx::before { left: 50%; bottom: -10%; width: 160%; height: 160%; margin-left: -80%; transform-origin: 50% 100%;
+  background: conic-gradient(from 345deg at 50% 100%, transparent 0deg, rgba(245, 197, 24, 0.10) 12deg, rgba(245, 197, 24, 0.16) 15deg, rgba(245, 197, 24, 0.10) 18deg, transparent 30deg);
+  animation: bc-holofote 9s ease-in-out infinite alternate; }
+.fx-batfamilia .bc-fx::after { left: 54%; top: 6%; width: 180px; height: 90px; border-radius: 50%; background: radial-gradient(ellipse, rgba(245, 197, 24, 0.12), transparent 70%); animation: bc-pulso 4s ease-in-out infinite; }
+@keyframes bc-holofote { from { transform: rotate(-18deg); } to { transform: rotate(18deg); } }
+/* Coringa / Espantalho: névoa verde pulsante */
+.fx-coringa .bc-fx::before, .fx-espantalho .bc-fx::before { inset: -20%; background: radial-gradient(ellipse at 20% 80%, rgba(57, 217, 138, 0.16), transparent 50%), radial-gradient(ellipse at 80% 30%, rgba(123, 44, 191, 0.20), transparent 55%); animation: bc-nevoa 7s ease-in-out infinite alternate; }
+.fx-espantalho .bc-fx::before { background: radial-gradient(ellipse at 30% 70%, rgba(57, 217, 138, 0.22), transparent 55%), radial-gradient(ellipse at 75% 25%, rgba(57, 217, 138, 0.12), transparent 50%); }
+@keyframes bc-nevoa { from { transform: translate3d(-3%, 2%, 0) scale(1); opacity: 0.7; } to { transform: translate3d(3%, -2%, 0) scale(1.08); opacity: 1; } }
+/* Sr. Frio: bordas congeladas */
+.fx-frio .bc-fx::before { inset: 0; box-shadow: inset 0 0 90px rgba(142, 202, 230, 0.35); animation: bc-pulso 5s ease-in-out infinite; }
+/* Hera Venenosa: vinhas nos cantos */
+.fx-hera .bc-fx::before, .fx-hera .bc-fx::after { width: 260px; height: 260px; border: 3px solid rgba(45, 106, 79, 0.55); border-radius: 50%; animation: bc-vinha 6s ease-in-out infinite alternate; }
+.fx-hera .bc-fx::before { left: -130px; bottom: -130px; }
+.fx-hera .bc-fx::after { right: -130px; top: -130px; animation-delay: -3s; }
+@keyframes bc-vinha { from { transform: scale(0.85) rotate(0deg); opacity: 0.5; } to { transform: scale(1.1) rotate(25deg); opacity: 1; } }
+/* Duas-Caras: metade queimada + moeda girando */
+.fx-duascaras .bc-fx::before { inset: 0 0 0 50%; background: linear-gradient(90deg, rgba(193, 18, 31, 0.10), rgba(193, 18, 31, 0.03)); }
+.fx-duascaras .bc-fx::after { right: 40px; bottom: 30px; width: 56px; height: 56px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #e9d27a, #9c7a1b); animation: bc-moeda 2.4s linear infinite; }
+@keyframes bc-moeda { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
+/* Corte das Corujas: vinheta bronze */
+.fx-corujas .bc-fx::before { inset: 0; box-shadow: inset 0 0 120px rgba(164, 113, 72, 0.4); }
+/* Vagalume: brasas no rodapé */
+.fx-vagalume .bc-fx::before { left: 0; right: 0; bottom: 0; height: 40%; background: linear-gradient(0deg, rgba(193, 18, 31, 0.22), transparent); animation: bc-pulso 3s ease-in-out infinite; }
+/* Charada: brilho verde */
+.fx-charada .bc-fx::before { inset: 0; background: radial-gradient(ellipse at 50% 120%, rgba(57, 217, 138, 0.18), transparent 60%); }
+@keyframes bc-pulso { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+/* partículas (caracteres gerados pelo JS por facção) */
+.bc-part span { position: absolute; top: -30px; font-size: 18px; opacity: 0; animation-name: bc-cai; animation-timing-function: linear; animation-iteration-count: infinite; }
+.fx-coringa .bc-part span { color: rgba(193, 18, 31, 0.5); }
+.fx-charada .bc-part span { color: rgba(57, 217, 138, 0.55); font-family: var(--font-title); font-size: 26px; animation-name: bc-surge; top: auto; }
+.fx-frio .bc-part span { color: rgba(142, 202, 230, 0.6); }
+.fx-hera .bc-part span { color: rgba(45, 106, 79, 0.75); }
+.fx-corujas .bc-part span { color: rgba(164, 113, 72, 0.7); }
+.fx-espantalho .bc-part span { color: rgba(57, 217, 138, 0.45); }
+.fx-duascaras .bc-part span { color: rgba(193, 18, 31, 0.35); }
+.fx-vagalume .bc-part span { top: auto; bottom: -20px; color: rgba(245, 160, 24, 0.85); font-size: 12px; animation-name: bc-sobe; }
+@keyframes bc-cai { 0% { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translate3d(30px, 760px, 0) rotate(240deg); opacity: 0; } }
+@keyframes bc-sobe { 0% { transform: translate3d(0, 0, 0); opacity: 0; } 20% { opacity: 1; } 100% { transform: translate3d(-20px, -620px, 0); opacity: 0; } }
+@keyframes bc-surge { 0%, 100% { opacity: 0; transform: translate3d(0, 0, 0) scale(0.6); } 50% { opacity: 1; transform: translate3d(0, -20px, 0) scale(1); } }
+.fx-charada .bc-part span:nth-child(odd) { top: 20%; }
+.fx-charada .bc-part span:nth-child(even) { top: 65%; }
+
+/* filtros legíveis quando a coluna da lista estreita */
+@media (max-width: 1100px) {
+  .bc-filtros { grid-template-columns: 1fr 1fr; }
+}
+
+/* visual muito estreito: lista | ficha em cima, painel lateral embaixo da ficha */
+@media (max-width: 900px) {
+  .bc { grid-template-columns: minmax(170px, 30%) minmax(0, 1fr); grid-template-rows: auto minmax(0, 1.3fr) minmax(0, 1fr); }
+  .bc-lista { grid-row: 2 / 4; }
+  .bc-lado { grid-column: 2; grid-row: 3; }
+  .bc-corpo { grid-template-columns: 1fr; }
+  .bc-foto { height: 160px; }
+  .bc-mini3 b { font-size: 16px; }
+  .bc-filtros { grid-template-columns: 1fr 1fr; }
+}
+
+/* visual estreito: radar em cima das barras; números do cabeçalho menores */
+@media (max-width: 1050px) {
+  .bc-radar-box { grid-template-columns: 1fr; justify-items: center; }
+  .bc-barras { width: 100%; }
+  .bc-num { font-size: 44px; }
+  .bc-nome { font-size: 32px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bc-fx::before, .bc-fx::after, .bc-part span, .bc-area, .bc-b em, .bc-glitch { animation: none !important; }
+  .bc-item { transition: none; }
+}

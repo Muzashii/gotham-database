@@ -26,6 +26,7 @@ TEMA = "GothamNoir.json"
 
 # a primeira página é a principal (abre no link público)
 PAGINAS = [
+    {"name": "gdBatcomputador", "displayName": "Batcomputador", "visuais": ["gdBatcomputadorHtml"]},
     {"name": "gdPainel", "displayName": "Painel do Comissário", "visuais": ["gdPainelHtml"]},
     {"name": "gdF0Spike", "displayName": "F0 Spike", "visuais": ["gdSpikeSlicer", "gdSpikeTamanho", "gdSpikeHtml"]},
 ]
@@ -91,6 +92,14 @@ def visuais_f0(guid_html: str | None, papel_html: str) -> dict[str, dict]:
         ),
     }
     if guid_html:
+        v["gdBatcomputadorHtml"] = container(
+            "gdBatcomputadorHtml", 0, 0, 1280, 720, 0,
+            {
+                "visualType": guid_html,
+                "query": {"queryState": {papel_html: {"projections": [campo_medida("HTML Batcomputador")]}}},
+                "drillFilterOtherVisuals": True,
+            },
+        )
         v["gdPainelHtml"] = container(
             "gdPainelHtml", 0, 0, 1280, 720, 0,
             {

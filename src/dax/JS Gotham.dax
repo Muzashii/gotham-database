@@ -1,0 +1,129 @@
+-- @pasta: 40 JS
+-- Serializa o modelo no objeto window.GOTHAM (contrato: contracts/js-data-schema.json, v0.2).
+-- TODO texto vindo de dados passa pelo escape de string JS entre aspas simples:
+--   \ -> \\   ' -> \'   </ -> <\/   LF -> \n   CR -> \r      (teste: tests/build/test_build.py)
+-- Números com FORMAT en-US. Dimensões iteradas com ALLNOBLANKROW: chave estrangeira vazia
+-- (ex.: dGadget[SoContraArquetipo]) cria um membro em branco que, com ALL, deslocaria a matriz.
+VAR _ar =
+    CONCATENATEX (
+        ALLNOBLANKROW ( dArquetipo ),
+        VAR _s = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dArquetipo[Sigla], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+        VAR _n = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dArquetipo[Nome], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+        VAR _c = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dArquetipo[Cor], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+        RETURN "{id:" & dArquetipo[IdArquetipo] & ",s:'" & _s & "',n:'" & _n & "',c:'" & _c & "'}",
+        ",", dArquetipo[IdArquetipo], ASC
+    )
+VAR _m =
+    CONCATENATEX (
+        ALLNOBLANKROW ( dArquetipo ),
+        VAR _atk = dArquetipo[IdArquetipo]
+        RETURN
+            "[" & CONCATENATEX (
+                FILTER ( ALL ( fMatchup ), fMatchup[IdAtaque] = _atk ),
+                FORMAT ( fMatchup[Multiplicador], "0.0#", "en-US" ),
+                ",", fMatchup[IdDefesa], ASC
+            ) & "]",
+        ",", dArquetipo[IdArquetipo], ASC
+    )
+VAR _er =
+    CONCATENATEX (
+        ALLNOBLANKROW ( dEra ),
+        VAR _n = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dEra[Nome], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+        RETURN "{id:" & dEra[IdEra] & ",n:'" & _n & "',i:" & dEra[AnoInicio] & "}",
+        ",", dEra[Ordem], ASC
+    )
+VAR _af =
+    CONCATENATEX (
+        ALLNOBLANKROW ( dAfiliacao ),
+        VAR _n = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dAfiliacao[Nome], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+        RETURN "{id:" & dAfiliacao[IdAfiliacao] & ",n:'" & _n & "'}",
+        ",", dAfiliacao[IdAfiliacao], ASC
+    )
+VAR _md =
+    CONCATENATEX (
+        ALLNOBLANKROW ( dMidia ),
+        VAR _n = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dMidia[Nome], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+        RETURN "'" & _n & "'",
+        ",", dMidia[IdMidia], ASC
+    )
+VAR _v =
+    CONCATENATEX (
+        ALLNOBLANKROW ( dVersao ),
+        VAR _n = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dVersao[NomeVersao], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+        VAR _img = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dVersao[UrlImagem], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+        VAR _r = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dVersao[Raridade], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+        RETURN
+            "{id:" & dVersao[IdVersao] & ",p:" & dVersao[IdPersonagem] & ",n:'" & _n & "',a:" & dVersao[IdArquetipo]
+                & ",s:[" & dVersao[Int] & "," & dVersao[For] & "," & dVersao[Vel] & "," & dVersao[Dur] & "," & dVersao[Pod]
+                & "," & dVersao[Com] & "],img:'" & _img & "',t:" & dVersao[EhTransformacao] & ",r:'" & _r & "'}",
+        ",", dVersao[IdVersao], ASC
+    )
+VAR _p =
+    CONCATENATEX (
+        ALLNOBLANKROW ( dPersonagem ),
+        VAR _id = dPersonagem[IdPersonagem]
+        -- versão padrão = menor IdVersao do personagem que não é transformação (sem depender de Id×100+1)
+        VAR _v =
+            COALESCE (
+                MINX ( FILTER ( ALLNOBLANKROW ( dVersao ), dVersao[IdPersonagem] = _id && dVersao[EhTransformacao] = 0 ), dVersao[IdVersao] ),
+                MINX ( FILTER ( ALLNOBLANKROW ( dVersao ), dVersao[IdPersonagem] = _id ), dVersao[IdVersao] ),
+                0
+            )
+        VAR _n = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dPersonagem[Nome], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+        VAR _c = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dPersonagem[Codinome], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+        VAR _ci = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dPersonagem[IdentidadeCivil], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+        VAR _al = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dPersonagem[Alinhamento], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+        VAR _f = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dPersonagem[Faccao], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+        VAR _e = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dPersonagem[PrimeiraAparicao], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+        VAR _me = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dPersonagem[MidiaEstreia], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+        VAR _cr = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dPersonagem[Criadores], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+        VAR _j = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dPersonagem[JustificativaArquetipo], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+        VAR _afs =
+            CONCATENATEX (
+                FILTER ( ALL ( bPersonagemAfiliacao ), bPersonagemAfiliacao[IdPersonagem] = _id ),
+                bPersonagemAfiliacao[IdAfiliacao], ",", bPersonagemAfiliacao[IdAfiliacao], ASC
+            )
+        VAR _ap =
+            CONCATENATEX (
+                ALLNOBLANKROW ( dMidia ),
+                VAR _md = dMidia[IdMidia]
+                RETURN
+                    COUNTROWS (
+                        FILTER ( ALL ( fAparicao ), fAparicao[IdPersonagem] = _id && RELATED ( dObra[IdMidia] ) = _md )
+                    ) + 0,
+                ",", dMidia[IdMidia], ASC
+            )
+        VAR _cen = FILTER ( ALLNOBLANKROW ( dCentralidade ), dCentralidade[IdPersonagem] = _id )
+        VAR _gr = MAXX ( _cen, dCentralidade[Grau] ) + 0
+        VAR _in = MAXX ( _cen, dCentralidade[Intermediacao] ) + 0
+        RETURN
+            "{id:" & _id & ",n:'" & _n & "',c:'" & _c & "',ci:'" & _ci & "',al:'" & _al & "',a:" & dPersonagem[IdArquetipo]
+                & ",f:'" & _f & "',e:'" & _e & "',ano:" & dPersonagem[AnoEstreia] & ",er:" & dPersonagem[IdEra]
+                & ",me:'" & _me & "',cr:'" & _cr & "',j:'" & _j & "',v:" & _v & ",af:[" & _afs & "],ap:[" & _ap
+                & "],gr:" & _gr & ",in:" & FORMAT ( _in, "0.000###", "en-US" ) & "}",
+        ",", dPersonagem[IdPersonagem], ASC
+    )
+VAR _rel =
+    CONCATENATEX (
+        ALL ( fRelacao ),
+        VAR _t = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( fRelacao[TipoRelacao], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+        RETURN "[" & fRelacao[IdOrigem] & "," & fRelacao[IdDestino] & ",'" & _t & "'," & fRelacao[Peso] & "]",
+        ",", fRelacao[IdOrigem], ASC, fRelacao[IdDestino], ASC
+    )
+VAR _g =
+    CONCATENATEX (
+        ALLNOBLANKROW ( dGolpe ),
+        VAR _n = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dGolpe[Nome], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+        VAR _ef = SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( SUBSTITUTE ( dGolpe[Efeito], "\", "\\" ), "'", "\'" ), "</", "<\/" ), UNICHAR ( 10 ), "\n" ), UNICHAR ( 13 ), "\r" )
+        RETURN
+            "{id:" & dGolpe[IdGolpe] & ",n:'" & _n & "',a:" & dGolpe[IdArquetipo] & ",c:'"
+                & IF ( dGolpe[Categoria] = "Físico", "F", "T" ) & "',pw:" & dGolpe[Poder] & ",ac:" & dGolpe[Precisao]
+                & ",ef:'" & _ef & "'}",
+        ",", dGolpe[IdGolpe], ASC
+    )
+VAR _vg =
+    CONCATENATEX ( ALL ( bVersaoGolpe ), "[" & bVersaoGolpe[IdVersao] & "," & bVersaoGolpe[IdGolpe] & "]", ",",
+        bVersaoGolpe[IdVersao], ASC, bVersaoGolpe[IdGolpe], ASC )
+RETURN
+    "window.GOTHAM={ar:[" & _ar & "],m:[" & _m & "],er:[" & _er & "],af:[" & _af & "],md:[" & _md & "],v:[" & _v
+        & "],p:[" & _p & "],rel:[" & _rel & "],g:[" & _g & "],vg:[" & _vg & "]};"
